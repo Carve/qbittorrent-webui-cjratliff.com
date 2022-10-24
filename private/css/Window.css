@@ -57,12 +57,12 @@ Required by:
 }
 
 .mocha.isFocused .mochaTitlebar h3 {
-    color: #181818;
+    color: var(--darkmode-text);
 }
 
 .mochaToolbarWrapper {
-    background: #f1f1f1;
-    border-top: 1px solid #d9d9d9;
+    background: var(--darkmode-background);
+        border-top: 1px solid var(--darkmode-line-color);
     height: 29px;
     overflow: hidden;
     position: relative;
@@ -71,22 +71,22 @@ Required by:
 
 div.mochaToolbarWrapper.bottom {
     border: 0;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid var(--darkmode-line-color);
 }
 
 .mochaToolbar {
-    border-top: 1px solid #fff;
+    border-top: 1px solid var(--darkmode-line-color);
     width: 100%; /* For IE */
 }
 
 .mochaContentBorder {
-    border-bottom: 1px solid #dadada;
-    border-top: 1px solid #dadada;
+    border-bottom: 1px solid var(--darkmode-line-color);
+        border-top: 1px solid var(--darkmode-line-color);
 }
 
 /* Has a fixed height and scrollbars if required. */
 .mochaContentWrapper {
-    background: #fff;
+    background: var(--darkmode-background);
     font-size: 12px;
     overflow: auto;
 }

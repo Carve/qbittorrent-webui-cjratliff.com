@@ -15,8 +15,10 @@ a img,
 /* Structure */
 
 body {
-    color: #555;
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--darkmode-background);
+        color: var(--darkmode-text);
+        font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        ;
     font-size: 12px;
     line-height: 18px;
     margin: 0;
@@ -105,7 +107,7 @@ pre {
     border: 1px solid #d1d7dc;
     color: #006600;
     display: block;
-    font-family: "Courier New", Courier, monospace;
+    font-family: 'Google Sans Display', 'Courier New', Courier, monospace;
     font-size: 11px;
     margin: 0 0 10px;
     max-height: 250px;
@@ -152,8 +154,8 @@ hr {
 }
 
 .selectedFilter {
-    background-color: #415a8d;
-    color: #ffffff;
+    background-color: var(--darkmode-primary);
+        color: var(--darkmode-background);
 }
 
 .selectedFilter a {
@@ -203,7 +205,8 @@ a.propButton img {
 .contextMenu li a {
     color: #000;
     display: block;
-    font-family: tahoma, arial, sans-serif;
+    font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        ;
     font-size: 12px;
     padding: 5px 20px 5px 5px;
     text-decoration: none;
@@ -335,9 +338,10 @@ a.propButton img {
 }
 
 #mochaToolbar .divider {
-    background-image: url("../images/toolbox-divider.gif");
+    /* background-image: url("../images/toolbox-divider.gif");
     background-position: left center;
     background-repeat: no-repeat;
+        */ border-left: 1px solid var(--darkmode-line-color);
     padding-left: 14px;
     padding-top: 15px;
 }
@@ -365,6 +369,8 @@ a.propButton img {
     background-size: 1.5em;
     padding-left: 2em;
     width: 160px;
+    height: 100%;
+        min-height: 20px;
 }
 
 #torrentFilesFilterToolbar {
@@ -402,8 +408,11 @@ label.partial {
     background-position: 0 -26px;
 }
 
+fieldset {
+    border-color: var(--darkmode-line-color);
+}
 fieldset.settings {
-    border: solid 1px black;
+    border: solid 1px var(--darkmode-line-color);
     border-radius: 8px;
     padding: 4px 4px 4px 10px;
 }
