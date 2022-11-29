@@ -38,7 +38,7 @@ body {
 h2,
 h3,
 h4 {
-    color: #333;
+    color: var(--darkmode-text-alt);
     font-size: 12px;
     font-weight: bold;
     margin: 0;
@@ -46,7 +46,7 @@ h4 {
 }
 
 h2 {
-    color: #555;
+    color: var(--darkmode-text);
     font-size: 14px;
     font-weight: bold;
 }
