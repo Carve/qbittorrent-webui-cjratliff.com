@@ -118,9 +118,9 @@ pre {
 /* Dividers */
 
 hr {
-    background-color: #ddd;
+    background-color: var(--darkmode-line-color);
     border: 0px;
-    color: #ccc;
+    color: var(--darkmode-text);
     height: 1px;
 }
 

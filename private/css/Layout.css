@@ -28,7 +28,6 @@ body {
 }
 
 #desktop {
-    background: var(--darkmode-background);
     cursor: default; /* Fix for issue in IE7. IE7 wants to use the I-bar text cursor */
     height: 100%;
     min-height: 100%;
@@ -330,7 +329,7 @@ li.divider {
 /* Column and Panel Handles */
 
 .horizontalHandle {
-    background: #eee url("../images/bg-handle-horizontal.gif") repeat-x;
+    background: url("../images/bg-handle-horizontal.gif") repeat-x;
     font-size: 1px;
     height: 4px;
     line-height: 1px;
@@ -342,7 +341,7 @@ li.divider {
 }
 
 .horizontalHandle .handleIcon {
-    background: url("../images/handle-icon-horizontal.gif") center center
+    background: var(--darkmode-line-color) url("../images/handle-icon-horizontal.gif") center center
         no-repeat;
     font-size: 1px;
     height: 4px;
@@ -352,8 +351,8 @@ li.divider {
 }
 
 .columnHandle {
-    background: #c3c3c3 url("../images/handle-icon.gif") center center no-repeat;
-    border: 1px solid #909090;
+    background: var(--darkmode-line-color) url("../images/handle-icon.gif") center center no-repeat;
+        border: 1px solid var(--darkmode-line-color);
     border-bottom: 0;
     border-top: 0;
     float: left;
