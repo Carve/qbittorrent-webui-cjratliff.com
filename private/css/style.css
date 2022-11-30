@@ -154,7 +154,7 @@ hr {
 }
 
 .selectedFilter {
-    background-color: var(--darkmode-primary);
+    background-color: var(--callout-background-color-dark);
         color: var(--darkmode-background);
 }
 
