@@ -1089,7 +1089,7 @@ const initializeWindows = function() {
                 url: 'api/v2/app/shutdown',
                 method: 'post',
                 onSuccess: function() {
-                    document.write('<!doctype html><html lang="${LANG}"><head> <meta charset="UTF-8"> <title>qBittorrent has been shutdown</title></head><body> <h1 style="text-align: center;">QBT_TR(qBittorrent has been shutdown</h1></body></html>');
+                    document.write('<!doctype html><html lang="${LANG}"><head> <meta charset="UTF-8"> <title>qBittorrent has been shutdown</title></head><body> <h1 style="text-align: center;">qBittorrent has been shutdown</h1></body></html>');
                     document.close();
                     stop();
                 }
