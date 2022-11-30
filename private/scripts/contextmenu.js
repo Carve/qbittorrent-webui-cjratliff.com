@@ -433,10 +433,10 @@ window.qBittorrent.ContextMenu = (function() {
             const categoryList = $('contextCategoryList');
             categoryList.empty();
             categoryList.appendChild(new Element('li', {
-                html: '<a href="javascript:torrentNewCategoryFN();"><img src="images/list-add.svg" alt="QBT_TR(New...)QBT_TR[CONTEXT=TransferListWidget]"/> QBT_TR(New...)QBT_TR[CONTEXT=TransferListWidget]</a>'
+                html: '<a href="javascript:torrentNewCategoryFN();"><img src="images/list-add.svg" alt="New...)QBT_TR[CONTEXT=TransferListWidget]"/> QBT_TR(New...</a>'
             }));
             categoryList.appendChild(new Element('li', {
-                html: '<a href="javascript:torrentSetCategoryFN(0);"><img src="images/edit-clear.svg" alt="QBT_TR(Reset)QBT_TR[CONTEXT=TransferListWidget]"/> QBT_TR(Reset)QBT_TR[CONTEXT=TransferListWidget]</a>'
+                html: '<a href="javascript:torrentSetCategoryFN(0);"><img src="images/edit-clear.svg" alt="Reset)QBT_TR[CONTEXT=TransferListWidget]"/> QBT_TR(Reset</a>'
             }));
 
             const sortedCategories = [];
@@ -466,14 +466,14 @@ window.qBittorrent.ContextMenu = (function() {
 
             contextTagList.appendChild(new Element('li', {
                 html: '<a href="javascript:torrentAddTagsFN();">'
-                    + '<img src="images/list-add.svg" alt="QBT_TR(Add...)QBT_TR[CONTEXT=TransferListWidget]"/>'
-                    + ' QBT_TR(Add...)QBT_TR[CONTEXT=TransferListWidget]'
+                    + '<img src="images/list-add.svg" alt="Add..."/>'
+                    + ' Add...'
                     + '</a>'
             }));
             contextTagList.appendChild(new Element('li', {
                 html: '<a href="javascript:torrentRemoveAllTagsFN();">'
-                    + '<img src="images/edit-clear.svg" alt="QBT_TR(Remove All)QBT_TR[CONTEXT=TransferListWidget]"/>'
-                    + ' QBT_TR(Remove All)QBT_TR[CONTEXT=TransferListWidget]'
+                    + '<img src="images/edit-clear.svg" alt="Remove All"/>'
+                    + ' Remove All'
                     + '</a>'
             }));
 

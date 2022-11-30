@@ -393,19 +393,19 @@ window.addEvent('load', function() {
     };
 
     const updateFiltersList = function() {
-        updateFilter('all', 'QBT_TR(All (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('downloading', 'QBT_TR(Downloading (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('seeding', 'QBT_TR(Seeding (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('completed', 'QBT_TR(Completed (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('resumed', 'QBT_TR(Resumed (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('paused', 'QBT_TR(Paused (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('active', 'QBT_TR(Active (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('inactive', 'QBT_TR(Inactive (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('stalled', 'QBT_TR(Stalled (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('stalled_uploading', 'QBT_TR(Stalled Uploading (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('stalled_downloading', 'QBT_TR(Stalled Downloading (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('checking', 'QBT_TR(Checking (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
-        updateFilter('errored', 'QBT_TR(Errored (%1))QBT_TR[CONTEXT=StatusFilterWidget]');
+        updateFilter('all', 'All (%1)');
+        updateFilter('downloading', 'Downloading (%1)');
+        updateFilter('seeding', 'Seeding (%1)');
+        updateFilter('completed', 'Completed (%1)');
+        updateFilter('resumed', 'Resumed (%1)');
+        updateFilter('paused', 'Paused (%1)');
+        updateFilter('active', 'Active (%1)');
+        updateFilter('inactive', 'Inactive (%1)');
+        updateFilter('stalled', 'Stalled (%1)');
+        updateFilter('stalled_uploading', 'Stalled Uploading (%1)');
+        updateFilter('stalled_downloading', 'Stalled Downloading (%1)');
+        updateFilter('checking', 'Checking (%1)');
+        updateFilter('errored', 'Errored (%1)');
     };
 
     const updateCategoryList = function() {
@@ -432,8 +432,8 @@ window.addEvent('load', function() {
             if (row['full_data'].category.length === 0)
                 uncategorized += 1;
         });
-        categoryList.appendChild(create_link(CATEGORIES_ALL, 'QBT_TR(All)QBT_TR[CONTEXT=CategoryFilterModel]', all));
-        categoryList.appendChild(create_link(CATEGORIES_UNCATEGORIZED, 'QBT_TR(Uncategorized)QBT_TR[CONTEXT=CategoryFilterModel]', uncategorized));
+        categoryList.appendChild(create_link(CATEGORIES_ALL, 'All', all));
+        categoryList.appendChild(create_link(CATEGORIES_UNCATEGORIZED, 'Uncategorized', uncategorized));
 
         const sortedCategories = [];
         Object.each(category_list, function(category) {
@@ -489,8 +489,8 @@ window.addEvent('load', function() {
             if (Object.prototype.hasOwnProperty.call(torrentsTable.rows, key) && (torrentsTable.rows[key]['full_data'].tags.length === 0))
                 untagged += 1;
         }
-        tagFilterList.appendChild(createLink(TAGS_ALL, 'QBT_TR(All)QBT_TR[CONTEXT=TagFilterModel]', torrentsCount));
-        tagFilterList.appendChild(createLink(TAGS_UNTAGGED, 'QBT_TR(Untagged)QBT_TR[CONTEXT=TagFilterModel]', untagged));
+        tagFilterList.appendChild(createLink(TAGS_ALL, 'All', torrentsCount));
+        tagFilterList.appendChild(createLink(TAGS_UNTAGGED, 'Untagged', untagged));
 
         const sortedTags = [];
         for (const key in tagList)
@@ -538,13 +538,13 @@ window.addEvent('load', function() {
         };
 
         const torrentsCount = torrentsTable.getRowIds().length;
-        trackerFilterList.appendChild(createLink(TRACKERS_ALL, 'QBT_TR(All (%1))QBT_TR[CONTEXT=TrackerFiltersList]', torrentsCount));
+        trackerFilterList.appendChild(createLink(TRACKERS_ALL, 'All (%1)', torrentsCount));
         let trackerlessTorrentsCount = 0;
         for (const key in torrentsTable.rows) {
             if (Object.prototype.hasOwnProperty.call(torrentsTable.rows, key) && (torrentsTable.rows[key]['full_data'].trackers_count === 0))
                 trackerlessTorrentsCount += 1;
         }
-        trackerFilterList.appendChild(createLink(TRACKERS_TRACKERLESS, 'QBT_TR(Trackerless (%1))QBT_TR[CONTEXT=TrackerFiltersList]', trackerlessTorrentsCount));
+        trackerFilterList.appendChild(createLink(TRACKERS_TRACKERLESS, 'Trackerless (%1)', trackerlessTorrentsCount));
 
         for (const [hash, tracker] of trackerList)
             trackerFilterList.appendChild(createLink(hash, tracker.url + ' (%1)', tracker.torrents.length));
@@ -573,7 +573,7 @@ window.addEvent('load', function() {
             onFailure: function() {
                 const errorDiv = $('error_div');
                 if (errorDiv)
-                    errorDiv.set('html', 'QBT_TR(qBittorrent client is not reachable)QBT_TR[CONTEXT=HttpServer]');
+                    errorDiv.set('html', 'qBittorrent client is not reachable');
                 syncRequestInProgress = false;
                 syncData(2000);
             },
@@ -741,13 +741,13 @@ window.addEvent('load', function() {
         transfer_info += " (" + window.qBittorrent.Misc.friendlyUnit(serverState.up_info_data, false) + ")";
         $("UpInfos").set('html', transfer_info);
         if (speedInTitle) {
-            document.title = "QBT_TR([D: %1, U: %2] qBittorrent %3)QBT_TR[CONTEXT=MainWindow]".replace("%1", window.qBittorrent.Misc.friendlyUnit(serverState.dl_info_speed, true)).replace("%2", window.qBittorrent.Misc.friendlyUnit(serverState.up_info_speed, true)).replace("%3", qbtVersion());
-            document.title += " QBT_TR(Web UI)QBT_TR[CONTEXT=OptionsDialog]";
+            document.title = "[D: %1, U: %2] qBittorrent %3".replace("%1", window.qBittorrent.Misc.friendlyUnit(serverState.dl_info_speed, true)).replace("%2", window.qBittorrent.Misc.friendlyUnit(serverState.up_info_speed, true)).replace("%3", qbtVersion());
+            document.title += " Web UI";
         }
         else
-            document.title = ("qBittorrent " + qbtVersion() + " QBT_TR(Web UI)QBT_TR[CONTEXT=OptionsDialog]");
-        $('freeSpaceOnDisk').set('html', 'QBT_TR(Free space: %1)QBT_TR[CONTEXT=HttpServer]'.replace("%1", window.qBittorrent.Misc.friendlyUnit(serverState.free_space_on_disk)));
-        $('DHTNodes').set('html', 'QBT_TR(DHT: %1 nodes)QBT_TR[CONTEXT=StatusBar]'.replace("%1", serverState.dht_nodes));
+            document.title = ("qBittorrent " + qbtVersion() + " Web UI");
+        $('freeSpaceOnDisk').set('html', 'Free space: %1'.replace("%1", window.qBittorrent.Misc.friendlyUnit(serverState.free_space_on_disk)));
+        $('DHTNodes').set('html', 'DHT: %1 nodes'.replace("%1", serverState.dht_nodes));
 
         // Statistics dialog
         if (document.getElementById("statisticsContent")) {
@@ -768,15 +768,15 @@ window.addEvent('load', function() {
         switch (serverState.connection_status) {
             case 'connected':
                 $('connectionStatus').src = 'images/connected.svg';
-                $('connectionStatus').alt = 'QBT_TR(Connection status: Connected)QBT_TR[CONTEXT=MainWindow]';
+                $('connectionStatus').alt = 'Connection status: Connected';
                 break;
             case 'firewalled':
                 $('connectionStatus').src = 'images/firewalled.svg';
-                $('connectionStatus').alt = 'QBT_TR(Connection status: Firewalled)QBT_TR[CONTEXT=MainWindow]';
+                $('connectionStatus').alt = 'Connection status: Firewalled';
                 break;
             default:
                 $('connectionStatus').src = 'images/disconnected.svg';
-                $('connectionStatus').alt = 'QBT_TR(Connection status: Disconnected)QBT_TR[CONTEXT=MainWindow]';
+                $('connectionStatus').alt = 'Connection status: Disconnected';
                 break;
         }
 
@@ -813,11 +813,11 @@ window.addEvent('load', function() {
     const updateAltSpeedIcon = function(enabled) {
         if (enabled) {
             $('alternativeSpeedLimits').src = 'images/slow.svg';
-            $('alternativeSpeedLimits').alt = 'QBT_TR(Alternative speed limits: On)QBT_TR[CONTEXT=MainWindow]';
+            $('alternativeSpeedLimits').alt = 'Alternative speed limits: On';
         }
         else {
             $('alternativeSpeedLimits').src = 'images/slow_off.svg';
-            $('alternativeSpeedLimits').alt = 'QBT_TR(Alternative speed limits: Off)QBT_TR[CONTEXT=MainWindow]';
+            $('alternativeSpeedLimits').alt = 'Alternative speed limits: Off';
         }
     };
 
@@ -1217,7 +1217,7 @@ window.addEvent('load', function() {
                 const id = 'uploadPage';
                 new MochaUI.Window({
                     id: id,
-                    title: "QBT_TR(Upload local torrent)QBT_TR[CONTEXT=HttpServer]",
+                    title: "Upload local torrent",
                     loadMethod: 'iframe',
                     contentURL: new URI("upload.html").toString(),
                     addClass: 'windowFrame', // fixes iframe scrolling on iOS Safari
@@ -1259,7 +1259,7 @@ window.addEvent('load', function() {
                 const contentURI = new URI('download.html').setData("urls", urls.map(encodeURIComponent).join("|"));
                 new MochaUI.Window({
                     id: id,
-                    title: "QBT_TR(Download from URLs)QBT_TR[CONTEXT=downloadFromURL]",
+                    title: "Download from URLs",
                     loadMethod: 'iframe',
                     contentURL: contentURI.toString(),
                     addClass: 'windowFrame', // fixes iframe scrolling on iOS Safari
@@ -1283,9 +1283,9 @@ window.addEvent('load', function() {
 function registerMagnetHandler() {
     if (typeof navigator.registerProtocolHandler !== 'function') {
         if (window.location.protocol !== 'https:')
-            alert("QBT_TR(To use this feature, the WebUI needs to be accessed over HTTPS)QBT_TR[CONTEXT=MainWindow]");
+            alert("To use this feature, the WebUI needs to be accessed over HTTPS");
         else
-            alert("QBT_TR(Your browser does not support this feature)QBT_TR[CONTEXT=MainWindow]");
+            alert("Your browser does not support this feature");
         return;
     }
 

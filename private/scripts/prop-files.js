@@ -185,13 +185,13 @@ window.qBittorrent.PropFiles = (function() {
         select.addClass('combo_priority');
         select.addEvent('change', fileComboboxChanged);
 
-        createPriorityOptionElement(FilePriority.Ignored, (FilePriority.Ignored === selectedPriority), 'QBT_TR(Do not download)QBT_TR[CONTEXT=PropListDelegate]').injectInside(select);
-        createPriorityOptionElement(FilePriority.Normal, (FilePriority.Normal === selectedPriority), 'QBT_TR(Normal)QBT_TR[CONTEXT=PropListDelegate]').injectInside(select);
-        createPriorityOptionElement(FilePriority.High, (FilePriority.High === selectedPriority), 'QBT_TR(High)QBT_TR[CONTEXT=PropListDelegate]').injectInside(select);
-        createPriorityOptionElement(FilePriority.Maximum, (FilePriority.Maximum === selectedPriority), 'QBT_TR(Maximum)QBT_TR[CONTEXT=PropListDelegate]').injectInside(select);
+        createPriorityOptionElement(FilePriority.Ignored, (FilePriority.Ignored === selectedPriority), 'Do not download').injectInside(select);
+        createPriorityOptionElement(FilePriority.Normal, (FilePriority.Normal === selectedPriority), 'Normal').injectInside(select);
+        createPriorityOptionElement(FilePriority.High, (FilePriority.High === selectedPriority), 'High').injectInside(select);
+        createPriorityOptionElement(FilePriority.Maximum, (FilePriority.Maximum === selectedPriority), 'Maximum').injectInside(select);
 
         // "Mixed" priority is for display only; it shouldn't be selectable
-        const mixedPriorityOption = createPriorityOptionElement(FilePriority.Mixed, (FilePriority.Mixed === selectedPriority), 'QBT_TR(Mixed)QBT_TR[CONTEXT=PropListDelegate]');
+        const mixedPriorityOption = createPriorityOptionElement(FilePriority.Mixed, (FilePriority.Mixed === selectedPriority), 'Mixed');
         mixedPriorityOption.set('disabled', true);
         mixedPriorityOption.injectInside(select);
 
@@ -556,7 +556,7 @@ window.qBittorrent.PropFiles = (function() {
 
                 new MochaUI.Window({
                     id: 'renamePage',
-                    title: "QBT_TR(Renaming)QBT_TR[CONTEXT=TorrentContentTreeView]",
+                    title: "Renaming",
                     loadMethod: 'iframe',
                     contentURL: 'rename_file.html?hash=' + hash + '&isFolder=' + node.isFolder
                         + '&path=' + encodeURIComponent(path),
