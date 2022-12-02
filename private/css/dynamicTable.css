@@ -18,14 +18,10 @@
     padding: 0 2px;
 }
 
-.dynamicTable tbody tr.selected {
-    background-color: #747474;
-        color: #c2c2c2;
-}
-
+.dynamicTable tbody tr.selected,
 .dynamicTable tbody tr:hover {
     background-color: #747474;
-        color: #c2c2c2;
+		color: #f7f7f7;
 }
 
 #transferList tr:hover {
