@@ -19,3 +19,6 @@ The upper bound will always be the latest stable release.
 [Firefox-ESR-link]: https://en.wikipedia.org/wiki/Firefox_version_history#Current_and_future_releases
 [MSEdge-history-link]: https://en.wikipedia.org/wiki/Microsoft_Edge#Release_history
 [Safari-history-link]: https://en.wikipedia.org/wiki/Safari_version_history
+
+
+![Download Count](https://img.shields.io/github/downloads/carve/qbittorrent-webui-cjratliff.com/total?style=for-the-badge)
