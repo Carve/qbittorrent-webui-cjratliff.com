@@ -5,10 +5,13 @@
 
 **************************************************************/
 
-.dynamicTable tbody tr,
+.dynamicTable tbody tr {
+    background-color: var(--darkmode-background);
+}
+
 .dynamicTable tr.nonAlt,
 #torrentFilesTableDiv .dynamicTable tr.nonAlt {
-    background-color: var(--darkmode-background);
+    background-color: var(--darkmode-background) !important;
 }
 
 .dynamicTable tbody tr:nth-child(even),
