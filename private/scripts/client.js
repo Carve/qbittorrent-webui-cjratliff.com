@@ -141,12 +141,11 @@ window.addEvent('load', function() {
             saveColumnSizes.delay(200); // Resizing might takes some time.
     });
 
-    /*MochaUI.Desktop = new MochaUI.Desktop();
-    MochaUI.Desktop.desktop.setStyles({
-        'background': '#fff',
-        'visibility': 'visible'
-    });*/
     MochaUI.Desktop.initialize();
+    MochaUI.Desktop.desktop.setStyles({
+        'background': '#202020',
+        'visibility': 'visible'
+    });
 
     const buildTransfersTab = function() {
         let filt_w = LocalPreferences.get('filters_width');

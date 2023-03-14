@@ -6,7 +6,8 @@
 **************************************************************/
 
 .dynamicTable tbody tr,
-.dynamicTable tr.nonAlt {
+.dynamicTable tr.nonAlt,
+#torrentFilesTableDiv .dynamicTable tr.nonAlt {
     background-color: var(--darkmode-background);
 }
 
