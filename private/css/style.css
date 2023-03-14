@@ -647,7 +647,7 @@ td.statusBarSeparator {
 }
 
 #torrentFilesTableDiv .dynamicTable tr.nonAlt {
-	background-color: #fff;
+	background-color: var(--darkmode-background);
 }
 
 #torrentFilesTableDiv .dynamicTable tr.nonAlt.selected {
