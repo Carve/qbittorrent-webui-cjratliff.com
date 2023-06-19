@@ -254,7 +254,7 @@
         <div class="formRow">
             <label for="port_value">Port used for incoming connections:</label>
             <input type="text" id="port_value" style="width: 4em;" title="Set to 0 to let your system pick an unused port" />
-            <button style="margin-left: 1em;" onclick="qBittorrent.Preferences.generateRandomPort();">Random</button>
+            <button class="button" style="margin-left: 1em;" onclick="qBittorrent.Preferences.generateRandomPort();">Random</button>
         </div>
         <div class="formRow">
             <input type="checkbox" id="upnp_checkbox" />
@@ -646,7 +646,7 @@
             <input type="checkbox" id="enable_auto_downloading_rss_torrents_checkbox" />
             <label for="enable_auto_downloading_rss_torrents_checkbox">Enable auto downloading of RSS torrents</label>
         </div>
-        <button style="margin: 0 1em; width: calc(100% - 2.2em)" onclick="window.qBittorrent.Rss.openRssDownloader();">Edit auto downloading rules...</button>
+        <button class="button" style="margin: 0 1em; width: calc(100% - 2.2em)" onclick="window.qBittorrent.Rss.openRssDownloader();">Edit auto downloading rules...</button>
     </fieldset>
 
     <fieldset class="settings">
@@ -900,7 +900,7 @@ Use ';' to split multiple entries. Can use wildcard '*'."></textarea>
             <option value="0">DynDNS</option>
             <option value="1">NO-IP</option>
         </select>
-        <input type="button" value="Register" onclick="qBittorrent.Preferences.registerDynDns();" />
+        <input class="button" type="button" value="Register" onclick="qBittorrent.Preferences.registerDynDns();" />
         <table style="margin-top: 10px;">
             <tr>
                 <td>
@@ -1366,7 +1366,7 @@ Use ';' to split multiple entries. Can use wildcard '*'."></textarea>
     </fieldset>
 </div>
 
-<div style="text-align: center; margin-top: 1em;"><input type="button" value="Save" onclick="qBittorrent.Preferences.applyPreferences();" /></div>
+<div style="text-align: center; margin-top: 1em;"><input class="button" type="button" value="Save" onclick="qBittorrent.Preferences.applyPreferences();" /></div>
 
 <script>
     'use strict';
