@@ -32,6 +32,99 @@ body {
 	display: none;
 }
 
+/* Buttons */
+
+.download {
+	--button-bg: #353434;
+	--button-hover-bg: #464646;
+	--button-text-color: #CCCCCC;
+	--button-hover-text-color: #8bb9fe;
+	--button-border-radius: 10px;
+	--button-diameter: 36px;
+	--button-outline-width: 1px;
+	--button-outline-color: rgb(141, 141, 141);
+}
+
+.download {
+	box-sizing: border-box;
+	width: var(--button-diameter);
+	height: var(--button-diameter);
+	border-radius: var(--button-border-radius);
+	background-color: var(--button-bg);
+	color: var(--button-text-color);
+	border: none;
+	cursor: pointer;
+	position: relative;
+	outline: none;
+	background-image: url("../images/download.svg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 1.25em;
+	display:inline-block;
+	bottom: 8px;
+}
+
+.download:hover,
+.download:focus:not(:focus-visible) .tooltip {
+	opacity: 1;
+	visibility: visible;
+	top: calc((100% + var(--tooltip-offset)) * -1);
+}
+
+.download:hover,
+.download:focus {
+	background-color: var(--button-hover-bg);
+}
+
+.download:active {
+	outline: var(--button-outline-width) solid var(--button-outline-color);
+}
+
+.button {
+    padding: 10px 5px;
+    background-color: #333;
+	border-radius:2px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color: #FFF;
+	font-family:Apple Color Emoji;
+	font-size:14px;
+}
+.button:hover {
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	background-color:#6c7c7c;
+}
+.button:active {
+	position:relative;
+	top:1px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    padding: 10px 5px;
+    width: 140px;
+    background-color: #333;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.custom-file-upload:hover {
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	background-color:#6c7c7c;
+}
+
+.custom-file-upload:active {
+	position:relative;
+	top:1px;
+}
+
 /* Typography */
 
 h2,
