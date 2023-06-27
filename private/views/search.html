@@ -22,7 +22,7 @@
     }
 
     #searchResultsNoPlugins {
-        height: calc(100% - 110px);
+        height: calc(100% - 180px);
     }
 
     #searchResultsNoPlugins table {
@@ -83,7 +83,7 @@
             <input type="text" id="searchPattern" class="searchInputField" placeholder="Search" autocorrect="off" autocapitalize="none" />
             <select id="categorySelect" class="searchInputField" onchange="qBittorrent.Search.categorySelected()"></select>
             <select id="pluginsSelect" class="searchInputField" onchange="qBittorrent.Search.pluginSelected()"></select>
-            <button class="button" id="startSearchButton" class="searchInputField" onclick="qBittorrent.Search.startStopSearch()">Search</button>
+            <button style="padding: 4px 4px;" class="button" id="startSearchButton" class="searchInputField" onclick="qBittorrent.Search.startStopSearch()">Search</button>
         </div>
     </div>
 
@@ -166,7 +166,7 @@
         </div>
     </div>
 
-    <div style="height: 30px; padding-top: 10px;">
+    <div style="height: 30px; padding-top: 6px; padding-bottom: 6px;">
         <button class="button" id="manageSearchPlugins" onclick="qBittorrent.Search.manageSearchPlugins()">Search plugins...</button>
     </div>
 </div>
