@@ -210,14 +210,16 @@ body {
 }
 
 li.divider {
-    border-top: 1px solid #ebebeb;
+    /*border-top: 1px solid #ebebeb;
     margin-top: 2px;
-    padding-top: 3px;
+    padding-top: 3px;*/
+    border-top: 1px solid var(--darkmode-line-color);
+    border-bottom: 1px solid var(--darkmode-line-color);
 }
 
 #pageWrapper {
     border-bottom: 1px solid var(--darkmode-line-color);
-        border-top: 1px solid var(--darkmode-line-color);
+    border-top: 1px solid var(--darkmode-line-color);
     overflow: hidden; /* This can be set to hidden or auto */
     position: relative;
     /*height: 100%;*/

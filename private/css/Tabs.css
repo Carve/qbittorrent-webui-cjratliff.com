@@ -54,6 +54,8 @@ Required by:
     margin-left: 8px;
     padding: 6px 15px 5px 9px;
     text-align: center;
+	border: 1px groove var(--darkmode-line-color);
+    border-radius: 6%;
 }
 
 .tab-menu li.selected a {
@@ -61,4 +63,6 @@ Required by:
     background-position: right 0;
     color: #e0e0e0;
     font-weight: bold;
+	border: 1px solid var(--darkmode-background-alt2);
+    border-radius: 6%;
 }

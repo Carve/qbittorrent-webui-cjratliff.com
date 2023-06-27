@@ -707,9 +707,9 @@ td.statusBarSeparator {
 }
 
 #searchResultsTableContainer {
-	-moz-height: calc(100% - 140px);
-	-webkit-height: calc(100% - 140px);
-	height: calc(100% - 140px);
+	-moz-height: calc(100% - 150px);
+	-webkit-height: calc(100% - 150px);
+	height: calc(100% - 150px);
 	overflow: auto;
 }
 
