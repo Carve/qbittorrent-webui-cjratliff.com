@@ -81,7 +81,7 @@ body {
 }
 
 .button {
-    padding: 10px 5px;
+    padding: 4px 4px;
     background-color: #333;
 	border-radius:2px;
 	border:1px solid #dcdcdc;
@@ -707,9 +707,9 @@ td.statusBarSeparator {
 }
 
 #searchResultsTableContainer {
-	-moz-height: calc(100% - 140px);
-	-webkit-height: calc(100% - 140px);
-	height: calc(100% - 140px);
+	-moz-height: calc(100% - 150px);
+	-webkit-height: calc(100% - 150px);
+	height: calc(100% - 150px);
 	overflow: auto;
 }
 
