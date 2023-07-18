@@ -54,8 +54,8 @@ window.qBittorrent.PiecesBar = (() => {
                 'id': 'piecesbar_' + (piecesBarUniqueId++),
                 'width': 0,
                 'height': 0,
-                'downloadingColor': '#50e948',
-                'haveColor': '#00d9ff',
+                'downloadingColor': 'green',
+                'haveColor': 'blue',
                 'borderSize': 1,
                 'borderColor': '#999'
             };
@@ -106,7 +106,6 @@ window.qBittorrent.PiecesBar = (() => {
     }
 
     function refresh(force) {
-        const start = Date.now();
         if (!this.parentNode)
             return;
 
