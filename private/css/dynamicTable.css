@@ -102,3 +102,8 @@ tr.dynamicTableHeader {
     padding-bottom: 0px !important;
     padding-top: 0px !important;
 }
+
+.progressbar_dark {
+    background: var(--darkmode-primary) !important;
+    color: var(--darkmode-background) !important;
+}
