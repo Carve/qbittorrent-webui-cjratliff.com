@@ -282,23 +282,31 @@ window.qBittorrent.ContextMenu = (function () {
     },
 
     setItemChecked: function (item, checked) {
-      this.menu.getElement('a[href$=' + item + ']').firstChild.style.opacity =
-        checked ? '1' : '0'
+      if (this.menu.getElement('a[href$=' + item + ']')) {
+        this.menu.getElement('a[href$=' + item + ']').firstChild.style.opacity =
+          checked ? '1' : '0'
+      }
       return this
     },
 
     getItemChecked: function (item) {
-      return (
-        '0' !=
-        this.menu.getElement('a[href$=' + item + ']').firstChild.style.opacity
-      )
+      if (this.menu.getElement('a[href$=' + item + ']')) {
+        return (
+          '0' !=
+          this.menu.getElement('a[href$=' + item + ']').firstChild.style.opacity
+        )
+      } else {
+        return '0'
+      }
     },
 
     //hide an item
     hideItem: function (item) {
-      this.menu
-        .getElement('a[href$=' + item + ']')
-        .parentNode.addClass('invisible')
+      if (this.menu.getElement('a[href$=' + item + ']')) {
+        this.menu
+          .getElement('a[href$=' + item + ']')
+          .parentNode.addClass('invisible')
+      }
       return this
     },
 
