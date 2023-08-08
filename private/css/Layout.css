@@ -190,6 +190,19 @@ body {
     color: var(--darkmode-background);
 }
 
+#desktopNavbar li ul.viewMenu li a {
+    background: var(--darkmode-background);
+}
+
+#desktopNavbar li ul.viewMenu li a:hover {
+    background: var(--darkmode-primary);
+    color: var(--darkmode-background);
+}
+
+#desktopNavbar li ul.viewMenu li a:hover img {
+    filter: invert(1);
+}
+
 #desktopNavbar li ul li a:hover .check {
     background: #fff;
 }

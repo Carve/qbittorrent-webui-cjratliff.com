@@ -752,11 +752,3 @@ td.statusBarSeparator {
 	background-color: #ee6600;
 	color: #fff;
 }
-
-.viewMenu ul li a {
-    background: var(--darkmode-background);
-}
-
-.viewMenu ul li a img:hover {
-    filter: invert(1);
-}
