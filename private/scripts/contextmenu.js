@@ -485,12 +485,12 @@ window.qBittorrent.ContextMenu = (function () {
       categoryList.empty()
       categoryList.appendChild(
         new Element('li', {
-          html: '<a href="javascript:torrentNewCategoryFN();"><img src="images/list-add.svg" alt="New...)QBT_TR[CONTEXT=TransferListWidget]"/> QBT_TR(New...</a>',
+          html: '<a href="javascript:torrentNewCategoryFN();"><img src="images/list-add.svg" alt="New..."/>New...</a>',
         })
       )
       categoryList.appendChild(
         new Element('li', {
-          html: '<a href="javascript:torrentSetCategoryFN(0);"><img src="images/edit-clear.svg" alt="Reset)QBT_TR[CONTEXT=TransferListWidget]"/> QBT_TR(Reset</a>',
+          html: '<a href="javascript:torrentSetCategoryFN(0);"><img src="images/edit-clear.svg" alt="Reset"/>Reset</a>',
         })
       )
 
