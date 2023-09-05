@@ -21,7 +21,7 @@
     }
 
     .unreadArticle {
-        color: blue;
+        color: var(--darkmode-text);
     }
 
     #rssFetchingDisabled {
@@ -440,6 +440,11 @@
                 document.getElementById('rssDescription').style.height =
                     "calc(100% - " + document.getElementById('rssTorrentDetailsName').offsetHeight + "px - "
                     + document.getElementById('rssTorrentDetailsDate').offsetHeight + "px - 5px)";
+
+                //color the background accordingly to match everything else
+                document.getElementById('rssDescription').style.background = '#202020';
+                document.getElementById('rssDescription').style.color = '#c2c2c2';
+                document.getElementById('rssDescription').allowtransparency = true;
             }
         };
 
