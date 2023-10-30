@@ -452,3 +452,8 @@ td.speedLabel {
 #DHTNodes {
     white-space: nowrap;
 }
+
+.progressbar_dark {
+    background: var(--darkmode-primary) !important;
+    color: var(--darkmode-background) !important;
+}
