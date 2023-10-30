@@ -79,6 +79,14 @@ body {
 	color: var(--highlight-color--brightgreen) !important;
 }
 
+.highlight-blue {
+	color: var(--highlight-color--blue) !important;
+}
+
+.highlight-purple {
+	color: var(--highlight-color--purple) !important;
+}	
+
 /* Clears */
 .clear {
 	clear: both;

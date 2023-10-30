@@ -1236,8 +1236,12 @@ window.qBittorrent.DynamicTable = (function() {
                     td.classList.add('highlight-yellow');
                 } else if (string > "0.60" && string <= "0.80") {
                     td.classList.add('highlight-green');
-                } else if (string > "0.80" && string <= "1.0" || string > "1.0") {
+                } else if (string > "0.80" && string <= "1.0") {
                     td.classList.add('highlight-brightgreen');
+                } else if (string > "1.0" && string <= "1.5") {
+                    td.classList.add('highlight-blue');
+                } else if (string > "1.5" && string <= "2") {
+                    td.classList.add('highlight-purple');
                 }
             };
 

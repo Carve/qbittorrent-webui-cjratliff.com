@@ -22,8 +22,8 @@
 
 .dynamicTable tbody tr.selected,
 .dynamicTable tbody tr:hover {
-    background-color: var(--darkmode-text-alt);
-    color: var(--darkmode-background);
+    background-color: var(--darkmode-background-alt2);
+    color: var(--darkmode-text-alt)
 }
 
 #transferList tr:hover {
@@ -101,9 +101,4 @@ tr.dynamicTableHeader {
     line-height: 0px !important;
     padding-bottom: 0px !important;
     padding-top: 0px !important;
-}
-
-.progressbar_dark {
-    background: var(--darkmode-primary) !important;
-    color: var(--darkmode-background) !important;
 }
