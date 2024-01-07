@@ -1,7 +1,8 @@
 <!-- preferences -->
 <div class="toolbarTabs">
     <ul id="preferencesTabs" class="tab-menu">
-        <li id="PrefDownloadsLink" class="selected"><a>Downloads</a></li>
+        <li id="PrefBehaviorLink" class="selected"><a>Behavior</a></li>
+        <li id="PrefDownloadsLink"><a>Downloads</a></li>
         <li id="PrefConnectionLink"><a>Connection</a></li>
         <li id="PrefSpeedLink"><a>Speed</a></li>
         <li id="PrefBittorrentLink"><a>BitTorrent</a></li>
@@ -19,6 +20,10 @@
         // Tabs
         MochaUI.initializeTabs('preferencesTabs');
 
+        $('PrefBehaviorLink').addEvent('click', function(e) {
+            $$('.PrefTab').addClass('invisible');
+            $('BehaviorTab').removeClass('invisible');
+        });
         $('PrefDownloadsLink').addEvent('click', function(e) {
             $$('.PrefTab').addClass('invisible');
             $('DownloadsTab').removeClass('invisible');

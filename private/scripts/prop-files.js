@@ -173,7 +173,7 @@ window.qBittorrent.PropFiles = (function() {
         elem.set('value', priority.toString());
         elem.set('html', html);
         if (selected)
-            elem.setAttribute('selected', '');
+            elem.selected = true;
         return elem;
     };
 
