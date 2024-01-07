@@ -15,6 +15,7 @@
         <li id="stalled_uploading_filter"><a href="#" onclick="setFilter('stalled_uploading');return false;"><img src="images/stalledUP.svg" alt="Stalled Uploading" />Stalled Uploading (0)</a></li>
         <li id="stalled_downloading_filter"><a href="#" onclick="setFilter('stalled_downloading');return false;"><img src="images/stalledDL.svg" alt="Stalled Downloading" />Stalled Downloading (0)</a></li>
         <li id="checking_filter"><a href="#" onclick="setFilter('checking'); return false;"><img src="images/force-recheck.svg" alt="Checking" />Checking (0)</a></li>
+        <li id="moving_filter"><a href="#" onclick="setFilter('moving'); return false;"><img src="images/set-location.svg" alt="Moving" />Moving (0)</a></li>
         <li id="errored_filter"><a href="#" onclick="setFilter('errored');return false;"><img src="images/error.svg" alt="Errored" />Errored (0)</a></li>
     </ul>
 </div>
@@ -62,6 +63,9 @@
             actions: {
                 createCategory: function(element, ref) {
                     createCategoryFN();
+                },
+                createSubcategory: function(element, ref) {
+                    createSubcategoryFN(element.id);
                 },
                 editCategory: function(element, ref) {
                     editCategoryFN(element.id);

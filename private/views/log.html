@@ -191,10 +191,10 @@
         const init = () => {
             $('logLevelSelect').getElements('option').each((x) => {
                 if (selectedLogLevels.indexOf(x.value.toString()) !== -1) {
-                    x.setAttribute('selected', '');
+                    x.selected = true;
                 }
                 else {
-                    x.removeAttribute('selected');
+                    x.selected = false;
                 }
             });
 
@@ -424,4 +424,6 @@
 
         return exports();
     })();
+
+    Object.freeze(window.qBittorrent.Log);
 </script>

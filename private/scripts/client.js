@@ -273,6 +273,7 @@ window.addEvent('load', function() {
         $("stalled_uploading_filter").removeClass("selectedFilter");
         $("stalled_downloading_filter").removeClass("selectedFilter");
         $("checking_filter").removeClass("selectedFilter");
+        $("moving_filter").removeClass("selectedFilter");
         $("errored_filter").removeClass("selectedFilter");
         $(f + "_filter").addClass("selectedFilter");
         selected_filter = f;
@@ -446,6 +447,7 @@ window.addEvent('load', function() {
         updateFilter('stalled_uploading', 'Stalled Uploading (%1)');
         updateFilter('stalled_downloading', 'Stalled Downloading (%1)');
         updateFilter('checking', 'Checking (%1)');
+	updateFilter('moving', 'Moving (%1)');
         updateFilter('errored', 'Errored (%1)');
     };
 
@@ -453,7 +455,7 @@ window.addEvent('load', function() {
         const categoryList = $('categoryFilterList');
         if (!categoryList)
             return;
-        categoryList.empty();
+        categoryList.getChildren().each(c => c.destroy());
 
         const create_link = function(hash, text, count) {
             let display_name = text;
@@ -488,7 +490,19 @@ window.addEvent('load', function() {
         Object.each(category_list, function(category) {
             sortedCategories.push(category.name);
         });
-        sortedCategories.sort();
+        sortedCategories.sort((leftCategory, rightCategory) => {
+            const leftSegments = leftCategory.split('/');
+            const rightSegments = rightCategory.split('/');
+
+            for (let i = 0, iMax = Math.min(leftSegments.length, rightSegments.length); i < iMax; ++i) {
+                const compareResult = window.qBittorrent.Misc.naturalSortCollator.compare(
+                    leftSegments[i], rightSegments[i]);
+                if (compareResult !== 0)
+                    return compareResult;
+            }
+
+            return leftSegments.length - rightSegments.length;
+        });
 
         for (let i = 0; i < sortedCategories.length; ++i) {
             const categoryName = sortedCategories[i];
@@ -526,8 +540,7 @@ window.addEvent('load', function() {
         if (tagFilterList === null)
             return;
 
-        while (tagFilterList.firstChild !== null)
-            tagFilterList.removeChild(tagFilterList.firstChild);
+        tagFilterList.getChildren().each(c => c.destroy());
 
         const createLink = function(hash, text, count) {
             const html = '<a href="#" onclick="setTagFilter(' + hash + ');return false;">'
@@ -580,8 +593,7 @@ window.addEvent('load', function() {
         if (trackerFilterList === null)
             return;
 
-        while (trackerFilterList.firstChild !== null)
-            trackerFilterList.removeChild(trackerFilterList.firstChild);
+        trackerFilterList.getChildren().each(c => c.destroy());
 
         const createLink = function(hash, text, count) {
             const html = '<a href="#" onclick="setTrackerFilter(' + hash + ');return false;">'
@@ -1200,7 +1212,7 @@ window.addEvent('load', function() {
             loadMethod: 'xhr',
             contentURL: 'views/log.html',
             require: {
-                css: ['css/lib/vanillaSelectBox.css'],
+                css: ['css/vanillaSelectBox.css'],
                 js: ['scripts/lib/vanillaSelectBox.js'],
             },
             tabsURL: 'views/logTabs.html',
@@ -1512,6 +1524,8 @@ function setupCopyEventHandler() {
                     return copyMagnetLinkFN();
                 case "copyID":
                     return copyIdFN();
+                case "copyComment":
+                    return copyCommentFN();
                 default:
                     return "";
             }

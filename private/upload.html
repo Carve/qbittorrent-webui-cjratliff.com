@@ -12,24 +12,21 @@
 </head>
 
 <body>
-    <iframe id="upload_frame" name="upload_frame" class="invisible" src="about:blank"></iframe>
+    <iframe id="upload_frame" name="upload_frame" class="invisible" title="" src="about:blank"></iframe>
     <form action="api/v2/torrents/add" enctype="multipart/form-data" method="post" id="uploadForm" style="text-align: center;" target="upload_frame" autocorrect="off" autocapitalize="none">
         <div style="margin-top: 25px; display: inline-block; border: 1px solid lightgrey; border-radius: 4px;">
-			<label class="custom-file-upload">
-				<input type="file" class="fileselect" id="fileselect" accept="application/x-bittorrent, .torrent" name="fileselect[]" multiple />
-				Upload Files
-			</label>
+            <input type="file" id="fileselect" accept=".torrent, application/x-bittorrent" name="fileselect[]" multiple />
         </div>
         <fieldset class="settings" style="border: 0; text-align: left; margin-top: 12px;">
             <table style="margin: auto;">
                 <tr>
                     <td>
-                        <label for="autoTMM">Torrent Management Mode:</label>
+                        <label for="autoTMM">(Torrent Management Mode:</label>
                     </td>
                     <td>
                         <select id="autoTMM" name="autoTMM" onchange="qBittorrent.Download.changeTMM(this)">
-                            <option selected value="false">Manual</option>
-                            <option value="true">Automatic</option>
+                            <option selected value="false">(Manual</option>
+                            <option value="true">(Automatic</option>
                         </select>
                     </td>
                 </tr>
@@ -73,7 +70,15 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="stopCondition">Stop condition:</label>
+                        <label for="addToTopOfQueue">(Add to top of queue</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" id="addToTopOfQueue" name="addToTopOfQueue" value="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="stopCondition">(Stop condition:</label>
                     </td>
                     <td>
                         <select id="stopCondition" name="stopCondition">
@@ -162,6 +167,10 @@
             if (submitted)
                 window.parent.closeWindows();
         });
+
+        if ((Browser.platform === 'ios') || ((Browser.platform === 'mac') && (navigator.maxTouchPoints > 1))) {
+            $('fileselect').accept = ".torrent";
+        }
     </script>
     <div id="upload_spinner" class="mochaSpinner"></div>
 </body>
