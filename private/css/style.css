@@ -102,10 +102,6 @@ body {
     top: 1px;
 }
 
-input[type="file"] {
-    display: none;
-}
-
 .custom-file-upload {
     padding: 10px 5px;
     width: 140px;
