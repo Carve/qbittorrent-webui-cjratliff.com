@@ -1309,7 +1309,12 @@ window.qBittorrent.DynamicTable = (function() {
             this.columns['completed'].updateTd = this.columns['size'].updateTd;
 
             // max_ratio
-            this.columns['max_ratio'].updateTd = this.columns['ratio'].updateTd;
+            this.columns['max_ratio'].updateTd = function(td, row) {
+                const max_ratio = this.getRowValue(row);
+                const string = (max_ratio === -1) ? '∞' : window.qBittorrent.Misc.toFixedPointString(max_ratio, 2);
+                td.set('text', string);
+                td.set('title', string);
+            };
 
             // seen_complete
             this.columns['seen_complete'].updateTd = this.columns['completion_on'].updateTd;
