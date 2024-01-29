@@ -736,8 +736,8 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 $('mustNotContainText').value = rulesList[ruleName].mustNotContain;
                 $('episodeFilterText').value = rulesList[ruleName].episodeFilter;
                 $('useSmartFilter').checked = rulesList[ruleName].smartFilter;
-
                 $('assignCategoryCombobox').value = rulesList[ruleName].assignedCategory ? rulesList[ruleName].assignedCategory : 'default';
+                $('ruleAddTags').value = rulesList[ruleName].torrentParams.tags;
                 $('savetoDifferentDir').checked = rulesList[ruleName].savePath !== '';
                 $('saveToText').value = rulesList[ruleName].savePath;
                 $('ignoreDaysValue').value = rulesList[ruleName].ignoreDays;
