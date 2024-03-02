@@ -850,7 +850,7 @@ window.addEvent('load', function() {
             }
         }
         
-        $('torrentsTotalSize').set('html', 'Total Download Size: %1'.replace("%1", window.qBittorrent.Misc.friendlyUnit(totalSize)));
+        $('torrentsTotalSize').set('html', 'Total Downloads: %1 (%2\%)'.replace("%1", window.qBittorrent.Misc.friendlyUnit(totalSize)).replace("%2", ((totalSize/(totalSize + serverState.free_space_on_disk))*100).toFixed(2)));
         $('freeSpaceOnDisk').set('html', 'Free space: %1'.replace("%1", window.qBittorrent.Misc.friendlyUnit(serverState.free_space_on_disk)));
         $('DHTNodes').set('html', 'DHT: %1 nodes'.replace("%1", serverState.dht_nodes));
 
