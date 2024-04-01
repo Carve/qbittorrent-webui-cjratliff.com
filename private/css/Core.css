@@ -29,23 +29,29 @@ Notes:
 	--darkmode-background-alt2: #4e4e4e;
 	--darkmode-text: #c2c2c2;
 	--darkmode-text-alt: #d3d3d3;
-	--darkmode-line-color: #2F3437;
+	--darkmode-line-color: #2f3437;	
 	--highlight-color--darkred: #b83739;
 	--highlight-color--red: #ce292c;
-	--highlight-color--orange: #d0822b;
+	--highlight-color--lightyellow: #fced85;
 	--highlight-color--yellow: #fcdd04;
-	--highlight-color--green: #64e67c;
+	--highlight-color--darkyellow: #d9be04;
 	--highlight-color--brightgreen: #49ca61;
-	--highlight-color--blue: #9FC8EB;
-	--highlight-color--purple: #DEAFEB;
-	--callout-background-color-dark: #DFDFDC;
-	--calloutred-background-color-dark: #E8D4D8;
-	--calloutorange-background-color-dark: #E8DAC8;
-	--calloutyellow-background-color-dark: #E9E2BF;
-	--calloutgreen-background-color-dark: #CDE6D0;
-	--calloutblue-background-color-dark: #D6E2E6;
-	--calloutpurple-background-color-dark: #E4D5E3;
-	--text-shadow: 0.01em 0.01em 0.03em #727E84;
+	--highlight-color--green: #64e67c;
+	--highlight-color--blue: #9fc8eb;
+	--highlight-color--darkblue: #49a0eb;
+	--highlight-color--lightpurple: #deafeb;
+	--highlight-color--purple: #d397e4;
+	--highlight-color--darkpurple: #CA80DF;
+	--highlight-color--orange: #ff860d;
+	--callout-background-color-dark: #dfdfdc;
+	--callout-background-color-dark: #dfdfdc;
+	--calloutred-background-color-dark: #e8d4d8;
+	--calloutorange-background-color-dark: #e8dac8;
+	--calloutyellow-background-color-dark: #e9e2bf;
+	--calloutgreen-background-color-dark: #cde6d0;
+	--calloutblue-background-color-dark: #d6e2e6;
+	--calloutpurple-background-color-dark: #e4d5e3;
+	--text-shadow: 0.01em 0.01em 0.03em #727e84;
 }
 
 body {
@@ -63,12 +69,16 @@ body {
 	color: var(--highlight-color--red) !important;
 }
 
-.highlight-orange {
-	color: var(--highlight-color--orange) !important;
+.highlight-lightyellow {
+	color: var(--highlight-color--lightyellow) !important;
 }
 
 .highlight-yellow {
 	color: var(--highlight-color--yellow) !important;
+}
+
+.highlight-darkyellow {
+	color: var(--highlight-color--darkyellow) !important;
 }
 
 .highlight-green {
@@ -83,9 +93,25 @@ body {
 	color: var(--highlight-color--blue) !important;
 }
 
+.highlight-darkblue {
+	color: var(--highlight-color--darkblue) !important;
+}
+
+.highlight-lightpurple {
+        color: var(--highlight-color--lightpurple) !important;
+}
+
 .highlight-purple {
 	color: var(--highlight-color--purple) !important;
 }	
+
+.highlight-darkpurple {
+        color: var(--highlight-color--darkpurple) !important;
+}
+
+.highlight-orange {
+	color: var(--highlight-color--orange) !important;
+}
 
 /* Clears */
 .clear {
