@@ -1219,41 +1219,41 @@ window.qBittorrent.DynamicTable = (function() {
             };
 
             // ratio
-			// If ratio is -1, then ∞, if ratio other then get the value and convert it to int
+            // If ratio is -1, then ∞, if ratio other then get the value and convert it to int
             this.columns['ratio'].updateTd = function(td, row) {
                 const ratio = this.getRowValue(row);
-                const string = (ratio === -1) ? '∞' : parseFloat(window.qBittorrent.Misc.toFixedPointString(ratio, 2)); 
+                const string = (ratio === -1) ? '∞' : parseFloat(window.qBittorrent.Misc.toFixedPointString(ratio, 2)).toFixed(2);
                 td.set('text', string);
                 td.set('title', string);
                 td.classList.add('ratio');
                 td.set('class', 'ratio');
                 // color by percentage
-                if (string === 0 || string === 0.00) {
+                if (string === "0.00") {
                     td.classList.add('highlight-darkred');
                 } else if (string > 0 && string <= 0.10) {
-                    td.classList.add('highlight-red');
+                    td.classList.add('highlight-lightred');
                 } else if (string > 0.10 && string <= 0.20) {
-                    td.classList.add('highlight-lightyellow');
-                } else if (string > 0.20 && string <= 0.40) {
-                    td.classList.add('highlight-yellow');
-                } else if (string > 0.40 && string <= 0.60) {
-                    td.classList.add('highlight-darkyellow');
-                } else if (string > 0.60 && string <= 0.80) {
-                    td.classList.add('highlight-brightgreen');
-                } else if (string > 0.80 && string <= 1.0) {
-                    td.classList.add('highlight-green');
-                } else if (string > 1.0 && string <= 1.5) {
-                    td.classList.add('highlight-blue');
-                } else if (string > 1.5 && string <= 2) {
-                    td.classList.add('highlight-darkblue');
-                } else if (string > 2 && string <= 10) {
-                    td.classList.add('highlight-lightpurple');
-                } else if (string > 10 && string <= 100) {
-                    td.classList.add('highlight-purple');
-                } else if (string > 100 && string <= 1000) {
-                    td.classList.add('highlight-darkpurple');
-                } else if (string > 1000) {
                     td.classList.add('highlight-orange');
+                } else if (string > 0.20 && string <= 0.40) {
+                    td.classList.add('highlight-lightorange');
+                } else if (string > 0.40 && string <= 0.60) {
+                    td.classList.add('highlight-yellow');
+                } else if (string > 0.60 && string <= 0.80) {
+                    td.classList.add('highlight-lightgreen');
+                } else if (string > 0.80 && string <= 1.1) {
+                    td.classList.add('highlight-green');
+                } else if (string > 1.1 && string <= 1.5) {
+                    td.classList.add('highlight-lightblue');
+                } else if (string > 1.5 && string <= 2) {
+                    td.classList.add('highlight-blue');
+                } else if (string > 2 && string <= 10) {
+                    td.classList.add('highlight-darkblue');
+                } else if (string > 10 && string <= 100) {
+                    td.classList.add('highlight-lightpurple');
+                } else if (string > 100 && string <= 1000) {
+                    td.classList.add('highlight-purple');
+                } else if (string > 1000) {
+                    td.classList.add('highlight-darkpurple');
                 }
             };
 
