@@ -39,6 +39,7 @@ window.qBittorrent.ContextMenu = (function() {
             TorrentsTableContextMenu: TorrentsTableContextMenu,
             CategoriesFilterContextMenu: CategoriesFilterContextMenu,
             TagsFilterContextMenu: TagsFilterContextMenu,
+            TrackersFilterContextMenu: TrackersFilterContextMenu,
             SearchPluginsTableContextMenu: SearchPluginsTableContextMenu,
             RssFeedContextMenu: RssFeedContextMenu,
             RssArticleContextMenu: RssArticleContextMenu,
@@ -189,6 +190,10 @@ window.qBittorrent.ContextMenu = (function() {
             this.setupEventListeners(t);
         },
 
+        searchAndAddTargets: function() {
+            document.querySelectorAll(this.options.targets).forEach((target) => { this.addTarget(target); });
+        },
+
         triggerMenu: function(e, el) {
             if (this.options.disabled)
                 return;
@@ -262,35 +267,40 @@ window.qBittorrent.ContextMenu = (function() {
             return '0' != this.menu.getElement('a[href$=' + item + ']').firstChild.style.opacity;
         },
 
-        //hide an item
+        // hide an item
         hideItem: function(item) {
-            this.menu.getElement('a[href$=' + item + ']').parentNode.addClass('invisible');
+            this.menu.getElement("a[href$=" + item + "]").parentNode.addClass("invisible");
             return this;
         },
 
-        //show an item
+        // show an item
         showItem: function(item) {
-            this.menu.getElement('a[href$=' + item + ']').parentNode.removeClass('invisible');
+            this.menu.getElement("a[href$=" + item + "]").parentNode.removeClass("invisible");
             return this;
         },
 
-        //disable the entire menu
+        // enable/disable an item
+        setEnabled: function(item, enabled) {
+            this.menu.querySelector(`:scope a[href$="${item}"]`).parentElement.classList.toggle("disabled", !enabled);
+            return this;
+        },
+
+        // disable the entire menu
         disable: function() {
             this.options.disabled = true;
             return this;
         },
 
-        //enable the entire menu
+        // enable the entire menu
         enable: function() {
             this.options.disabled = false;
             return this;
         },
 
-        //execute an action
+        // execute an action
         execute: function(action, element) {
-            if (this.options.actions[action]) {
+            if (this.options.actions[action])
                 this.options.actions[action](element, this, action);
-            }
             return this;
         }
     });
@@ -304,8 +314,8 @@ window.qBittorrent.ContextMenu = (function() {
             let all_are_f_l_piece_prio = true;
             let there_are_f_l_piece_prio = false;
             let all_are_downloaded = true;
-            let all_are_paused = true;
-            let there_are_paused = false;
+            let all_are_stopped = true;
+            let there_are_stopped = false;
             let all_are_force_start = true;
             let there_are_force_start = false;
             let all_are_super_seeding = true;
@@ -332,10 +342,10 @@ window.qBittorrent.ContextMenu = (function() {
                 else if (data['super_seeding'] !== true)
                     all_are_super_seeding = false;
 
-                if (data['state'] != 'pausedUP' && data['state'] != 'pausedDL')
-                    all_are_paused = false;
+                if ((data["state"] !== "stoppedUP") && (data["state"] !== "stoppedDL"))
+                    all_are_stopped = false;
                 else
-                    there_are_paused = true;
+                    there_are_stopped = true;
 
                 if (data['force_start'] !== true)
                     all_are_force_start = false;
@@ -416,13 +426,13 @@ window.qBittorrent.ContextMenu = (function() {
             }
 
             this.showItem('start');
-            this.showItem('pause');
+            this.showItem('stop');
             this.showItem('forceStart');
-            if (all_are_paused)
-                this.hideItem('pause');
+            if (all_are_stopped)
+                this.hideItem("stop");
             else if (all_are_force_start)
                 this.hideItem('forceStart');
-            else if (!there_are_paused && !there_are_force_start)
+            else if (!there_are_stopped && !there_are_force_start)
                 this.hideItem('start');
 
             if (!all_are_auto_tmm && there_are_auto_tmm) {
@@ -513,21 +523,19 @@ window.qBittorrent.ContextMenu = (function() {
     const CategoriesFilterContextMenu = new Class({
         Extends: ContextMenu,
         updateMenuItems: function() {
-            const id = this.options.element.id;
-            if ((id != CATEGORIES_ALL) && (id != CATEGORIES_UNCATEGORIZED)) {
-                this.showItem('editCategory');
-                this.showItem('deleteCategory');
-                if (useSubcategories) {
-                    this.showItem('createSubcategory');
-                }
-                else {
-                    this.hideItem('createSubcategory');
-                }
+            const id = Number(this.options.element.id);
+            if ((id !== CATEGORIES_ALL) && (id !== CATEGORIES_UNCATEGORIZED)) {
+                this.showItem("editCategory");
+                this.showItem("deleteCategory");
+                if (useSubcategories)
+                    this.showItem("createSubcategory");
+                else
+                    this.hideItem("createSubcategory");
             }
             else {
-                this.hideItem('editCategory');
-                this.hideItem('deleteCategory');
-                this.hideItem('createSubcategory');
+                this.hideItem("editCategory");
+                this.hideItem("deleteCategory");
+                this.hideItem("createSubcategory");
             }
         }
     });
@@ -540,6 +548,17 @@ window.qBittorrent.ContextMenu = (function() {
                 this.showItem('deleteTag');
             else
                 this.hideItem('deleteTag');
+        }
+    });
+
+    const TrackersFilterContextMenu = new Class({
+        Extends: ContextMenu,
+        updateMenuItems: function() {
+            const id = Number(this.options.element.id);
+            if ((id !== TRACKERS_ALL) && (id !== TRACKERS_TRACKERLESS))
+                this.showItem("deleteTracker");
+            else
+                this.hideItem("deleteTracker");
         }
     });
 
