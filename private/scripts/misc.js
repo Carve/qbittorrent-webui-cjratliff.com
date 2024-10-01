@@ -35,6 +35,9 @@ if (window.qBittorrent === undefined) {
 window.qBittorrent.Misc = (function() {
     const exports = function() {
         return {
+            genHash: genHash,
+            getHost: getHost,
+            createDebounceHandler: createDebounceHandler,
             friendlyUnit: friendlyUnit,
             friendlyDuration: friendlyDuration,
             friendlyPercentage: friendlyPercentage,
@@ -47,6 +50,52 @@ window.qBittorrent.Misc = (function() {
             containsAllTerms: containsAllTerms,
             sleep: sleep,
             MAX_ETA: 8640000
+        };
+    };
+
+    const genHash = function(string) {
+        // origins:
+        // https://stackoverflow.com/a/8831937
+        // https://gist.github.com/hyamamoto/fd435505d29ebfa3d9716fd2be8d42f0
+        let hash = 0;
+        for (let i = 0; i < string.length; ++i)
+            hash = ((Math.imul(hash, 31) + string.charCodeAt(i)) | 0);
+        return hash;
+    };
+
+    // getHost emulate the GUI version `QString getHost(const QString &url)`
+    const getHost = function(url) {
+        // We want the hostname.
+        // If failed to parse the domain, original input should be returned
+
+        if (!/^(?:https?|udp):/i.test(url))
+            return url;
+
+        try {
+            // hack: URL can not get hostname from udp protocol
+            const parsedUrl = new URL(url.replace(/^udp:/i, "https:"));
+            // host: "example.com:8443"
+            // hostname: "example.com"
+            const host = parsedUrl.hostname;
+            if (!host)
+                return url;
+
+            return host;
+        }
+        catch (error) {
+            return url;
+        }
+    };
+
+    const createDebounceHandler = (delay, func) => {
+        let timer = -1;
+        return (...params) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                func(...params);
+
+                timer = -1;
+            }, delay);
         };
     };
 

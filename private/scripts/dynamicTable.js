@@ -78,7 +78,7 @@ window.qBittorrent.DynamicTable = (function() {
             this.fixedTableHeader = $(dynamicTableFixedHeaderDivId).getElements('tr')[0];
             this.hiddenTableHeader = $(dynamicTableDivId).getElements('tr')[0];
             this.tableBody = $(dynamicTableDivId).getElements('tbody')[0];
-            this.rows = new Hash();
+            this.rows = new Map();
             this.selectedRows = [];
             this.columns = [];
             this.contextMenu = contextMenu;
@@ -847,7 +847,7 @@ window.qBittorrent.DynamicTable = (function() {
 
         clear: function() {
             this.deselectAll();
-            this.rows.empty();
+            this.rows.clear();
             const trs = this.tableBody.getElements('tr');
             while (trs.length > 0) {
                 trs.pop().destroy();
@@ -859,7 +859,19 @@ window.qBittorrent.DynamicTable = (function() {
         },
 
         getRowIds: function() {
-            return this.rows.getKeys();
+            return this.rows.keys();
+        },
+
+        getRowValues: function() {
+            return this.rows.values();
+        },
+
+        getRowItems: function() {
+            return this.rows.entries();
+        },
+
+        getRowSize: function() {
+            return this.rows.size;
         },
 
         selectNextRow: function() {
@@ -983,11 +995,11 @@ window.qBittorrent.DynamicTable = (function() {
                         state = "stalledDL";
                         img_path = "images/stalledDL.svg";
                         break;
-                    case "pausedDL":
+                    case "stoppedDL":
                         state = "torrent-stop";
-                        img_path = "images/torrent-stop.svg";
+                        img_path = "images/stopped.svg";
                         break;
-                    case "pausedUP":
+                    case "stoppedUP":
                         state = "checked-completed";
                         img_path = "images/checked-completed.svg";
                         break;
@@ -1077,10 +1089,10 @@ window.qBittorrent.DynamicTable = (function() {
                     case "checkingResumeData":
                         status = "Checking resume data";
                         break;
-                    case "pausedDL":
-                        status = "Paused";
+                    case "stoppedDL":
+                        status = "Stopped";
                         break;
-                    case "pausedUP":
+                    case "stoppedUP":
                         status = "Completed";
                         break;
                     case "moving":
@@ -1367,12 +1379,12 @@ window.qBittorrent.DynamicTable = (function() {
                     if ((state != 'uploading') && (state.indexOf('UP') === -1))
                         return false;
                     break;
-                case 'paused':
-                    if (state.indexOf('paused') === -1)
+                case 'stopped':
+                    if (!state.includes("stopped"))
                         return false;
                     break;
-                case 'resumed':
-                    if (state.indexOf('paused') > -1)
+                case 'running':
+                    if (state.includes("stopped"))
                         return false;
                     break;
                 case 'stalled':
@@ -1484,21 +1496,21 @@ window.qBittorrent.DynamicTable = (function() {
 
         getFilteredTorrentsNumber: function(filterName, categoryHash, tagHash, trackerHash) {
             let cnt = 0;
-            const rows = this.rows.getValues();
 
-            for (let i = 0; i < rows.length; ++i)
-                if (this.applyFilter(rows[i], filterName, categoryHash, tagHash, trackerHash, null))
+            for (const row of this.rows.values()) {
+                if (this.applyFilter(row, filterName, categoryHash, tagHash, trackerHash, null))
                     ++cnt;
+            }
             return cnt;
         },
 
         getFilteredTorrentsHashes: function(filterName, categoryHash, tagHash, trackerHash) {
             const rowsHashes = [];
-            const rows = this.rows.getValues();
 
-            for (let i = 0; i < rows.length; ++i)
-                if (this.applyFilter(rows[i], filterName, categoryHash, tagHash, trackerHash, null))
-                    rowsHashes.push(rows[i]['rowId']);
+            for (const row of this.rows.values()) {
+                if (this.applyFilter(row, filterName, categoryHash, tagHash, trackerHash, null))
+                    rowsHashes.push(row["rowId"]);
+            }
 
             return rowsHashes;
         },
@@ -1506,39 +1518,63 @@ window.qBittorrent.DynamicTable = (function() {
         getFilteredAndSortedRows: function() {
             const filteredRows = [];
 
-            const rows = this.rows.getValues();
-            const filterText = $('torrentsFilterInput').value.trim().toLowerCase();
-            const filterTerms = (filterText.length > 0) ? filterText.split(" ") : null;
+            const useRegex = $("torrentsFilterRegexBox").checked;
+            const filterText = $("torrentsFilterInput").value.trim().toLowerCase();
+            let filterTerms;
+            try {
+                filterTerms = (filterText.length > 0)
+                    ? (useRegex ? new RegExp(filterText) : filterText.split(" "))
+                    : null;
+            }
+            catch (e) { // SyntaxError: Invalid regex pattern
+                return filteredRows;
+            }
 
-            for (let i = 0; i < rows.length; ++i) {
-                if (this.applyFilter(rows[i], selected_filter, selected_category, selectedTag, selectedTracker, filterTerms)) {
-                    filteredRows.push(rows[i]);
-                    filteredRows[rows[i].rowId] = rows[i];
+            for (const row of this.rows.values()) {
+                if (this.applyFilter(row, selectedStatus, selectedCategory, selectedTag, selectedTracker, filterTerms)) {
+                    filteredRows.push(row);
+                    filteredRows[row.rowId] = row;
                 }
             }
 
-            filteredRows.sort(function(row1, row2) {
+            filteredRows.sort((row1, row2) => {
                 const column = this.columns[this.sortedColumn];
                 const res = column.compareRows(row1, row2);
-                if (this.reverseSort === '0')
+                if (this.reverseSort === "0")
                     return res;
                 else
                     return -res;
-            }.bind(this));
+            });
             return filteredRows;
         },
 
         setupTr: function(tr) {
-            tr.addEvent('dblclick', function(e) {
-                e.stop();
+            tr.addEventListener("dblclick", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
                 this._this.deselectAll();
                 this._this.selectRow(this.rowId);
                 const row = this._this.rows.get(this.rowId);
-                const state = row['full_data'].state;
-                if (state.indexOf('paused') > -1)
+                const state = row["full_data"].state;
+
+                const prefKey =
+                    (state !== "uploading")
+                    && (state !== "stoppedUP")
+                    && (state !== "forcedUP")
+                    && (state !== "stalledUP")
+                    && (state !== "queuedUP")
+                    && (state !== "checkingUP")
+                    ? "dblclick_download"
+                    : "dblclick_complete";
+
+                if (LocalPreferences.get(prefKey, "1") !== "1")
+                    return true;
+
+                if (state.includes("stopped"))
                     startFN();
                 else
-                    pauseFN();
+                    stopFN();
                 return true;
             });
             tr.addClass("torrentsTableContextMenuTarget");

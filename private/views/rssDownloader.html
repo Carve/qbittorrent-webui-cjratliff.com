@@ -247,10 +247,10 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
             <table class="fullWidth">
                 <tr>
                     <td>
-                        <label class="noWrap">Add Paused:</label>
+                        <label class="noWrap">Add Stopped:</label>
                     </td>
                     <td class="fullWidth">
-                        <select disabled id="addPausedCombobox" class="fullWidth">
+                        <select disabled id="addStoppedCombobox" class="fullWidth">
                             <option value="default">Use global settings</option>
                             <option value="always">Always</option>
                             <option value="never">Never</option>
@@ -600,15 +600,15 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 rulesList[rule].torrentParams.use_auto_tmm = false;
             }
 
-            switch ($('addPausedCombobox').value) {
-                case 'default':
-                    rulesList[rule].addPaused = null;
+            switch ($("addStoppedCombobox").value) {
+                case "default":
+                    rulesList[rule].torrentParams.stopped = null;
                     break;
-                case 'always':
-                    rulesList[rule].addPaused = true;
+                case "always":
+                    rulesList[rule].torrentParams.stopped = true;
                     break;
-                case 'never':
-                    rulesList[rule].addPaused = false;
+                case "never":
+                    rulesList[rule].torrentParams.stopped = false;
                     break;
             }
 
@@ -688,7 +688,7 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 $('ruleAddTags').disabled = true;
                 $('savetoDifferentDir').disabled = true;
                 $('saveToText').disabled = true;
-                $('ignoreDaysValue').disabled = true;
+                $('addStoppedCombobox').disabled = true;
                 $('addPausedCombobox').disabled = true;
                 $('contentLayoutCombobox').disabled = true;
 
@@ -704,7 +704,7 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 $('saveToText').value = '';
                 $('ignoreDaysValue').value = 0;
                 $('lastMatchText').textContent = 'Last Match: Unknown';
-                $('addPausedCombobox').value = 'default';
+                $('addStoppedCombobox').value = 'default';
                 $('contentLayoutCombobox').value = 'Default';
                 rssDownloaderFeedSelectionTable.clear();
                 rssDownloaderArticlesTable.clear();
@@ -727,7 +727,7 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 $('savetoDifferentDir').checked = rulesList[ruleName].savePath ? false : true;
                 $('saveToText').disabled = rulesList[ruleName].savePath ? false : true;
                 $('ignoreDaysValue').disabled = false;
-                $('addPausedCombobox').disabled = false;
+                $('addStoppedCombobox').disabled = false;
                 $('contentLayoutCombobox').disabled = false;
 
                 // load rule settings
