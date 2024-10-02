@@ -59,10 +59,10 @@
                     <li>
                         <a class="returnFalse">Edit</a>
                         <ul>
-                            <li style="background-color: var(--darkmode-background);"><a id="resumeLink"><img class="MyMenuIcon" alt="Start" src="images/torrent-start.svg" width="16" height="16" />Start</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="pauseLink"><img class="MyMenuIcon" src="images/torrent-stop.svg" alt="Stop" width="16" height="16" />Stop</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="resumeAllLink"><img class="MyMenuIcon" alt="Start All" src="images/torrent-start.svg" width="16" height="16" />Start All</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="pauseAllLink"><img class="MyMenuIcon" alt="Stop All" src="images/torrent-stop.svg" width="16" height="16" />Stop All</a></li>
+                            <li style="background-color: var(--darkmode-background);"><a id="startLink"><img class="MyMenuIcon" alt="Start" src="images/torrent-start.svg" width="16" height="16" />Start</a></li>
+                            <li style="background-color: var(--darkmode-background);"><a id="stopLink"><img class="MyMenuIcon" src="images/torrent-stop.svg" alt="Stop" width="16" height="16" />Stop</a></li>
+                            <li style="background-color: var(--darkmode-background);"><a id="startAllLink"><img class="MyMenuIcon" alt="Start All" src="images/torrent-start.svg" width="16" height="16" />Start All</a></li>
+                            <li style="background-color: var(--darkmode-background);"><a id="stopAllLink"><img class="MyMenuIcon" alt="Stop All" src="images/torrent-stop.svg" width="16" height="16" />Stop All</a></li>
                             <li style="background-color: var(--darkmode-background);" class="divider"><a id="deleteLink"><img class="MyMenuIcon" src="images/list-remove.svg" alt="Remove" width="16" height="16" />Remove</a></li>
                             <li style="background-color: var(--darkmode-background);" id="topQueuePosItem" class="divider"><a id="topPrioLink"><img class="MyMenuIcon" src="images/go-top.svg" alt="Top of Queue" width="16" height="16" />Top of Queue</a></li>
                             <li style="background-color: var(--darkmode-background);" id="increaseQueuePosItem"><a id="increasePrioLink"><img class="MyMenuIcon" src="images/go-up.svg" alt="Move Up Queue" width="16" height="16" />Move Up Queue</a></li>
@@ -105,8 +105,8 @@
                 <a id="downloadButton"><img class="mochaToolButton" title="Add Torrent Link..." src="images/insert-link.svg" alt="Add Torrent Link..." width="24" height="24" /></a>
                 <a id="uploadButton"><img class="mochaToolButton" title="Add Torrent File..." src="images/list-add.svg" alt="Add Torrent File..." width="24" height="24" /></a>
                 <a id="deleteButton" class="divider"><img class="mochaToolButton" title="Remove" src="images/list-remove.svg" alt="Remove" width="24" height="24" /></a>
-                <a id="resumeButton" class="divider"><img class="mochaToolButton" title="Resume" src="images/torrent-start.svg" alt="Resume" width="24" height="24" /></a>
-                <a id="pauseButton"><img class="mochaToolButton" title="Stop" src="images/torrent-stop.svg" alt="Stop" width="24" height="24" /></a>
+                <a id="startButton" class="divider"><img class="mochaToolButton" title="start" src="images/torrent-start.svg" alt="start" width="24" height="24" /></a>
+                <a id="stopButton"><img class="mochaToolButton" title="Stop" src="images/torrent-stop.svg" alt="Stop" width="24" height="24" /></a>
                 <span id="queueingButtons">
                     <a id="topPrioButton" class="divider"><img class="mochaToolButton" title="Move to the top of the queue" src="images/go-top.svg" alt="Top of Queue" width="24" height="24" /></a>
                     <a id="increasePrioButton"><img class="mochaToolButton" title="Move up in the queue" src="images/go-up.svg" alt="Move Up Queue" width="24" height="24" /></a>
@@ -202,7 +202,7 @@
         <li><a href="#deleteCategory"><img src="images/list-remove.svg" alt="Remove category" /> Remove category</a></li>
         <li><a href="#deleteUnusedCategories"><img src="images/list-remove.svg" alt="Remove unused categories" /> Remove unused categories</a></li>
         <li class="separator"><a href="#startTorrentsByCategory"><img src="images/torrent-start.svg" alt="Start torrents" /> Start torrents</a></li>
-        <li><a href="#pauseTorrentsByCategory"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
+        <li><a href="#stopTorrentsByCategory"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
         <li><a href="#deleteTorrentsByCategory"><img src="images/list-remove.svg" alt="Remove torrents" /> Remove torrents</a></li>
     </ul>
     <ul id="tagsFilterMenu" class="contextMenu">
@@ -210,12 +210,12 @@
         <li><a href="#deleteTag"><img src="images/list-remove.svg" alt="Remove tag" /> Remove tag</a></li>
         <li><a href="#deleteUnusedTags"><img src="images/list-remove.svg" alt="Remove unused tags" /> Remove unused tags</a></li>
         <li class="separator"><a href="#startTorrentsByTag"><img src="images/torrent-start.svg" alt="Start torrents" /> Start torrents</a></li>
-        <li><a href="#pauseTorrentsByTag"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
+        <li><a href="#stopTorrentsByTag"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
         <li><a href="#deleteTorrentsByTag"><img src="images/list-remove.svg" alt="Remove torrents" /> Remove torrents</a></li>
     </ul>
     <ul id="trackersFilterMenu" class="contextMenu">
-        <li><a href="#resumeTorrentsByTracker"><img src="images/torrent-start.svg" alt="Start torrents" /> Start torrents</a></li>
-        <li><a href="#pauseTorrentsByTracker"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
+        <li><a href="#startTorrentsByTracker"><img src="images/torrent-start.svg" alt="Start torrents" /> Start torrents</a></li>
+        <li><a href="#stopTorrentsByTracker"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
         <li><a href="#deleteTorrentsByTracker"><img src="images/list-remove.svg" alt="Remove torrents" /> Remove torrents</a></li>
     </ul>
     <ul id="torrentTrackersMenu" class="contextMenu">
