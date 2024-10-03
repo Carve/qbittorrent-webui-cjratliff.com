@@ -4,6 +4,9 @@
     v 0.4
 
 **************************************************************/
+.altRowColors tbody tr:nth-child(odd of :not(.invisible)) {
+    background-color: var(--color-background-default);
+}
 
 .dynamicTable tbody tr,
 .dynamicTable tr.nonAlt,
@@ -52,8 +55,12 @@ tr.dynamicTableHeader {
     color: var(--darkmode-text);
     border-right: 1px solid var(--darkmode-line-color);
     box-sizing: border-box;
-    padding: 4px;
+    padding: 4px 2px;
     white-space: nowrap;
+}
+
+.dynamicTable tr:is(:hover, .selected) img:not(.flags) {
+    filter: var(--color-icon-hover);
 }
 
 .dynamicTable td {
@@ -83,9 +90,10 @@ tr.dynamicTableHeader {
     background-image: url("../images/go-down.svg");
 }
 
-.dynamicTable td img.flags {
-    height: 1.25em;
-    vertical-align: middle;
+.dynamicTable span.flags {
+    background: left center / contain no-repeat;
+    margin-left: 2px;
+    padding-left: 25px;
 }
 
 .dynamicTableFixedHeaderDiv {

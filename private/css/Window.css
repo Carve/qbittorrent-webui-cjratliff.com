@@ -26,10 +26,11 @@ Required by:
 
 .mochaOverlay {
     background: var(--darkmode-background);
+    border-radius: 5px;
+    height: auto !important; /* also fixes out of block issue */
     left: 0;
     position: absolute; /* This is also set in theme.js in order to make theme transitions smoother */
     top: 0;
-    height: auto !important; /* fixes issues with modal height */
 }
 
 /*
@@ -45,12 +46,15 @@ Required by:
 
 .mochaTitlebar {
     background: url("../images/spacer.gif?from=fafafa&to=e5e5e5");
+    border-radius: 5px;
     overflow: hidden;
     width: 100%;
 }
 
 .mochaTitlebar h3 {
     color: #888;
+    background-size: 16px !important;
+    /* override mocha titlebar logo inline style */
     font-size: 12px;
     font-weight: bold;
     line-height: 15px;
@@ -64,7 +68,7 @@ Required by:
 
 .mochaToolbarWrapper {
     background: var(--darkmode-background);
-        border-top: 1px solid var(--darkmode-line-color);
+    border-top: 1px solid var(--darkmode-line-color);
     height: 29px;
     overflow: hidden;
     position: relative;
@@ -78,12 +82,14 @@ div.mochaToolbarWrapper.bottom {
 
 .mochaToolbar {
     border-top: 1px solid var(--darkmode-line-color);
+    height: auto !important;
+    padding-top: 4px;
     width: 100%; /* For IE */
 }
 
 .mochaContentBorder {
     border-bottom: 1px solid var(--darkmode-line-color);
-        border-top: 1px solid var(--darkmode-line-color);
+    border-top: 1px solid var(--darkmode-line-color);
 }
 
 /* Has a fixed height and scrollbars if required. */

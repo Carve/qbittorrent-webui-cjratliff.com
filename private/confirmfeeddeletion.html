@@ -2,30 +2,31 @@
 <html lang="${LANG}">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Deletion confirmation</title>
-    <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/Core.css?v=${CACHEID}" />
+    <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css">
     <script src="scripts/lib/MooTools-Core-1.6.0-compat-compressed.js"></script>
     <script src="scripts/lib/MooTools-More-1.6.0-compat-compressed.js"></script>
     <script>
-        'use strict';
+        "use strict";
 
-        window.addEvent('domready', () => {
-            const paths = new URI().getData('paths').split('|');
-            $('cancelBtn').focus();
-            $('cancelBtn').addEvent('click', (e) => {
-                new Event(e).stop();
-                window.parent.closeWindows();
+        window.addEventListener("DOMContentLoaded", () => {
+            const paths = new URI().getData("paths").split("|");
+            $("cancelBtn").focus();
+            $("cancelBtn").addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.parent.qBittorrent.Client.closeWindows();
             });
-            $('confirmBtn').addEvent('click', (e) => {
-                new Event(e).stop();
+            $("confirmBtn").addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
                 let completionCount = 0;
                 paths.forEach((path) => {
                     new Request({
-                        url: 'api/v2/rss/removeItem',
-                        noCache: true,
-                        method: 'post',
+                        url: "api/v2/rss/removeItem",
+                        method: "post",
                         data: {
                             path: decodeURIComponent(path)
                         },
@@ -33,7 +34,7 @@
                             ++completionCount;
                             if (completionCount === paths.length) {
                                 window.parent.qBittorrent.Rss.updateRssFeedList();
-                                window.parent.closeWindows();
+                                window.parent.qBittorrent.Client.closeWindows();
                             }
                         }
                     }).send();
@@ -44,11 +45,11 @@
 </head>
 
 <body>
-    <div style="padding: 1px 10px 0px 1px;">
+    <div style="padding: 10px 10px 0px 10px;">
         <p>Are you sure you want to delete the selected RSS feeds?</p>
         <div style="text-align: right;">
-            <input style="padding: 2px 2px;" class="button" type="button" id="cancelBtn" value="No" />
-            <input style="padding: 2px 2px;" class="button" type="button" id="confirmBtn" value="Yes" />
+            <input type="button" id="cancelBtn" value="No">
+            <input type="button" id="confirmBtn" value="Yes">
         </div>
     </div>
 </body>

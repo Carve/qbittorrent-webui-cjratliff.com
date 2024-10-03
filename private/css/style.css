@@ -6,6 +6,36 @@ a img,
     border: none;
 }
 
+/* Forms */
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="button"],
+button,
+select {
+    border: 1px solid var(--color-border-default);
+    border-radius: 3px;
+    color: var(--color-text-default);
+    padding: 4px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--color-accent-blue);
+}
+
+input[type="button"],
+input[type="submit"],
+button {
+    cursor: pointer;
+    padding: 4px 16px;
+}
+
+button:disabled {
+    cursor: initial;
+}
+
 /*table { border-collapse: collapse; border-spacing: 0; }*/
 
 :focus {
@@ -149,8 +179,9 @@ h2 {
     padding: 6px 0;
 }
 
-#error_div {
-    color: #f00;
+#error_div,
+#rename_error {
+    color: var(--highlight-color--red);
     float: left;
     font-size: 14px;
     font-weight: bold;
@@ -161,7 +192,7 @@ h4 {
 }
 
 a {
-    color: #e60;
+    color: var(--highlight-color--orange);
     cursor: pointer;
     text-decoration: none;
 }
@@ -188,6 +219,13 @@ dt {
 
 dd {
     padding: 0 0 9px;
+}
+
+/* Forms */
+
+fieldset {
+    border: 1px solid var(--color-border-default);
+    border-radius: 5px;
 }
 
 /* Code */
@@ -228,19 +266,31 @@ hr {
     width: 90%;
 }
 
+#Filters {
+    overflow-x: hidden !important;
+    /* override for default mocha inline style */
+}
+
+#Filters .filterTitle {
+    padding-left: .2rem;
+}
+
 #Filters ul {
     list-style-type: none;
+    margin-left: 0;
+    padding: 0;
 }
 
-#Filters ul li {
-    margin-left: -16px;
-}
-
+#Filters .filterTitle img,
 #Filters ul img {
     height: 16px;
     padding: 2px 4px;
     vertical-align: middle;
     width: 16px;
+}
+
+#Filters ul li button.categoryToggle {
+    display: none;
 }
 
 .selectedFilter {
@@ -291,6 +341,18 @@ a.propButton img {
 .contextMenu li {
     margin: 0;
     padding: 0;
+    user-select: none;
+}
+
+.contextMenu li.disabled {
+    background-color: transparent;
+    cursor: default;
+    filter: grayscale(1);
+    opacity: 0.6;
+}
+
+.contextMenu li.disabled a {
+    pointer-events: none;
 }
 
 .contextMenu li a {
@@ -362,6 +424,15 @@ a.propButton img {
     top: 3px;
 }
 
+#contextCategoryList img {
+    border: 1px solid transparent;
+    padding: 1px;
+}
+
+#contextCategoryList img.highlightedCategoryIcon {
+    background-color: hsl(213deg 94% 86%);
+}
+
 /* Sliders */
 
 .slider {
@@ -430,10 +501,6 @@ a.propButton img {
 }
 
 #mochaToolbar .divider {
-    /* background-image: url("../images/toolbox-divider.gif");
-    background-position: left center;
-    background-repeat: no-repeat;
-        */
     border-left: 1px solid var(--darkmode-line-color);
     padding-left: 14px;
     padding-top: 15px;
@@ -456,6 +523,7 @@ a.propButton img {
 }
 
 #torrentsFilterInput {
+    background-color: var(--color-background-default);
     background-image: url("../images/edit-find.svg");
     background-position: left;
     background-repeat: no-repeat;
@@ -464,6 +532,40 @@ a.propButton img {
     width: 160px;
     height: 100%;
     min-height: 20px;
+
+#torrentsFilterRegexBox {
+    display: none;
+}
+
+#torrentsFilterRegexBox+label {
+    background-image: url("../images/regex.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.5em;
+    border: 1px solid var(--color-border-default);
+    border-radius: 4px;
+    display: inline-block;
+    height: 26px;
+    margin-bottom: -9px;
+    width: 26px;
+}
+
+#torrentsFilterRegexBox:checked+label {
+    background-color: var(--color-background-default);
+    background-image: url("../images/regex.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.5em;
+    border: 1px solid var(--color-accent-blue);
+    border-radius: 4px;
+    display: inline-block;
+    height: 26px;
+    margin-bottom: -9px;
+    width: 26px;
+}
+
+#torrentsFilterSelect {
+    padding: 2px 4px;
 }
 
 #torrentFilesFilterToolbar {
@@ -531,75 +633,99 @@ div.formRow {
 }
 
 .filterTitle {
-    display: block;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
     font-weight: bold;
+    gap: 4px;
     overflow: hidden;
-    padding-left: 5px;
-    padding-top: 5px;
+    padding: 4px 0 4px 6px;
     text-overflow: ellipsis;
     text-transform: uppercase;
+    user-select: none;
     white-space: nowrap;
 }
 
 .filterTitle img {
+    box-sizing: border-box;
     height: 16px;
-    margin-bottom: -3px;
-    padding: 0 5px;
+    padding: 2px;
     width: 16px;
 }
+.collapsedCategory > ul {
+    display: none;
+}
 
+.collapsedCategory .categoryToggle,
 .filterTitle img.rotate {
-    transform: rotate(270deg);
+    transform: rotate(-90deg);
+}
+
+ul.filterList * {
+    box-sizing: border-box;
 }
 
 ul.filterList {
-    margin: 0 0 0 16px;
+    margin: 0;
     padding-left: 0;
 }
 
-ul.filterList a {
-    color: inherit;
-    display: block;
+ul.filterList span.link:hover :is(img, button),
+ul.filterList .selectedFilter > .link :is(img, button) {
+    filter: var(--color-icon-hover);
+}
+
+ul.filterList span.link {
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+    overflow: hidden;
+    padding: 4px 6px;
+    white-space: nowrap;
+}
+
+ul.filterList span.link:hover {
+    background-color: var(--darkmode-primary);
+    color: var(--color-text-white);
+}
+
+span.link :last-child {
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-ul.filterList li:hover {
-    background-color: #eee;
+span.link :is(img, button) {
+    flex-shrink: 0;
 }
 
-ul.filterList li:hover a {
-    color: var(--darkmode-background);
+.selectedFilter > span.link {
+    background-color: var(--color-background-blue);
+    color: var(--color-text-white);
 }
 
-td.generalLabel {
-    text-align: right;
-    vertical-align: top;
-    white-space: nowrap;
-    width: 1px;
+.subcategories,
+.subcategories ul {
+    margin: 0;
+    padding: 0;
 }
 
-#torrentFilesTableDiv {
-    line-height: 20px;
+.subcategories .categoryToggle {
+    display: inline-block;
+    visibility: hidden;
 }
 
-#torrentTrackersTableDiv,
-#webseedsTable {
-    line-height: 25px;
-}
-
-.filesTableCollapseIcon {
-    cursor: pointer;
-    height: 15px;
-    margin-bottom: -3px;
-    padding-right: 5px;
-    width: 15px;
-}
-
-.filesTableCollapseIcon.rotate {
-    margin-bottom: -1px;
-    transform: rotate(270deg);
+.categoryToggle {
+    background: url("../images/go-down.svg") center center / 10px no-repeat
+        transparent;
+    border: none;
+    display: none;
+    height: 16px;
+    margin-right: -2px;
+    padding: 2px;
+    transition: transform 0.3s;
+    width: 16px;
 }
 
 .unselectable {
@@ -607,7 +733,7 @@ td.generalLabel {
     user-select: none;
 }
 
-#prop_general {
+#propGeneral {
     padding: 2px;
 }
 
@@ -687,8 +813,27 @@ td.statusBarSeparator {
 }
 
 /* Statistics window */
-.statisticsValue {
-    text-align: right;
+#statisticspage * {
+    box-sizing: border-box;
+}
+
+#statisticsContent {
+    & table {
+        background-color: var(--color-background-default);
+        border-radius: 6px;
+        margin-bottom: 6px;
+        padding: 6px 10px;
+
+        & .statisticsValue {
+            text-align: right;
+        }
+    }
+
+    & h3 {
+        color: var(--color-text-default);
+        margin-bottom: 1px;
+        padding: 2px;
+    }
 }
 
 /* Search tab */
@@ -726,19 +871,20 @@ td.statusBarSeparator {
 }
 
 .red {
-    color: red;
+    color: var(--highlight-color--red);
 }
 
 .green {
-    color: green;
+    color: var(--highlight-color--green);
 }
 
 .searchPluginsTableRow {
     cursor: pointer;
 }
 
-#torrentFilesTableDiv .dynamicTable tr.nonAlt {
+#torrentFilesTableDiv .dynamicTable tr.nonAlt:hover {
     background-color: var(--darkmode-background);
+    color: var(--color-text-white);
 }
 
 #torrentFilesTableDiv .dynamicTable tr.nonAlt.selected {
@@ -749,4 +895,74 @@ td.statusBarSeparator {
 #torrentFilesTableDiv .dynamicTable tr.nonAlt:hover {
     background-color: #ee6600;
     color: #fff;
+}
+
+/* Modals */
+
+.modalDialog * {
+    box-sizing: border-box;
+}
+
+.modalDialog .mochaContent.pad {
+    display: flex !important;
+    /* override for default mocha inline style */
+    flex-direction: column;
+    height: 100%;
+}
+
+.modalDialog .mochaContent.pad> :last-child {
+    align-self: flex-end;
+}
+
+.modalDialog .mochaContent.pad> :first-child {
+    margin: auto 0;
+}
+
+#rememberBtn {
+    background: url("../images/object-locked.svg") center center / 24px no-repeat var(--color-background-popup);
+    height: 38px;
+    padding: 4px 6px;
+    width: 38px;
+}
+
+#rememberBtn.disabled {
+    filter: grayscale(100%);
+}
+
+#deleteFromDiskCB {
+    margin: 0 2px 0 0;
+    vertical-align: -1px;
+}
+
+.dialogMessage {
+    overflow-wrap: anywhere;
+}
+
+.genericConfirmGrid,
+.confirmDeletionGrid {
+    align-items: center;
+    display: grid;
+    gap: 3px 4px;
+    grid-template-columns: max-content 1fr;
+    margin-bottom: 10px;
+}
+
+.confirmGridItem,
+.deletionGridItem {
+    padding: 3px;
+}
+
+.deletionGridItem:first-child {
+    justify-self: center;
+}
+
+.confirmWarning,
+.confirmDialogWarning {
+    background: url("../images/dialog-warning.svg") center center no-repeat;
+    height: 38px;
+    width: 38px;
+}
+
+.confirmWarning {
+    background-image: url("../images/help-about.svg");
 }

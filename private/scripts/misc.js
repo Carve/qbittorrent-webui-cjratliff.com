@@ -26,14 +26,11 @@
  * exception statement from your version.
  */
 
-'use strict';
+"use strict";
 
-if (window.qBittorrent === undefined) {
-    window.qBittorrent = {};
-}
-
-window.qBittorrent.Misc = (function() {
-    const exports = function() {
+window.qBittorrent ??= {};
+window.qBittorrent.Misc ??= (() => {
+    const exports = () => {
         return {
             genHash: genHash,
             getHost: getHost,
@@ -43,12 +40,15 @@ window.qBittorrent.Misc = (function() {
             friendlyPercentage: friendlyPercentage,
             friendlyFloat: friendlyFloat,
             parseHtmlLinks: parseHtmlLinks,
+            parseVersion: parseVersion,
             escapeHtml: escapeHtml,
             naturalSortCollator: naturalSortCollator,
             safeTrim: safeTrim,
             toFixedPointString: toFixedPointString,
             containsAllTerms: containsAllTerms,
             sleep: sleep,
+            // variables
+            FILTER_INPUT_DELAY: 400,
             MAX_ETA: 8640000
         };
     };
@@ -117,7 +117,7 @@ window.qBittorrent.Misc = (function() {
             return "Unknown";
 
         let i = 0;
-        while (value >= 1024.0 && i < 6) {
+        while ((value >= 1024.0) && (i < 6)) {
             value /= 1024.0;
             ++i;
         }
@@ -132,8 +132,9 @@ window.qBittorrent.Misc = (function() {
         }
 
         let ret;
-        if (i === 0)
+        if (i === 0) {
             ret = value + " " + units[i];
+        }
         else {
             const precision = friendlyUnitPrecision(i);
             const offset = Math.pow(10, precision);
@@ -150,7 +151,7 @@ window.qBittorrent.Misc = (function() {
      * JS counterpart of the function in src/misc.cpp
      */
     const friendlyDuration = function(seconds, maxCap = -1) {
-        if (seconds < 0 || ((seconds >= maxCap) && (maxCap >= 0)))
+        if ((seconds < 0) || ((seconds >= maxCap) && (maxCap >= 0)))
             return "∞";
         if (seconds === 0)
             return "0";
@@ -158,18 +159,18 @@ window.qBittorrent.Misc = (function() {
             return "< 1m";
         let minutes = seconds / 60;
         if (minutes < 60)
-            return "%1m".replace("%1", parseInt(minutes));
+            return "%1m".replace("%1", Math.floor(minutes));
         let hours = minutes / 60;
-        minutes = minutes % 60;
+        minutes %= 60;
         if (hours < 24)
-            return "%1h %2m".replace("%1", parseInt(hours)).replace("%2", parseInt(minutes));
+            return "%1h %2m".replace("%1", Math.floor(hours)).replace("%2", Math.floor(minutes));
         let days = hours / 24;
-        hours = hours % 24;
+        hours %= 24;
         if (days < 365)
-            return "%1d %2h".replace("%1", parseInt(days)).replace("%2", parseInt(hours));
+            return "%1d %2h".replace("%1", Math.floor(days)).replace("%2", Math.floor(hours));
         const years = days / 365;
-        days = days % 365;
-        return "%1y %2d".replace("%1", parseInt(years)).replace("%2", parseInt(days));
+        days %= 365;
+        return "%1y %2d".replace("%1", Math.floor(years)).replace("%2", Math.floor(days));
     };
 
     const friendlyPercentage = function(value) {
@@ -186,49 +187,46 @@ window.qBittorrent.Misc = (function() {
     };
 
     /*
-     * From: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
-     */
-    if (!Date.prototype.toISOString) {
-        (function() {
-
-            function pad(number) {
-                if (number < 10) {
-                    return '0' + number;
-                }
-                return number;
-            }
-
-            Date.prototype.toISOString = function() {
-                return this.getUTCFullYear()
-                    + '-' + pad(this.getUTCMonth() + 1)
-                    + '-' + pad(this.getUTCDate())
-                    + 'T' + pad(this.getUTCHours())
-                    + ':' + pad(this.getUTCMinutes())
-                    + ':' + pad(this.getUTCSeconds())
-                    + '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5)
-                    + 'Z';
-            };
-
-        }());
-    }
-
-    /*
      * JS counterpart of the function in src/misc.cpp
      */
     const parseHtmlLinks = function(text) {
-        const exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig;
+        const exp = /(\b(https?|ftp|file):\/\/[-\w+&@#/%?=~|!:,.;]*[-\w+&@#/%=~|])/gi;
         return text.replace(exp, "<a target='_blank' rel='noopener noreferrer' href='$1'>$1</a>");
     };
 
-    const escapeHtml = function(str) {
-        const div = document.createElement('div');
-        div.appendChild(document.createTextNode(str));
-        const escapedString = div.innerHTML;
-        div.remove();
-        return escapedString;
+    const parseVersion = function(versionString) {
+        const failure = {
+            valid: false
+        };
+
+        if (typeof versionString !== "string")
+            return failure;
+
+        const tryToNumber = (str) => {
+            const num = Number(str);
+            return (isNaN(num) ? str : num);
+        };
+
+        const ver = versionString.split(".", 4).map(val => tryToNumber(val));
+        return {
+            valid: true,
+            major: ver[0],
+            minor: ver[1],
+            fix: ver[2],
+            patch: ver[3]
+        };
     };
 
-    const naturalSortCollator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+    const escapeHtml = (() => {
+        const div = document.createElement("div");
+        return (str) => {
+            div.textContent = str;
+            return div.innerHTML;
+        };
+    })();
+
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator/Collator#parameters
+    const naturalSortCollator = new Intl.Collator(undefined, { numeric: true, usage: "sort" });
 
     const safeTrim = function(value) {
         try {
@@ -255,9 +253,9 @@ window.qBittorrent.Misc = (function() {
      */
     const containsAllTerms = function(text, terms) {
         const textToSearch = text.toLowerCase();
-        return terms.every(function(term) {
-            const isTermRequired = (term[0] === '+');
-            const isTermExcluded = (term[0] === '-');
+        return terms.every((term) => {
+            const isTermRequired = (term[0] === "+");
+            const isTermExcluded = (term[0] === "-");
             if (isTermRequired || isTermExcluded) {
                 // ignore lonely +/-
                 if (term.length === 1)
@@ -279,5 +277,4 @@ window.qBittorrent.Misc = (function() {
 
     return exports();
 })();
-
 Object.freeze(window.qBittorrent.Misc);

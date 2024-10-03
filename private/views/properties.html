@@ -1,96 +1,110 @@
-<div id="prop_general" class="propertiesTabContent">
+<div id="propGeneral" class="propertiesTabContent invisible unselectable">
     <table style="width: 100%; padding: 0 3px">
-        <tr>
-            <td style="text-align: right">Progress:</td>
-            <td id="progress" style="width: 100%"></td>
-        </tr>
+        <tbody>
+            <tr>
+                <td style="text-align: right; white-space: nowrap">Progress:</td>
+                <td id="progress" style="width: 100%"></td>
+            </tr>
+        </tbody>
     </table>
     <hr>
     <fieldset>
         <legend><b>Transfer</b></legend>
         <table style="width: 100%">
-            <tr>
-                <td class="generalLabel">Time Active:</td>
-                <td id="time_elapsed"></td>
-                <td class="generalLabel">ETA:</td>
-                <td id="eta"></td>
-                <td class="generalLabel">Connections:</td>
-                <td id="nb_connections"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Downloaded:</td>
-                <td id="total_downloaded"></td>
-                <td class="generalLabel">Uploaded:</td>
-                <td id="total_uploaded"></td>
-                <td class="generalLabel">Seeds:</td>
-                <td id="seeds"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Download Speed:</td>
-                <td id="dl_speed"></td>
-                <td class="generalLabel">Upload Speed:</td>
-                <td id="up_speed"></td>
-                <td class="generalLabel">Peers:</td>
-                <td id="peers"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Download Limit:</td>
-                <td id="dl_limit"></td>
-                <td class="generalLabel">Upload Limit:</td>
-                <td id="up_limit"></td>
-                <td class="generalLabel">Wasted:</td>
-                <td id="total_wasted"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Share Ratio:</td>
-                <td id="share_ratio"></td>
-                <td class="generalLabel">Reannounce In:</td>
-                <td id="reannounce"></td>
-                <td class="generalLabel">Last Seen Complete:</td>
-                <td id="last_seen"></td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td class="generalLabel">Time Active:</td>
+                    <td id="time_elapsed"></td>
+                    <td class="generalLabel">ETA:</td>
+                    <td id="eta"></td>
+                    <td class="generalLabel">Connections:</td>
+                    <td id="nb_connections"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Downloaded:</td>
+                    <td id="total_downloaded"></td>
+                    <td class="generalLabel">Uploaded:</td>
+                    <td id="total_uploaded"></td>
+                    <td class="generalLabel">Seeds:</td>
+                    <td id="seeds"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Download Speed:</td>
+                    <td id="dl_speed"></td>
+                    <td class="generalLabel">Upload Speed:</td>
+                    <td id="up_speed"></td>
+                    <td class="generalLabel">Peers:</td>
+                    <td id="peers"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Download Limit:</td>
+                    <td id="dl_limit"></td>
+                    <td class="generalLabel">Upload Limit:</td>
+                    <td id="up_limit"></td>
+                    <td class="generalLabel">Wasted:</td>
+                    <td id="total_wasted"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Share Ratio:</td>
+                    <td id="share_ratio"></td>
+                    <td class="generalLabel">Reannounce In:</td>
+                    <td id="reannounce"></td>
+                    <td class="generalLabel">Last Seen Complete:</td>
+                    <td id="last_seen"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel" title="Ratio / Time Active (in months), indicates how popular the torrent is">Popularity:</td>
+                    <td id="popularity" title="Ratio / Time Active (in months), indicates how popular the torrent is"></td>
+                </tr>
+            </tbody>
         </table>
     </fieldset>
     <fieldset>
         <legend><b>Information</b></legend>
         <table style="width: 100%">
-            <tr>
-                <td class="generalLabel">Total Size:</td>
-                <td id="total_size"></td>
-                <td class="generalLabel">Pieces:</td>
-                <td id="pieces"></td>
-                <td class="generalLabel">Created By:</td>
-                <td id="created_by"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Added On:</td>
-                <td id="addition_date"></td>
-                <td class="generalLabel">Completed On:</td>
-                <td id="completion_date"></td>
-                <td class="generalLabel">Created On:</td>
-                <td id="creation_date"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Info Hash v1:</td>
-                <td colspan="5" id="torrent_hash_v1"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Info Hash v2:</td>
-                <td colspan="5" id="torrent_hash_v2"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Save Path:</td>
-                <td colspan="5" id="save_path"></td>
-            </tr>
-            <tr>
-                <td class="generalLabel">Comment:</td>
-                <td colspan="5" style="white-space: pre-wrap;" id="comment"></td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td class="generalLabel">Total Size:</td>
+                    <td id="total_size"></td>
+                    <td class="generalLabel">Pieces:</td>
+                    <td id="pieces"></td>
+                    <td class="generalLabel">Created By:</td>
+                    <td id="created_by"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Added On:</td>
+                    <td id="addition_date"></td>
+                    <td class="generalLabel">Completed On:</td>
+                    <td id="completion_date"></td>
+                    <td class="generalLabel">Created On:</td>
+                    <td id="creation_date"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Private:</td>
+                    <td id="private"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Info Hash v1:</td>
+                    <td colspan="5" id="torrent_hash_v1"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Info Hash v2:</td>
+                    <td colspan="5" id="torrent_hash_v2"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Save Path:</td>
+                    <td colspan="5" id="save_path"></td>
+                </tr>
+                <tr>
+                    <td class="generalLabel">Comment:</td>
+                    <td colspan="5" style="white-space: pre-wrap;" id="comment"></td>
+                </tr>
+            </tbody>
         </table>
     </fieldset>
 </div>
 
-<div id="prop_trackers" class="propertiesTabContent invisible unselectable">
+<div id="propTrackers" class="propertiesTabContent invisible unselectable">
     <div id="trackers">
         <div id="torrentTrackersTableFixedHeaderDiv" class="dynamicTableFixedHeaderDiv">
             <table class="dynamicTable" style="position:relative;">
@@ -110,7 +124,7 @@
     </div>
 </div>
 
-<div id="prop_peers" class="propertiesTabContent invisible unselectable">
+<div id="propPeers" class="propertiesTabContent invisible unselectable">
     <div>
         <div id="torrentPeersTableFixedHeaderDiv" class="dynamicTableFixedHeaderDiv">
             <table class="dynamicTable" style="position:relative;">
@@ -130,20 +144,27 @@
     </div>
 </div>
 
-<div id="prop_webseeds" class="propertiesTabContent invisible unselectable">
+<div id="propWebSeeds" class="propertiesTabContent invisible unselectable">
     <div id="webseeds">
-        <table class="dynamicTable" style="width: 100%">
-            <thead>
-                <tr>
-                    <th>URL</th>
-                </tr>
-            </thead>
-            <tbody id="webseedsTable"></tbody>
-        </table>
+        <div id="torrentWebseedsTableFixedHeaderDiv" class="dynamicTableFixedHeaderDiv">
+            <table class="dynamicTable" style="position:relative;">
+                <thead>
+                    <tr class="dynamicTableHeader"></tr>
+                </thead>
+            </table>
+        </div>
+        <div id="torrentWebseedsTableDiv" class="dynamicTableDiv">
+            <table class="dynamicTable">
+                <thead>
+                    <tr class="dynamicTableHeader"></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-<div id="prop_files" class="propertiesTabContent invisible unselectable">
+<div id="propFiles" class="propertiesTabContent invisible unselectable">
     <div id="torrentFiles">
         <div id="torrentFilesTableFixedHeaderDiv" class="dynamicTableFixedHeaderDiv">
             <table class="dynamicTable" style="position:relative;">
@@ -162,13 +183,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    'use strict';
-
-    (function() {
-        const selectedTab = $(LocalPreferences.get('selected_tab', 'PropGeneralLink'));
-        if (selectedTab)
-            selectedTab.click();
-    })();
-</script>

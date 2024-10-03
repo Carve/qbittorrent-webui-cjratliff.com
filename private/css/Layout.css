@@ -103,7 +103,7 @@ body {
 
 #desktopNavbar {
     background: var(--darkmode-background);
-        color: var(--darkmode-text);
+    color: var(--darkmode-text);
     border-bottom: 1px solid #3f3f3f;
     height: 20px;
     margin: 0 0px;
@@ -115,9 +115,10 @@ body {
     list-style: none;
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
-#desktopNavbar > ul > li {
+#desktopNavbar>ul>li {
     float: left;
 }
 
@@ -133,7 +134,11 @@ body {
 
 #desktopNavbar ul li a:hover {
     background-color: var(--darkmode-background);
-        color: var(--darkmode-text);
+    color: var(--darkmode-text);
+}
+
+#desktopNavbar a:hover img {
+    filter: var(--color-icon-hover);
 }
 
 #desktopNavbar ul li a.arrow-right,
@@ -145,7 +150,7 @@ body {
 
 #desktopNavbar li ul {
     background: var(--darkmode-background) url("../images/bg-dropdown.gif") repeat-y;
-        border: 1px solid var(--darkmode-line-color);
+    border: 1px solid var(--darkmode-line-color);
     left: -999em;
     margin-top: -6px;
     position: absolute;
@@ -251,7 +256,7 @@ li.divider {
 
 #desktopFooter {
     background: var(--darkmode-background);
-        font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-size: 11px;
     height: 24px;
     padding: 6px 8px 0;
@@ -272,8 +277,8 @@ li.divider {
 
 .panel {
     background: var(--darkmode-background);
-        border-bottom: 1px solid var(--darkmode-line-color);
-        color: var(--darkmode-text);
+    border-bottom: 1px solid var(--darkmode-line-color);
+    color: var(--darkmode-text);
     overflow: auto;
     position: relative;
 }
@@ -285,7 +290,6 @@ li.divider {
 .panelAlt {
     background: var(--darkmode-background);
 }
-
 .bottomPanel {
     border-bottom: 0;
 }
@@ -367,7 +371,7 @@ li.divider {
 
 .columnHandle {
     background: var(--darkmode-line-color) url("../images/handle-icon.gif") center center no-repeat;
-        border: 1px solid var(--darkmode-line-color);
+    border: 1px solid var(--darkmode-line-color);
     border-bottom: 0;
     border-top: 0;
     float: left;
