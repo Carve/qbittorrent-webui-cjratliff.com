@@ -1226,6 +1226,25 @@ window.qBittorrent.DynamicTable ??= (() => {
                 const string = (ratio === -1) ? "∞" : window.qBittorrent.Misc.toFixedPointString(ratio, 2);
                 td.textContent = string;
                 td.title = string;
+                // ratio colors by percentage
+                td.classList.add('ratio');
+                if (string === 0 || string === "0.00" || string <= "0.09") {
+                    td.classList.add('highlight-darkred');
+                } else if (string >= "0.10" && string <= "0.19") {
+                    td.classList.add('highlight-red');
+                } else if (string >= "0.20" && string <= "0.39") {
+                    td.classList.add('highlight-orange');
+                } else if (string >= "0.40" && string <= "0.59") {
+                    td.classList.add('highlight-yellow');
+                } else if (string >= "0.60" && string <= "0.89") {
+                    td.classList.add('highlight-green');
+                } else if (string >= "0.90" && string <= "0.99") {
+                    td.classList.add('highlight-brightgreen');
+                } else if (string >= "1.0" && string <= "1.5") {
+                    td.classList.add('highlight-blue');
+                } else if (string >= "1.5") {
+                    td.classList.add('highlight-purple');
+                }
             };
 
             // popularity
