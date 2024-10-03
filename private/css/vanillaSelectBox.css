@@ -1,5 +1,3 @@
-@import url("palette.css");
-
 .hidden-search {
     display: none !important;
 }
@@ -21,7 +19,8 @@ li[data-parent].open:not(.hidden-search) {
     font-size: 11px;
     position: absolute;
     visibility: hidden;
-    z-index: 1000; /*Don't change*/
+    z-index: 1000;
+    /*Don't change*/
 }
 
 .vsb-js-search-zone {
@@ -29,7 +28,8 @@ li[data-parent].open:not(.hidden-search) {
     padding: 2px;
     position: absolute;
     width: 80%;
-    z-index: 1001; /*Don't change*/
+    z-index: 1001;
+    /*Don't change*/
 }
 
 .vsb-js-search-zone input {
@@ -43,7 +43,8 @@ li[data-parent].open:not(.hidden-search) {
     display: inline-block;
     position: relative;
     text-align: left;
-    vertical-align: top; /*Don't change*/
+    vertical-align: top;
+    /*Don't change*/
 }
 
 .vsb-menu ul {

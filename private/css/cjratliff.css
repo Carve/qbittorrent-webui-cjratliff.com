@@ -1,0 +1,65 @@
+:root {
+	color-scheme: dark;
+	--darkmode-primary: #00d9ff;
+	--darkmode-background: #202020;
+	--darkmode-background-alt: #242424;
+	--darkmode-background-alt2: #4e4e4e;
+	--darkmode-text: #c2c2c2;
+	--darkmode-text-alt: #d3d3d3;
+	--darkmode-line-color: #2F3437;
+	--highlight-color--darkred: #b83739;
+	--highlight-color--red: #ce292c;
+	--highlight-color--orange: #d0822b;
+	--highlight-color--yellow: #fcdd04;
+	--highlight-color--green: #64e67c;
+	--highlight-color--brightgreen: #49ca61;
+	--highlight-color--blue: #9FC8EB;
+	--highlight-color--purple: #DEAFEB;
+	--callout-background-color-dark: #DFDFDC;
+	--calloutred-background-color-dark: #E8D4D8;
+	--calloutorange-background-color-dark: #E8DAC8;
+	--calloutyellow-background-color-dark: #E9E2BF;
+	--calloutgreen-background-color-dark: #CDE6D0;
+	--calloutblue-background-color-dark: #D6E2E6;
+	--calloutpurple-background-color-dark: #E4D5E3;
+	--text-shadow: 0.01em 0.01em 0.03em #727E84;
+}
+
+body {
+	font-size: .875rem;
+	font-family: "Google Sans", -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-feature-settings: "kern", "liga", "clig", "calt";
+}
+
+/* Text Colors */
+.highlight-darkred {
+	color: var(--highlight-color--darkred) !important;
+}
+
+.highlight-red {
+	color: var(--highlight-color--red) !important;
+}
+
+.highlight-orange {
+	color: var(--highlight-color--orange) !important;
+}
+
+.highlight-yellow {
+	color: var(--highlight-color--yellow) !important;
+}
+
+.highlight-green {
+	color: var(--highlight-color--green) !important;
+}
+
+.highlight-brightgreen {
+	color: var(--highlight-color--brightgreen) !important;
+}
+
+.highlight-blue {
+	color: var(--highlight-color--blue) !important;
+}
+
+.highlight-purple {
+	color: var(--highlight-color--purple) !important;
+}	

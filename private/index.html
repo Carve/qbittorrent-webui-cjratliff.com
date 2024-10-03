@@ -2,43 +2,48 @@
 <html lang="${LANG}">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="robots" content="noindex">
-    <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <meta name="application-name" content="qBittorrent" />
-    <title>qBittorrent Web UI</title>
-    <link rel="icon" type="image/png" href="images/qbittorrent32.png" sizes="32x32" />
-    <link rel="icon" type="image/svg+xml" href="images/qbittorrent-tray.svg" sizes="any" />
-    <link rel="stylesheet" type="text/css" href="css/dynamicTable.css?v=${CACHEID}" />
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=${CACHEID}" />
-    <!--<link rel="stylesheet" type="text/css" href="css/Content.css" />-->
-    <link rel="stylesheet" type="text/css" href="css/Core.css?v=${CACHEID}" />
-    <link rel="stylesheet" type="text/css" href="css/Layout.css?v=${CACHEID}" />
-    <link rel="stylesheet" type="text/css" href="css/Window.css?v=${CACHEID}" />
-    <link rel="stylesheet" type="text/css" href="css/Tabs.css?v=${CACHEID}" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=10">
+    <meta name="application-name" content="qBittorrent">
+    <meta name="description" content="qBittorrent WebUI">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>qBittorrent WebUI</title>
+
+    <link rel="icon" type="image/png" href="images/qbittorrent32.png" sizes="32x32">
+    <link rel="icon" type="image/svg+xml" href="images/qbittorrent-tray.svg" sizes="any">
+    <link rel="stylesheet" type="text/css" href="css/dynamicTable.css?v=${CACHEID}">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=${CACHEID}">
+    <link rel="stylesheet" type="text/css" href="css/Core.css?v=${CACHEID}">
+    <link rel="stylesheet" type="text/css" href="css/Layout.css?v=${CACHEID}">
+    <link rel="stylesheet" type="text/css" href="css/Window.css?v=${CACHEID}">
+    <link rel="stylesheet" type="text/css" href="css/Tabs.css?v=${CACHEID}">
     <noscript>
-        <link rel="stylesheet" type="text/css" href="css/noscript.css?v=${CACHEID}" />
+        <link rel="stylesheet" type="text/css" href="css/noscript.css?v=${CACHEID}">
     </noscript>
-    <script src="scripts/lib/MooTools-Core-1.6.0-compat-compressed.js"></script>
-    <script src="scripts/lib/MooTools-More-1.6.0-compat-compressed.js"></script>
-    <script src="scripts/lib/mocha.min.js"></script>
-    <script src="scripts/preferences.js"></script>
-    <script src="scripts/mocha-init.js?locale=${LANG}&v=${CACHEID}"></script>
-    <script src="scripts/lib/clipboard.min.js"></script>
-    <script src="scripts/filesystem.js?v=${CACHEID}"></script>
-    <script src="scripts/misc.js?locale=${LANG}&v=${CACHEID}"></script>
-    <script src="scripts/progressbar.js?v=${CACHEID}"></script>
-    <script src="scripts/piecesbar.js?v=${CACHEID}"></script>
-    <script src="scripts/file-tree.js?v=${CACHEID}"></script>
-    <script src="scripts/dynamicTable.js?locale=${LANG}&v=${CACHEID}"></script>
-    <script src="scripts/rename-files.js?v=${CACHEID}"></script>
-    <script src="scripts/client.js?locale=${LANG}&v=${CACHEID}"></script>
-    <script src="scripts/contextmenu.js?locale=${LANG}&v=${CACHEID}"></script>
+
+    <script defer src="scripts/lib/MooTools-Core-1.6.0-compat-compressed.js"></script>
+    <script defer src="scripts/lib/MooTools-More-1.6.0-compat-compressed.js"></script>
+    <script defer src="scripts/lib/mocha.min.js"></script>
+    <script defer src="scripts/cache.js?v=${CACHEID}"></script>
+    <script defer src="scripts/localpreferences.js?v=${CACHEID}"></script>
+    <script defer src="scripts/mocha-init.js?locale=${LANG}&v=${CACHEID}"></script>
+    <script defer src="scripts/lib/clipboard.min.js"></script>
+    <script defer src="scripts/filesystem.js?v=${CACHEID}"></script>
+    <script defer src="scripts/misc.js?locale=${LANG}&v=${CACHEID}"></script>
+    <script defer src="scripts/progressbar.js?v=${CACHEID}"></script>
+    <script defer src="scripts/piecesbar.js?v=${CACHEID}"></script>
+    <script defer src="scripts/file-tree.js?v=${CACHEID}"></script>
+    <script defer src="scripts/dynamicTable.js?locale=${LANG}&v=${CACHEID}"></script>
+    <script defer src="scripts/rename-files.js?v=${CACHEID}"></script>
+    <script defer src="scripts/client.js?locale=${LANG}&v=${CACHEID}"></script>
+    <script defer src="scripts/contextmenu.js?locale=${LANG}&v=${CACHEID}"></script>
+    <script defer src="scripts/pathAutofill.js?v=${CACHEID}"></script>
 </head>
 
 <body>
     <noscript id="noscript">
-        <h1>JavaScript Required! You must enable JavaScript for the Web UI to work properly</h1>
+        <h1>JavaScript Required! You must enable JavaScript for the WebUI to work properly</h1>
     </noscript>
     <div id="desktop">
         <div id="desktopHeader">
@@ -50,77 +55,86 @@
                     <li>
                         <a class="returnFalse">File</a>
                         <ul>
-                            <li style="background-color: var(--darkmode-background);"><a id="uploadLink"><img class="MyMenuIcon" alt="Add Torrent File..." src="images/list-add.svg" width="16" height="16" />Add Torrent File...</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="downloadLink"><img class="MyMenuIcon" alt="Add Torrent Link..." src="images/insert-link.svg" width="16" height="16" />Add Torrent Link...</a></li>
-                            <li style="background-color: var(--darkmode-background);" class="divider"><a id="logoutLink"><img class="MyMenuIcon" alt="Logout" src="images/system-log-out.svg" width="16" height="16" />Logout</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="shutdownLink"><img class="MyMenuIcon" alt="Exit qBittorrent" src="images/application-exit.svg" width="16" height="16" />Exit qBittorrent</a></li>
+                            <li><a id="uploadLink"><img class="MyMenuIcon" alt="Add Torrent File..." src="images/list-add.svg" width="16" height="16">Add Torrent File...</a></li>
+                            <li><a id="downloadLink"><img class="MyMenuIcon" alt="Add Torrent Link..." src="images/insert-link.svg" width="16" height="16">Add Torrent Link...</a></li>
+                            <li class="divider"><a id="logoutLink"><img class="MyMenuIcon" alt="Logout" src="images/system-log-out.svg" width="16" height="16">Logout</a></li>
+                            <li><a id="shutdownLink"><img class="MyMenuIcon" alt="Exit qBittorrent" src="images/application-exit.svg" width="16" height="16">Exit qBittorrent</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="returnFalse">Edit</a>
                         <ul>
-                            <li style="background-color: var(--darkmode-background);"><a id="startLink"><img class="MyMenuIcon" alt="Start" src="images/torrent-start.svg" width="16" height="16" />Start</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="stopLink"><img class="MyMenuIcon" src="images/torrent-stop.svg" alt="Stop" width="16" height="16" />Stop</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="startAllLink"><img class="MyMenuIcon" alt="Start All" src="images/torrent-start.svg" width="16" height="16" />Start All</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="stopAllLink"><img class="MyMenuIcon" alt="Stop All" src="images/torrent-stop.svg" width="16" height="16" />Stop All</a></li>
-                            <li style="background-color: var(--darkmode-background);" class="divider"><a id="deleteLink"><img class="MyMenuIcon" src="images/list-remove.svg" alt="Remove" width="16" height="16" />Remove</a></li>
-                            <li style="background-color: var(--darkmode-background);" id="topQueuePosItem" class="divider"><a id="topPrioLink"><img class="MyMenuIcon" src="images/go-top.svg" alt="Top of Queue" width="16" height="16" />Top of Queue</a></li>
-                            <li style="background-color: var(--darkmode-background);" id="increaseQueuePosItem"><a id="increasePrioLink"><img class="MyMenuIcon" src="images/go-up.svg" alt="Move Up Queue" width="16" height="16" />Move Up Queue</a></li>
-                            <li style="background-color: var(--darkmode-background);" id="decreaseQueuePosItem"><a id="decreasePrioLink"><img class="MyMenuIcon" src="images/go-down.svg" alt="Move Down Queue" width="16" height="16" />Move Down Queue</a></li>
-                            <li style="background-color: var(--darkmode-background);" id="bottomQueuePosItem"><a id="bottomPrioLink"><img class="MyMenuIcon" src="images/go-bottom.svg" alt="Bottom of Queue" width="16" height="16" />Bottom of Queue</a></li>
+                            <li><a id="startLink"><img class="MyMenuIcon" alt="Start" src="images/torrent-start.svg" width="16" height="16">Start</a></li>
+                            <li><a id="stopLink"><img class="MyMenuIcon" src="images/torrent-stop.svg" alt="Stop" width="16" height="16">Stop</a></li>
+                            <li><a id="startAllLink"><img class="MyMenuIcon" alt="Start All" src="images/torrent-start.svg" width="16" height="16">Start All</a></li>
+                            <li><a id="stopAllLink"><img class="MyMenuIcon" alt="Stop All" src="images/torrent-stop.svg" width="16" height="16">Stop All</a></li>
+                            <li class="divider"><a id="deleteLink"><img class="MyMenuIcon" src="images/list-remove.svg" alt="Remove" width="16" height="16">Remove</a></li>
+                            <li id="topQueuePosItem" class="divider"><a id="topPrioLink"><img class="MyMenuIcon" src="images/go-top.svg" alt="Top of Queue" width="16" height="16">Top of Queue</a></li>
+                            <li id="increaseQueuePosItem"><a id="increasePrioLink"><img class="MyMenuIcon" src="images/go-up.svg" alt="Move Up Queue" width="16" height="16">Move Up Queue</a></li>
+                            <li id="decreaseQueuePosItem"><a id="decreasePrioLink"><img class="MyMenuIcon" src="images/go-down.svg" alt="Move Down Queue" width="16" height="16">Move Down Queue</a></li>
+                            <li id="bottomQueuePosItem"><a id="bottomPrioLink"><img class="MyMenuIcon" src="images/go-bottom.svg" alt="Bottom of Queue" width="16" height="16">Bottom of Queue</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="returnFalse">View</a>
-                        <ul class="viewMenu">
-                            <li><a id="showTopToolbarLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Top Toolbar" width="16" height="16" />Top Toolbar</a></li>
-                            <li><a id="showStatusBarLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Status Bar" width="16" height="16" />Status Bar</a></li>
-                            <li><a id="showFiltersSidebarLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Filters Sidebar" width="16" height="16" />Filters Sidebar</a></li>
-                            <li><a id="speedInBrowserTitleBarLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Speed in Title Bar" width="16" height="16" />Speed in Title Bar</a></li>
-                            <li class="divider"><a id="showSearchEngineLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Search Engine" width="16" height="16" />Search Engine</a></li>
-                            <li><a id="showRssReaderLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="RSS" width="16" height="16" />RSS Reader</a></li>
-                            <li><a id="showLogViewerLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Log" width="16" height="16" />Log</a></li>
-                            <li class="divider"><a id="StatisticsLink"><img class="MyMenuIcon" src="images/view-statistics.svg" alt="Statistics" width="16" height="16" />Statistics</a></li>
+                        <ul>
+                            <li><a id="showTopToolbarLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Top Toolbar" width="16" height="16">Top Toolbar</a></li>
+                            <li><a id="showStatusBarLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Status Bar" width="16" height="16">Status Bar</a></li>
+                            <li><a id="showFiltersSidebarLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Filters Sidebar" width="16" height="16">Filters Sidebar</a></li>
+                            <li><a id="speedInBrowserTitleBarLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Speed in Title Bar" width="16" height="16">Speed in Title Bar</a></li>
+                            <li class="divider"><a id="showSearchEngineLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Search Engine" width="16" height="16">Search Engine</a></li>
+                            <li><a id="showRssReaderLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="RSS" width="16" height="16">RSS Reader</a></li>
+                            <li><a id="showLogViewerLink"><img class="MyMenuIcon" src="images/checked-completed.svg" alt="Log" width="16" height="16">Log</a></li>
+                            <li class="divider"><a id="StatisticsLink"><img class="MyMenuIcon" src="images/view-statistics.svg" alt="Statistics" width="16" height="16">Statistics</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="returnFalse">Tools</a>
                         <ul>
-                            <li style="background-color: var(--darkmode-background);"><a id="preferencesLink"><img class="MyMenuIcon" src="images/configure.svg" alt="Options..." width="16" height="16" />Options...</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="registerMagnetHandlerLink"><img class="MyMenuIcon" src="images/torrent-magnet.svg" alt="Register to handle magnet links..." width="16" height="16" />Register to handle magnet links...</a></li>
+                            <li><a id="preferencesLink"><img class="MyMenuIcon" src="images/configure.svg" alt="Options..." width="16" height="16">Options...</a></li>
+                            <li><a id="registerMagnetHandlerLink"><img class="MyMenuIcon" src="images/torrent-magnet.svg" alt="Register to handle magnet links..." width="16" height="16">Register to handle magnet links...</a></li>
+                            <li><a id="manageCookiesLink"><img class="MyMenuIcon" src="images/browser-cookies.svg" alt="Manage Cookies..." width="16" height="16">Manage Cookies...</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="returnFalse">Help</a>
                         <ul>
-                            <li style="background-color: var(--darkmode-background);"><a id="docsLink" target="_blank" href="http://wiki.qbittorrent.org/"><img class="MyMenuIcon" src="images/help-contents.svg" alt="Documentation" width="16" height="16" />Documentation</a></li>
-                            <li style="background-color: var(--darkmode-background);" class="divider"><a id="bugLink" target="_blank" href="https://www.qbittorrent.org/donate"><img class="MyMenuIcon" src="images/wallet-open.svg" alt="Donate!" width="16" height="16" />Donate!</a></li>
-                            <li style="background-color: var(--darkmode-background);"><a id="aboutLink"><img class="MyMenuIcon" src="images/help-about.svg" alt="About" width="16" height="16" />About</a></li>
+                            <li><a id="docsLink" target="_blank" href="https://wiki.qbittorrent.org/"><img class="MyMenuIcon" src="images/help-contents.svg" alt="Documentation" width="16" height="16">Documentation</a></li>
+                            <li class="divider"><a id="bugLink" target="_blank" href="https://www.qbittorrent.org/donate"><img class="MyMenuIcon" src="images/wallet-open.svg" alt="Donate!" width="16" height="16">Donate!</a></li>
+                            <li><a id="aboutLink"><img class="MyMenuIcon" src="images/help-about.svg" alt="About" width="16" height="16">About</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
             <div id="mochaToolbar">
                 &nbsp;&nbsp;
-                <a id="downloadButton"><img class="mochaToolButton" title="Add Torrent Link..." src="images/insert-link.svg" alt="Add Torrent Link..." width="24" height="24" /></a>
-                <a id="uploadButton"><img class="mochaToolButton" title="Add Torrent File..." src="images/list-add.svg" alt="Add Torrent File..." width="24" height="24" /></a>
-                <a id="deleteButton" class="divider"><img class="mochaToolButton" title="Remove" src="images/list-remove.svg" alt="Remove" width="24" height="24" /></a>
-                <a id="startButton" class="divider"><img class="mochaToolButton" title="start" src="images/torrent-start.svg" alt="start" width="24" height="24" /></a>
-                <a id="stopButton"><img class="mochaToolButton" title="Stop" src="images/torrent-stop.svg" alt="Stop" width="24" height="24" /></a>
+                <a id="downloadButton"><img class="mochaToolButton" title="Add Torrent Link..." src="images/insert-link.svg" alt="Add Torrent Link..." width="24" height="24"></a>
+                <a id="uploadButton"><img class="mochaToolButton" title="Add Torrent File..." src="images/list-add.svg" alt="Add Torrent File..." width="24" height="24"></a>
+                <a id="deleteButton" class="divider"><img class="mochaToolButton" title="Remove" src="images/list-remove.svg" alt="Remove" width="24" height="24"></a>
+                <a id="startButton" class="divider"><img class="mochaToolButton" title="Start" src="images/torrent-start.svg" alt="Start" width="24" height="24"></a>
+                <a id="stopButton"><img class="mochaToolButton" title="Stop" src="images/torrent-stop.svg" alt="Stop" width="24" height="24"></a>
                 <span id="queueingButtons">
-                    <a id="topPrioButton" class="divider"><img class="mochaToolButton" title="Move to the top of the queue" src="images/go-top.svg" alt="Top of Queue" width="24" height="24" /></a>
-                    <a id="increasePrioButton"><img class="mochaToolButton" title="Move up in the queue" src="images/go-up.svg" alt="Move Up Queue" width="24" height="24" /></a>
-                    <a id="decreasePrioButton"><img class="mochaToolButton" title="Move down in the queue" src="images/go-down.svg" alt="Move Down Queue" width="24" height="24" /></a>
-                    <a id="bottomPrioButton"><img class="mochaToolButton" title="Move to the bottom of the queue" src="images/go-bottom.svg" alt="Bottom of Queue" width="24" height="24" /></a>
+                    <a id="topPrioButton" class="divider"><img class="mochaToolButton" title="Move to the top of the queue" src="images/go-top.svg" alt="Top of Queue" width="24" height="24"></a>
+                    <a id="increasePrioButton"><img class="mochaToolButton" title="Move up in the queue" src="images/go-up.svg" alt="Move Up Queue" width="24" height="24"></a>
+                    <a id="decreasePrioButton"><img class="mochaToolButton" title="Move down in the queue" src="images/go-down.svg" alt="Move Down Queue" width="24" height="24"></a>
+                    <a id="bottomPrioButton"><img class="mochaToolButton" title="Move to the bottom of the queue" src="images/go-bottom.svg" alt="Bottom of Queue" width="24" height="24"></a>
                 </span>
-                <a id="preferencesButton" class="divider"><img class="mochaToolButton" title="Options" src="images/configure.svg" alt="Options" width="24" height="24" /></a>
+                <a id="preferencesButton" class="divider"><img class="mochaToolButton" title="Options" src="images/configure.svg" alt="Options" width="24" height="24"></a>
                 <div id="mainWindowTabs" class="toolbarTabs">
-                    <ul id="mainWindowTabsList" class="tab-menu">
-                        <li id="transfersTabLink" class="selected"><a class="tab">Transfers</a></li>
-                        <li id="searchTabLink"><a class="tab">Search</a></li>
-                        <li id="rssTabLink"><a class="tab">RSS</a></li>
-                        <li id="logTabLink"><a class="tab">Execution Log</a></li>
-                    </ul>
+                    <menu id="mainWindowTabsList" class="tab-menu">
+                        <li id="transfersTabLink" class="selected">
+                            <a><img alt="Transfers" src="images/filter-all.svg" width="16" height="16">Transfers</a>
+                        </li>
+                        <li id="searchTabLink">
+                            <a><img alt="Search" src="images/edit-find.svg" width="16" height="16">Search</a>
+                        </li>
+                        <li id="rssTabLink">
+                            <a><img alt="RSS" src="images/application-rss.svg" width="16" height="16">RSS</a>
+                        </li>
+                        <li id="logTabLink">
+                            <a><img alt="Execution Log" src="images/help-contents.svg" width="16" height="16">Execution Log</a>
+                        </li>
+                    </menu>
                     <div class="clear"></div>
                 </div>
                 <div id="torrentsFilterToolbar">
@@ -139,98 +153,105 @@
         </div>
     </div>
     <ul id="torrentsTableMenu" class="contextMenu">
-        <li><a href="#start"><img src="images/torrent-start.svg" alt="Start" /> Start</a></li>
-        <li><a href="#stop"><img src="images/torrent-stop.svg" alt="Stop" /> Stop</a></li>
-        <li><a href="#forceStart"><img src="images/torrent-start-forced.svg" alt="Force Start" /> Force Start</a></li>
-        <li class="separator"><a href="#delete"><img src="images/list-remove.svg" alt="Remove" /> Remove</a></li>
+        <li><a href="#start"><img src="images/torrent-start.svg" alt="Start"> Start</a></li>
+        <li><a href="#stop"><img src="images/torrent-stop.svg" alt="Stop"> Stop</a></li>
+        <li><a href="#forceStart"><img src="images/torrent-start-forced.svg" alt="Force Start"> Force Start</a></li>
+        <li class="separator"><a href="#delete"><img src="images/list-remove.svg" alt="Remove"> Remove</a></li>
         <li class="separator">
-            <a href="#setLocation"><img src="images/set-location.svg" alt="Set location..." /> Set location...</a>
+            <a href="#setLocation"><img src="images/set-location.svg" alt="Set location..."> Set location...</a>
         </li>
         <li>
-            <a href="#rename"><img src="images/edit-rename.svg" alt="Rename..." /> Rename...</a>
+            <a href="#rename"><img src="images/edit-rename.svg" alt="Rename..."> Rename...</a>
         </li>
         <li>
-            <a href="#renameFiles"><img src="images/edit-rename.svg" alt="Rename Files..." /> Rename Files...</a>
+            <a href="#renameFiles"><img src="images/edit-rename.svg" alt="Rename Files..."> Rename Files...</a>
         </li>
         <li>
-            <a href="#Category" class="arrow-right"><img src="images/view-categories.svg" alt="Category" /> Category</a>
+            <a href="#Category" class="arrow-right"><img src="images/view-categories.svg" alt="Category"> Category</a>
             <ul id="contextCategoryList" class="scrollableMenu"></ul>
         </li>
         <li>
-            <a href="#Tags" class="arrow-right"><img src="images/tags.svg" alt="Tags" /> Tags</a>
+            <a href="#Tags" class="arrow-right"><img src="images/tags.svg" alt="Tags"> Tags</a>
             <ul id="contextTagList" class="scrollableMenu"></ul>
         </li>
         <li>
-            <a href="#autoTorrentManagement"><img src="images/checked-completed.svg" alt="Automatic Torrent Management" /> Automatic Torrent Management</a>
+            <a href="#autoTorrentManagement"><img src="images/checked-completed.svg" alt="Automatic Torrent Management"> Automatic Torrent Management</a>
         </li>
-        <li class="separator"><a href="#downloadLimit"><img src="images/download.svg" alt="Limit download rate..." /> Limit download rate...</a></li>
-        <li><a href="#uploadLimit"><img src="images/upload.svg" alt="Limit upload rate..." /> Limit upload rate...</a></li>
-        <li><a href="#shareRatio"><img src="images/ratio.svg" alt="Limit share ratio..." /> Limit share ratio...</a></li>
-        <li><a href="#superSeeding"><img src="images/checked-completed.svg" alt="Super seeding mode" /> Super seeding mode</a></li>
-        <li class="separator"><a href="#sequentialDownload"><img src="images/checked-completed.svg" alt="Download in sequential order" /> Download in sequential order</a></li>
-        <li><a href="#firstLastPiecePrio"><img src="images/checked-completed.svg" alt="Download first and last pieces first" /> Download first and last pieces first</a></li>
-        <li class="separator"><a href="#forceRecheck"><img src="images/force-recheck.svg" alt="Force recheck" /> Force recheck</a></li>
-        <li><a href="#forceReannounce"><img src="images/reannounce.svg" alt="Force reannounce" /> Force reannounce</a></li>
+        <li class="separator"><a href="#downloadLimit"><img src="images/download.svg" alt="Limit download rate..."> Limit download rate...</a></li>
+        <li><a href="#uploadLimit"><img src="images/upload.svg" alt="Limit upload rate..."> Limit upload rate...</a></li>
+        <li><a href="#shareRatio"><img src="images/ratio.svg" alt="Limit share ratio..."> Limit share ratio...</a></li>
+        <li><a href="#superSeeding"><img src="images/checked-completed.svg" alt="Super seeding mode"> Super seeding mode</a></li>
+        <li class="separator"><a href="#sequentialDownload"><img src="images/checked-completed.svg" alt="Download in sequential order"> Download in sequential order</a></li>
+        <li><a href="#firstLastPiecePrio"><img src="images/checked-completed.svg" alt="Download first and last pieces first"> Download first and last pieces first</a></li>
+        <li class="separator"><a href="#forceRecheck"><img src="images/force-recheck.svg" alt="Force recheck"> Force recheck</a></li>
+        <li><a href="#forceReannounce"><img src="images/reannounce.svg" alt="Force reannounce"> Force reannounce</a></li>
         <li id="queueingMenuItems" class="separator">
             <a href="#queue" class="arrow-right"><span style="display: inline-block; width:16px"></span> Queue</a>
             <ul>
-                <li><a href="#queueTop"><img src="images/go-top.svg" alt="Move to top" /> Move to top</a></li>
-                <li><a href="#queueUp"><img src="images/go-up.svg" alt="Move up" /> Move up</a></li>
-                <li><a href="#queueDown"><img src="images/go-down.svg" alt="Move down" /> Move down</a></li>
-                <li><a href="#queueBottom"><img src="images/go-bottom.svg" alt="Move to bottom" /> Move to bottom</a></li>
+                <li><a href="#queueTop"><img src="images/go-top.svg" alt="Move to top"> Move to top</a></li>
+                <li><a href="#queueUp"><img src="images/go-up.svg" alt="Move up"> Move up</a></li>
+                <li><a href="#queueDown"><img src="images/go-down.svg" alt="Move down"> Move down</a></li>
+                <li><a href="#queueBottom"><img src="images/go-bottom.svg" alt="Move to bottom"> Move to bottom</a></li>
             </ul>
         </li>
         <li>
-            <a href="#" class="arrow-right"><img src="images/edit-copy.svg" alt="Copy" /> Copy</a>
+            <a href="#" class="arrow-right"><img src="images/edit-copy.svg" alt="Copy"> Copy</a>
             <ul>
-                <li><a href="#" id="copyName" class="copyToClipboard"><img src="images/name.svg" alt="Name" /> Name</a></li>
-                <li><a href="#" id="copyInfohash1" class="copyToClipboard"><img src="images/hash.svg" alt="Info hash v1" /> Info hash v1</a></li>
-                <li><a href="#" id="copyInfohash2" class="copyToClipboard"><img src="images/hash.svg" alt="Info hash v2" /> Info hash v2</a></li>
-                <li><a href="#" id="copyMagnetLink" class="copyToClipboard"><img src="images/torrent-magnet.svg" alt="Magnet link" /> Magnet link</a></li>
-                <li><a href="#" id="copyID" class="copyToClipboard"><img src="images/help-about.svg" alt="Torrent ID" /> Torrent ID</a></li>
-                <li><a href="#" id="copyComment" class="copyToClipboard"><img src="images/edit-copy.svg" alt="Comment" /> Comment</a></li>
+                <li><a href="#" id="copyName" class="copyToClipboard"><img src="images/name.svg" alt="Name"> Name</a></li>
+                <li><a href="#copyInfohash1" id="copyInfohash1" class="copyToClipboard"><img src="images/hash.svg" alt="Info hash v1"> Info hash v1</a></li>
+                <li><a href="#copyInfohash2" id="copyInfohash2" class="copyToClipboard"><img src="images/hash.svg" alt="Info hash v2"> Info hash v2</a></li>
+                <li><a href="#" id="copyMagnetLink" class="copyToClipboard"><img src="images/torrent-magnet.svg" alt="Magnet link"> Magnet link</a></li>
+                <li><a href="#" id="copyID" class="copyToClipboard"><img src="images/help-about.svg" alt="Torrent ID"> Torrent ID</a></li>
+                <li><a href="#" id="copyComment" class="copyToClipboard"><img src="images/edit-copy.svg" alt="Comment"> Comment</a></li>
             </ul>
         </li>
         <li>
-            <a href="#exportTorrent"><img src="images/edit-copy.svg" alt="Export .torrent" /> Export .torrent</a>
+            <a href="#exportTorrent"><img src="images/edit-copy.svg" alt="Export .torrent"> Export .torrent</a>
         </li>
     </ul>
     <ul id="categoriesFilterMenu" class="contextMenu">
-        <li><a href="#createCategory"><img src="images/list-add.svg" alt="Add category..." /> Add category...</a></li>
-        <li><a href="#createSubcategory"><img src="images/list-add.svg" alt="Add subcategory..." /> Add subcategory...</a></li>
-        <li><a href="#editCategory"><img src="images/edit-rename.svg" alt="Edit category..." /> Edit category...</a></li>
-        <li><a href="#deleteCategory"><img src="images/list-remove.svg" alt="Remove category" /> Remove category</a></li>
-        <li><a href="#deleteUnusedCategories"><img src="images/list-remove.svg" alt="Remove unused categories" /> Remove unused categories</a></li>
-        <li class="separator"><a href="#startTorrentsByCategory"><img src="images/torrent-start.svg" alt="Start torrents" /> Start torrents</a></li>
-        <li><a href="#stopTorrentsByCategory"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
-        <li><a href="#deleteTorrentsByCategory"><img src="images/list-remove.svg" alt="Remove torrents" /> Remove torrents</a></li>
+        <li><a href="#createCategory"><img src="images/list-add.svg" alt="Add category..."> Add category...</a></li>
+        <li><a href="#createSubcategory"><img src="images/list-add.svg" alt="Add subcategory..."> Add subcategory...</a></li>
+        <li><a href="#editCategory"><img src="images/edit-rename.svg" alt="Edit category..."> Edit category...</a></li>
+        <li><a href="#deleteCategory"><img src="images/list-remove.svg" alt="Remove category"> Remove category</a></li>
+        <li><a href="#deleteUnusedCategories"><img src="images/list-remove.svg" alt="Remove unused categories"> Remove unused categories</a></li>
+        <li class="separator"><a href="#startTorrentsByCategory"><img src="images/torrent-start.svg" alt="Start torrents"> Start torrents</a></li>
+        <li><a href="#stopTorrentsByCategory"><img src="images/torrent-stop.svg" alt="Stop torrents"> Stop torrents</a></li>
+        <li><a href="#deleteTorrentsByCategory"><img src="images/list-remove.svg" alt="Remove torrents"> Remove torrents</a></li>
     </ul>
     <ul id="tagsFilterMenu" class="contextMenu">
-        <li><a href="#createTag"><img src="images/list-add.svg" alt="Add tag..." /> Add tag...</a></li>
-        <li><a href="#deleteTag"><img src="images/list-remove.svg" alt="Remove tag" /> Remove tag</a></li>
-        <li><a href="#deleteUnusedTags"><img src="images/list-remove.svg" alt="Remove unused tags" /> Remove unused tags</a></li>
-        <li class="separator"><a href="#startTorrentsByTag"><img src="images/torrent-start.svg" alt="Start torrents" /> Start torrents</a></li>
-        <li><a href="#stopTorrentsByTag"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
-        <li><a href="#deleteTorrentsByTag"><img src="images/list-remove.svg" alt="Remove torrents" /> Remove torrents</a></li>
+        <li><a href="#createTag"><img src="images/list-add.svg" alt="Add tag..."> Add tag...</a></li>
+        <li><a href="#deleteTag"><img src="images/list-remove.svg" alt="Remove tag"> Remove tag</a></li>
+        <li><a href="#deleteUnusedTags"><img src="images/list-remove.svg" alt="Remove unused tags"> Remove unused tags</a></li>
+        <li class="separator"><a href="#startTorrentsByTag"><img src="images/torrent-start.svg" alt="Start torrents"> Start torrents</a></li>
+        <li><a href="#stopTorrentsByTag"><img src="images/torrent-stop.svg" alt="Stop torrents"> Stop torrents</a></li>
+        <li><a href="#deleteTorrentsByTag"><img src="images/list-remove.svg" alt="Remove torrents"> Remove torrents</a></li>
     </ul>
     <ul id="trackersFilterMenu" class="contextMenu">
-        <li><a href="#startTorrentsByTracker"><img src="images/torrent-start.svg" alt="Start torrents" /> Start torrents</a></li>
-        <li><a href="#stopTorrentsByTracker"><img src="images/torrent-stop.svg" alt="Stop torrents" /> Stop torrents</a></li>
-        <li><a href="#deleteTorrentsByTracker"><img src="images/list-remove.svg" alt="Remove torrents" /> Remove torrents</a></li>
+        <li><a href="#deleteTracker"><img src="images/edit-clear.svg" alt="Remove tracker"> Remove tracker</a></li>
+        <li class="separator"><a href="#startTorrentsByTracker"><img src="images/torrent-start.svg" alt="Start torrents"> Start torrents</a></li>
+        <li><a href="#stopTorrentsByTracker"><img src="images/torrent-stop.svg" alt="Stop torrents"> Stop torrents</a></li>
+        <li><a href="#deleteTorrentsByTracker"><img src="images/list-remove.svg" alt="Remove torrents"> Remove torrents</a></li>
     </ul>
     <ul id="torrentTrackersMenu" class="contextMenu">
-        <li><a href="#AddTracker"><img src="images/list-add.svg" alt="Add trackers..." /> Add trackers...</a></li>
-        <li class="separator"><a href="#EditTracker"><img src="images/edit-rename.svg" alt="Edit tracker URL..." /> Edit tracker URL...</a></li>
-        <li><a href="#RemoveTracker"><img src="images/list-remove.svg" alt="Remove tracker" /> Remove tracker</a></li>
-        <li><a href="#CopyTrackerUrl" id="CopyTrackerUrl"><img src="images/edit-copy.svg" alt="Copy tracker URL" /> Copy tracker URL</a></li>
+        <li><a href="#AddTracker"><img src="images/list-add.svg" alt="Add trackers..."> Add trackers...</a></li>
+        <li class="separator"><a href="#EditTracker"><img src="images/edit-rename.svg" alt="Edit tracker URL..."> Edit tracker URL...</a></li>
+        <li><a href="#RemoveTracker"><img src="images/list-remove.svg" alt="Remove tracker"> Remove tracker</a></li>
+        <li><a href="#CopyTrackerUrl" id="CopyTrackerUrl"><img src="images/edit-copy.svg" alt="Copy tracker URL"> Copy tracker URL</a></li>
     </ul>
     <ul id="torrentPeersMenu" class="contextMenu">
-        <li><a href="#addPeer"><img src="images/peers-add.svg" alt="Add peers..." /> Add peers...</a></li>
-        <li><a href="#copyPeer" id="CopyPeerInfo"><img src="images/edit-copy.svg" alt="Copy IP:port" /> Copy IP:port</a></li>
-        <li class="separator"><a href="#banPeer"><img src="images/peers-remove.svg" alt="Ban peer permanently" /> Ban peer permanently</a></li>
+        <li><a href="#addPeer"><img src="images/peers-add.svg" alt="Add peers..."> Add peers...</a></li>
+        <li><a href="#copyPeer" id="CopyPeerInfo"><img src="images/edit-copy.svg" alt="Copy IP:port"> Copy IP:port</a></li>
+        <li class="separator"><a href="#banPeer"><img src="images/peers-remove.svg" alt="Ban peer permanently"> Ban peer permanently</a></li>
+    </ul>
+    <ul id="torrentWebseedsMenu" class="contextMenu">
+        <li><a href="#AddWebSeeds"><img src="images/list-add.svg" alt="Add web seeds..."> Add web seeds...</a></li>
+        <li><a href="#RemoveWebSeed"><img src="images/list-remove.svg" alt="Remove web seed"> Remove web seed</a></li>
+        <li class="separator"><a href="#CopyWebseedUrl" id="CopyWebseedUrl"><img src="images/edit-copy.svg" alt="Copy web seed URL"> Copy web seed URL</a></li>
+        <li><a href="#EditWebSeed"><img src="images/edit-rename.svg" alt="Edit web seed URL..."> Edit web seed URL...</a></li>
     </ul>
     <ul id="torrentFilesMenu" class="contextMenu">
-        <li><a href="#Rename"><img src="images/edit-rename.svg" alt="Rename..." /> Rename...</a></li>
+        <li><a href="#Rename"><img src="images/edit-rename.svg" alt="Rename..."> Rename...</a></li>
         <li class="separator">
             <a href="#FilePrio" class="arrow-right"><span style="display: inline-block; width: 16px;"></span> Priority</a>
             <ul>
@@ -242,27 +263,27 @@
         </li>
     </ul>
     <ul id="multiRenameFilesMenu" class="contextMenu">
-        <li><a href="#ToggleSelection"><img src="images/edit-rename.svg" alt="Toggle Selection" /> Toggle Selection</a></li>
+        <li><a href="#ToggleSelection"><img src="images/edit-rename.svg" alt="Toggle Selection"> Toggle Selection</a></li>
     </ul>
     <div id="desktopFooterWrapper">
         <div id="desktopFooter">
             <span id="error_div"></span>
             <table style="position: absolute; right: 5px;">
-                <tr>
-                    <td id="torrentsTotalSize"></td>
-                    <td class="statusBarSeparator"></td>
-                    <td id="freeSpaceOnDisk"></td>
-                    <td class="statusBarSeparator"></td>
-                    <td id="DHTNodes"></td>
-                    <td class="statusBarSeparator"></td>
-                    <td><img id="connectionStatus" alt="Connection status" title="Connection status" src="images/firewalled.svg" style="height: 1.5em;" /></td>
-                    <td class="statusBarSeparator"></td>
-                    <td style="cursor:pointer;"><img id="alternativeSpeedLimits" alt="Alternative speed limits" title="Alternative speed limits" src="images/slow_off.svg" style="height: 1.5em;" /></td>
-                    <td class="statusBarSeparator"></td>
-                    <td class="speedLabel"><img src="images/downloading.svg" alt="Download speed icon" style="height: 1.5em; padding-right: 5px; margin-bottom: -4px;"><span id="DlInfos"></span></td>
-                    <td class="statusBarSeparator"></td>
-                    <td class="speedLabel"><img src="images/upload.svg" alt="Upload speed icon" style="height: 1.4em; padding-right: 5px; margin-bottom: -4px;"><span id="UpInfos"></span></td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td id="freeSpaceOnDisk"></td>
+                        <td class="statusBarSeparator"></td>
+                        <td id="DHTNodes"></td>
+                        <td class="statusBarSeparator"></td>
+                        <td><img id="connectionStatus" alt="Connection status: Firewalled" title="Connection status: Firewalled" src="images/firewalled.svg" style="height: 1.5em;"></td>
+                        <td class="statusBarSeparator"></td>
+                        <td style="cursor:pointer;"><img id="alternativeSpeedLimits" alt="Alternative speed limits: Off" title="Alternative speed limits: Off" src="images/slow_off.svg" style="height: 1.5em;"></td>
+                        <td class="statusBarSeparator"></td>
+                        <td class="speedLabel"><img src="images/downloading.svg" alt="Download speed icon" style="height: 1.5em; padding-right: 5px; margin-bottom: -4px;"><span id="DlInfos"></span></td>
+                        <td class="statusBarSeparator"></td>
+                        <td class="speedLabel"><img src="images/upload.svg" alt="Upload speed icon" style="height: 1.5em; padding-right: 5px; margin-bottom: -4px;"><span id="UpInfos"></span></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>

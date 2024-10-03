@@ -2,10 +2,9 @@
 <html lang="${LANG}">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Torrent Download Speed Limiting</title>
-    <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/Core.css?v=${CACHEID}" />
+    <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css">
     <script src="scripts/lib/MooTools-Core-1.6.0-compat-compressed.js"></script>
     <script src="scripts/lib/MooTools-More-1.6.0-compat-compressed.js"></script>
     <script src="scripts/lib/mocha.min.js"></script>
@@ -15,74 +14,76 @@
 <body>
     <div style="width: 100%; text-align: center; margin: 0 auto; overflow: hidden">
         <div id="dllimitSlider" class="slider">
-            <div id="dllimitUpdate" class="update">Download limit: <input id="dllimitUpdatevalue" size="6" placeholder="∞" style="text-align: center;"> <span id="dlLimitUnit">KiB/s</span></div>
+            <div id="dllimitUpdate" class="update">
+                <label for="dllimitUpdatevalue">Download limit:</label>
+                <input type="text" id="dllimitUpdatevalue" size="6" placeholder="∞" style="text-align: center;">
+                <span id="dlLimitUnit">KiB/s</span>
+            </div>
             <div class="sliderWrapper">
                 <div id="dllimitSliderknob" class="sliderknob"></div>
                 <div id="dllimitSliderarea" class="sliderarea"></div>
             </div>
             <div class="clear"></div>
         </div>
-        <script>
-            'use strict';
-
-            const hashes = new URI().getData('hashes').split('|');
-            const setDlLimit = function() {
-                const limit = $("dllimitUpdatevalue").value.toInt() * 1024;
-                if (hashes[0] == "global") {
-                    new Request({
-                        url: 'api/v2/transfer/setDownloadLimit',
-                        method: 'post',
-                        data: {
-                            'limit': limit
-                        },
-                        onComplete: function() {
-                            window.parent.updateMainData();
-                            window.parent.closeWindows();
-                        }
-                    }).send();
-                }
-                else {
-                    new Request({
-                        url: 'api/v2/torrents/setDownloadLimit',
-                        method: 'post',
-                        data: {
-                            'hashes': hashes.join('|'),
-                            'limit': limit
-                        },
-                        onComplete: function() {
-                            window.parent.closeWindows();
-                        }
-                    }).send();
-                }
-            };
-        </script>
-        <input class="button" type="button" id="applyButton" value="Apply" onclick="setDlLimit()" />
+        <input type="button" id="applyButton" value="Apply" onclick="setDlLimit()">
     </div>
 
     <script>
+        "use strict";
+
+        const hashes = new URI().getData("hashes").split("|");
+        const setDlLimit = function() {
+            const limit = $("dllimitUpdatevalue").value.toInt() * 1024;
+            if (hashes[0] === "global") {
+                new Request({
+                    url: "api/v2/transfer/setDownloadLimit",
+                    method: "post",
+                    data: {
+                        "limit": limit
+                    },
+                    onComplete: function() {
+                        window.parent.updateMainData();
+                        window.parent.qBittorrent.Client.closeWindows();
+                    }
+                }).send();
+            }
+            else {
+                new Request({
+                    url: "api/v2/torrents/setDownloadLimit",
+                    method: "post",
+                    data: {
+                        "hashes": hashes.join("|"),
+                        "limit": limit
+                    },
+                    onComplete: function() {
+                        window.parent.qBittorrent.Client.closeWindows();
+                    }
+                }).send();
+            }
+        };
+
         new Keyboard({
-            defaultEventType: 'keydown',
+            defaultEventType: "keydown",
             events: {
-                'Enter': function(event) {
-                    $('applyButton').click();
+                "Enter": function(event) {
+                    $("applyButton").click();
                     event.preventDefault();
                 },
-                'Escape': function(event) {
-                    window.parent.closeWindows();
+                "Escape": function(event) {
+                    window.parent.qBittorrent.Client.closeWindows();
                     event.preventDefault();
                 },
-                'Esc': function(event) {
-                    window.parent.closeWindows();
+                "Esc": function(event) {
+                    window.parent.qBittorrent.Client.closeWindows();
                     event.preventDefault();
                 }
             }
         }).activate();
 
-        $('dllimitUpdatevalue').focus();
+        $("dllimitUpdatevalue").focus();
 
         MochaUI.addDlLimitSlider(hashes);
     </script>
-
 </body>
 
 </html>

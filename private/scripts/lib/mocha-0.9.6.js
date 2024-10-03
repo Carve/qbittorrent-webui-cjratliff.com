@@ -2262,8 +2262,7 @@ MUI.Window = new Class({
 			'styles': {
 				'position': 'absolute', // This is set here to make theme transitions smoother
 				'top': 0,
-				'left': 0,
-				'height': 'auto'
+				'left': 0
 			}
 		}).inject(this.windowEl);
 

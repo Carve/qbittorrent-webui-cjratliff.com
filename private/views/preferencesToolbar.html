@@ -1,56 +1,72 @@
 <!-- preferences -->
 <div class="toolbarTabs">
-    <ul id="preferencesTabs" class="tab-menu">
-        <li id="PrefBehaviorLink" class="selected"><a>Behavior</a></li>
-        <li id="PrefDownloadsLink"><a>Downloads</a></li>
-        <li id="PrefConnectionLink"><a>Connection</a></li>
-        <li id="PrefSpeedLink"><a>Speed</a></li>
-        <li id="PrefBittorrentLink"><a>BitTorrent</a></li>
-        <li id="PrefRSSLink"><a>RSS</a></li>
-        <li id="PrefWebUILink"><a>Web UI</a></li>
-        <li id="PrefAdvancedLink"><a>Advanced</a></li>
-    </ul>
+    <menu id="preferencesTabs" class="tab-menu">
+        <li id="PrefBehaviorLink" class="selected">
+            <a><img alt="Behavior" src="images/preferences-desktop.svg" width="16" height="16">Behavior</a>
+        </li>
+        <li id="PrefDownloadsLink">
+            <a><img alt="Downloads" src="images/download.svg" width="16" height="16">Downloads</a>
+        </li>
+        <li id="PrefConnectionLink">
+            <a><img alt="Connection" src="images/network-connect.svg" width="16" height="16">Connection</a>
+        </li>
+        <li id="PrefSpeedLink">
+            <a><img alt="Speed" src="images/slow_off.svg" width="16" height="16">Speed</a>
+        </li>
+        <li id="PrefBittorrentLink">
+            <a><img alt="BitTorrent" src="images/preferences-bittorrent.svg" width="16" height="16">BitTorrent</a>
+        </li>
+        <li id="PrefRSSLink">
+            <a><img alt="RSS" src="images/application-rss.svg" width="16" height="16">RSS</a>
+        </li>
+        <li id="PrefWebUILink">
+            <a><img alt="WebUI" src="images/preferences-webui.svg" width="16" height="16">WebUI</a>
+        </li>
+        <li id="PrefAdvancedLink">
+            <a><img alt="Advanced" src="images/preferences-advanced.svg" width="16" height="16">Advanced</a>
+        </li>
+    </menu>
     <div class="clear"></div>
 </div>
 
 <script>
-    'use strict';
+    "use strict";
 
     (function() {
         // Tabs
-        MochaUI.initializeTabs('preferencesTabs');
+        MochaUI.initializeTabs("preferencesTabs");
 
-        $('PrefBehaviorLink').addEvent('click', function(e) {
-            $$('.PrefTab').addClass('invisible');
-            $('BehaviorTab').removeClass('invisible');
+        $("PrefBehaviorLink").addEventListener("click", (e) => {
+            $$(".PrefTab").addClass("invisible");
+            $("BehaviorTab").removeClass("invisible");
         });
-        $('PrefDownloadsLink').addEvent('click', function(e) {
-            $$('.PrefTab').addClass('invisible');
-            $('DownloadsTab').removeClass('invisible');
+        $("PrefDownloadsLink").addEventListener("click", (e) => {
+            $$(".PrefTab").addClass("invisible");
+            $("DownloadsTab").removeClass("invisible");
         });
-        $('PrefConnectionLink').addEvent('click', function(e) {
-            $$('.PrefTab').addClass('invisible');
-            $('ConnectionTab').removeClass('invisible');
+        $("PrefConnectionLink").addEventListener("click", (e) => {
+            $$(".PrefTab").addClass("invisible");
+            $("ConnectionTab").removeClass("invisible");
         });
-        $('PrefSpeedLink').addEvent('click', function(e) {
-            $$('.PrefTab').addClass('invisible');
-            $('SpeedTab').removeClass('invisible');
+        $("PrefSpeedLink").addEventListener("click", (e) => {
+            $$(".PrefTab").addClass("invisible");
+            $("SpeedTab").removeClass("invisible");
         });
-        $('PrefBittorrentLink').addEvent('click', function(e) {
-            $$('.PrefTab').addClass('invisible');
-            $('BittorrentTab').removeClass('invisible');
+        $("PrefBittorrentLink").addEventListener("click", (e) => {
+            $$(".PrefTab").addClass("invisible");
+            $("BittorrentTab").removeClass("invisible");
         });
-        $('PrefRSSLink').addEvent('click', function(e) {
-            $$('.PrefTab').addClass('invisible');
-            $('RSSTab').removeClass('invisible');
+        $("PrefRSSLink").addEventListener("click", (e) => {
+            $$(".PrefTab").addClass("invisible");
+            $("RSSTab").removeClass("invisible");
         });
-        $('PrefWebUILink').addEvent('click', function(e) {
-            $$('.PrefTab').addClass('invisible');
-            $('WebUITab').removeClass('invisible');
+        $("PrefWebUILink").addEventListener("click", (e) => {
+            $$(".PrefTab").addClass("invisible");
+            $("WebUITab").removeClass("invisible");
         });
-        $('PrefAdvancedLink').addEvent('click', function(e) {
-            $$('.PrefTab').addClass('invisible');
-            $('AdvancedTab').removeClass('invisible');
+        $("PrefAdvancedLink").addEventListener("click", (e) => {
+            $$(".PrefTab").addClass("invisible");
+            $("AdvancedTab").removeClass("invisible");
         });
     })();
 </script>

@@ -2,75 +2,78 @@
 <html lang="${LANG}">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Please choose a folder name</title>
-    <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/Core.css?v=${CACHEID}" />
+    <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css">
     <script src="scripts/lib/MooTools-Core-1.6.0-compat-compressed.js"></script>
     <script src="scripts/lib/MooTools-More-1.6.0-compat-compressed.js"></script>
     <script src="scripts/misc.js?locale=${LANG}&v=${CACHEID}"></script>
+    <script src="scripts/pathAutofill.js?v=${CACHEID}"></script>
     <script>
-        'use strict';
+        "use strict";
 
         new Keyboard({
-            defaultEventType: 'keydown',
+            defaultEventType: "keydown",
             events: {
-                'Enter': (event) => {
-                    $('submitButton').click();
+                "Enter": (event) => {
+                    $("submitButton").click();
                     event.preventDefault();
                 },
-                'Escape': (event) => {
-                    window.parent.closeWindows();
+                "Escape": (event) => {
+                    window.parent.qBittorrent.Client.closeWindows();
                     event.preventDefault();
                 },
-                'Esc': (event) => {
-                    window.parent.closeWindows();
+                "Esc": (event) => {
+                    window.parent.qBittorrent.Client.closeWindows();
                     event.preventDefault();
                 }
             }
         }).activate();
-        window.addEvent('domready', () => {
-            $('folderName').focus();
-            const path = new URI().getData('path');
-            $('submitButton').addEvent('click', (e) => {
-                new Event(e).stop();
+        window.addEventListener("DOMContentLoaded", () => {
+            $("folderName").focus();
+            const path = new URI().getData("path");
+            $("submitButton").addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
                 // check field
-                const folderName = $('folderName').value.trim();
-                if (folderName === '') {
-                    alert('Name cannot be empty');
+                const folderName = $("folderName").value.trim();
+                if (folderName === "") {
+                    alert("Name cannot be empty");
                     return;
                 }
 
-                $('submitButton').disabled = true;
+                $("submitButton").disabled = true;
 
                 new Request({
-                    url: 'api/v2/rss/addFolder',
-                    noCache: true,
-                    method: 'post',
+                    url: "api/v2/rss/addFolder",
+                    method: "post",
                     data: {
-                        path: path ? (path + '\\' + folderName) : folderName
+                        path: path ? (path + "\\" + folderName) : folderName
                     },
                     onSuccess: (response) => {
                         window.parent.qBittorrent.Rss.updateRssFeedList();
-                        window.parent.closeWindows();
+                        window.parent.qBittorrent.Client.closeWindows();
                     },
                     onFailure: (response) => {
                         if (response.status === 409)
                             alert(response.responseText);
-                        $('submitButton').disabled = false;
+                        $("submitButton").disabled = false;
                     }
                 }).send();
             });
         });
+
+        window.qBittorrent.pathAutofill.attachPathAutofill();
     </script>
 </head>
 
 <body>
     <div style="padding: 10px 10px 0px 10px;">
-        <p style="font-weight: bold;">Folder name:</p>
-        <input type="text" id="folderName" style="width: 320px;" />
+        <label for="folderName" style="font-weight: bold;">Folder name:</label>
+        <input type="text" id="folderName" class="pathDirectory" style="width: 320px;">
         <div style="text-align: center; padding-top: 10px;">
-            <input class="button" type="button" value="OK" id="submitButton" />
+            <input type="button" value="OK" id="submitButton">
         </div>
     </div>
 </body>
