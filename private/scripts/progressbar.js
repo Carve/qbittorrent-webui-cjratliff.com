@@ -44,9 +44,9 @@ window.qBittorrent.ProgressBar ??= (() => {
                 "value": [value, 0].pick(),
                 "width": 0,
                 "height": 0,
-                "darkbg": "var(--color-background-blue)",
+                "darkbg": "#00d9ff",
                 "darkfg": "var(--color-text-white)",
-                "lightbg": "var(--color-background-default)",
+                "lightbg": "#00d9ff",
                 "lightfg": "var(--color-text-default)"
             };
             if (parameters && (typeOf(parameters) === "object"))

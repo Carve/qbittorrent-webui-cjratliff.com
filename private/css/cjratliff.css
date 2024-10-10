@@ -62,4 +62,27 @@ body {
 
 .highlight-purple {
 	color: var(--highlight-color--purple) !important;
-}	
+}
+
+/* Fixes for darkmode */
+@media (prefers-color-scheme: dark) {
+	body.darkmode, body {
+		background-color: var(--darkmode-background);
+		color: var(--darkmode-text);
+	}
+}
+
+/* Fix for progressbar */
+td#progress {
+	background-color: var(--darkmode-background);
+	color: var(--darkmode-text);
+}
+
+td#progress .piecesbarWrapper {
+	margin-top: 3px;
+}
+
+td#progress .piecesbarWrapper .piecesbarCanvas {
+	height: 1rem;
+	width: 100%;
+}
