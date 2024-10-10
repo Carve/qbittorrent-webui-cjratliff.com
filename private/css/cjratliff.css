@@ -66,7 +66,7 @@ body {
 
 /* Fixes for darkmode */
 @media (prefers-color-scheme: dark) {
-	body.darkmode, body {
+	body.darkmode, body, .MyMenuIcon, #desktopNavbar li ul li a {
 		background-color: var(--darkmode-background);
 		color: var(--darkmode-text);
 	}
