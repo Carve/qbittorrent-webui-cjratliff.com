@@ -303,7 +303,7 @@ hr {
 }
 
 .selectedFilter {
-    background-color: var(--darkmode-text-alt);
+    background-color: var(--darkmode-background-light);
     color: var(--darkmode-background);
 }
 
