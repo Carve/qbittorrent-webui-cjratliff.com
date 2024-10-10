@@ -438,10 +438,6 @@ a.propButton img {
     padding: 1px;
 }
 
-#contextCategoryList img.highlightedCategoryIcon {
-    background-color: hsl(213deg 94% 86%);
-}
-
 /* Sliders */
 
 .slider {

@@ -458,6 +458,10 @@ window.qBittorrent.ContextMenu ??= (() => {
                 const count = categoryCount.get(category.name);
                 const isEqual = ((count !== undefined) && (count === selectedRows.length));
                 categoryIcon.classList.toggle("highlightedCategoryIcon", isEqual);
+                // swap SVG to view-categories-selected.svg when selected
+                categoryIcon.src = isEqual
+                    ? "images/view-categories-selected.svg"
+                    : "images/view-categories.svg";
             });
         },
 
