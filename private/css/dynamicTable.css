@@ -4,10 +4,6 @@
     v 0.4
 
 **************************************************************/
-.altRowColors tbody tr:nth-child(odd of :not(.invisible)) {
-    background-color: var(--color-background-default);
-}
-
 .dynamicTable tbody tr,
 .dynamicTable tr.nonAlt,
 #torrentFilesTableDiv .dynamicTable tr.nonAlt {
@@ -88,6 +84,7 @@ tr.dynamicTableHeader {
 
 .dynamicTable th.sorted.reverse {
     background-image: url("../images/go-down.svg");
+    background-size: 15px;
 }
 
 .dynamicTable span.flags {
