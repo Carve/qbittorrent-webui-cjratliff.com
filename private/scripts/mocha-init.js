@@ -473,7 +473,7 @@
        deleteSelectedTorrentsFN = function(forceDeleteFiles = false) {
            const hashes = torrentsTable.selectedRowsIds();
            if (hashes.length > 0) {
-               if (window.qBittorrent.Cache.preferences.get().confirm_torrent_deletion) {
+            //   if (window.qBittorrent.Cache.preferences.get().confirm_torrent_deletion) {
                    new MochaUI.Modal({
                        ...window.qBittorrent.Dialog.baseModalOptions,
                        id: "confirmDeletionPage",
@@ -492,25 +492,25 @@
                            document.getElementById("modalOverlay").style.display = "none";
                        }
                    });
-               }
-               else {
-                   new Request({
-                       url: "api/v2/torrents/delete",
-                       method: "post",
-                       data: {
-                           hashes: hashes.join("|"),
-                           deleteFiles: forceDeleteFiles
-                       },
-                       onSuccess: function() {
-                           torrentsTable.deselectAll();
-                           updateMainData();
-                           updatePropertiesPanel();
-                       },
-                       onFailure: function() {
-                           alert("Unable to delete torrents.");
-                       }
-                   }).send();
-               }
+            //    }
+            //    else {
+            //        new Request({
+            //            url: "api/v2/torrents/delete",
+            //            method: "post",
+            //            data: {
+            //                hashes: hashes.join("|"),
+            //                deleteFiles: forceDeleteFiles
+            //            },
+            //            onSuccess: function() {
+            //                torrentsTable.deselectAll();
+            //                updateMainData();
+            //                updatePropertiesPanel();
+            //            },
+            //            onFailure: function() {
+            //                alert("Unable to delete torrents.");
+            //            }
+            //        }).send();
+            //    }
            }
        };
    
@@ -758,7 +758,7 @@
                            MochaUI.centerWindow(w);
                        }
                    });
-               }
+            //    }
             //    else {
             //        new Request({
             //            url: "api/v2/torrents/delete",
