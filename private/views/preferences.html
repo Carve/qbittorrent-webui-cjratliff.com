@@ -10,7 +10,7 @@
     <fieldset class="settings">
         <legend>Transfer list</legend>
         <div class="formRow" style="margin-bottom: 3px;" title="Shows a confirmation dialog upon torrent deletion">
-            <input type="checkbox" id="confirmTorrentDeletion">
+            <input type="checkbox" id="confirmTorrentDeletion" checked>
             <label for="confirmTorrentDeletion">Confirm when deleting torrents</label>
         </div>
         <div class="formRow" style="margin-bottom: 3px;">
@@ -1014,11 +1014,11 @@
                                 <label for="webui_domain_textarea">Server domains:</label>
                             </td>
                             <td>
-                                <textarea id="webui_domain_textarea" rows="1" cols="60" title="QBT_TR(Whitelist for filtering HTTP Host header values.
+                                <textarea id="webui_domain_textarea" rows="1" cols="60" title="Whitelist for filtering HTTP Host header values.
 In order to defend against DNS rebinding attack,
 you should put in domain names used by WebUI server.
 
-Use ';' to split multiple entries. Can use wildcard '*'.)QBT_TR[CONTEXT=OptionsDialog]"></textarea>
+Use ';' to split multiple entries. Can use wildcard '*'."></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -2127,7 +2127,7 @@ Use ';' to split multiple entries. Can use wildcard '*'.)QBT_TR[CONTEXT=OptionsD
                     document.getElementById("hideZeroFiltersCheckbox").checked = (LocalPreferences.get("hide_zero_status_filters", "false") === "true");
                     $("dblclickDownloadSelect").value = LocalPreferences.get("dblclick_download", "1");
                     $("dblclickCompleteSelect").value = LocalPreferences.get("dblclick_complete", "1");
-                    document.getElementById("confirmTorrentDeletion").checked = pref.confirm_torrent_deletion;
+                    document.getElementById("confirmTorrentDeletion").checked = pref.confirm_torrent_deletion ?? true;
                     document.getElementById("useAltRowColorsInput").checked = (LocalPreferences.get("use_alt_row_colors", "true") === "true");
                     $("filelog_checkbox").checked = pref.file_log_enabled;
                     $("filelog_save_path_input").value = pref.file_log_path;
@@ -2545,7 +2545,7 @@ Use ';' to split multiple entries. Can use wildcard '*'.)QBT_TR[CONTEXT=OptionsD
             LocalPreferences.set("hide_zero_status_filters", document.getElementById("hideZeroFiltersCheckbox").checked.toString());
             LocalPreferences.set("dblclick_download", $("dblclickDownloadSelect").value);
             LocalPreferences.set("dblclick_complete", $("dblclickCompleteSelect").value);
-            settings["confirm_torrent_deletion"] = document.getElementById("confirmTorrentDeletion").checked;
+            settings["confirm_torrent_deletion"] = document.getElementById("confirmTorrentDeletion").checked ?? true;
             LocalPreferences.set("use_alt_row_colors", document.getElementById("useAltRowColorsInput").checked.toString());
             settings["file_log_enabled"] = $("filelog_checkbox").checked;
             settings["file_log_path"] = $("filelog_save_path_input").value;

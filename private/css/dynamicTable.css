@@ -4,10 +4,6 @@
     v 0.4
 
 **************************************************************/
-.altRowColors tbody tr:nth-child(odd of :not(.invisible)) {
-    background-color: var(--color-background-default);
-}
-
 .dynamicTable tbody tr,
 .dynamicTable tr.nonAlt,
 #torrentFilesTableDiv .dynamicTable tr.nonAlt {
@@ -25,8 +21,14 @@
 
 .dynamicTable tbody tr.selected,
 .dynamicTable tbody tr:hover {
-    background-color: var(--darkmode-background-alt2);
-    color: var(--darkmode-text-alt)
+    background-color: var(--darkmode-background-light);
+    color: var(--darkmode-background)
+}
+
+
+.dynamicTable tbody tr.selected .ratio,
+.dynamicTable tbody tr:hover .ratio {
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
 #transferList tr:hover {
@@ -88,6 +90,7 @@ tr.dynamicTableHeader {
 
 .dynamicTable th.sorted.reverse {
     background-image: url("../images/go-down.svg");
+    background-size: 15px;
 }
 
 .dynamicTable span.flags {
@@ -109,4 +112,16 @@ tr.dynamicTableHeader {
     line-height: 0px !important;
     padding-bottom: 0px !important;
     padding-top: 0px !important;
+}
+
+.dynamicTableDiv tbody tr td img.filesTableCollapseIcon {
+    height: 18px;
+    width: 18px;
+    vertical-align: middle;
+    margin: auto;
+    transform: rotate(180deg);
+}
+
+.dynamicTableDiv tbody tr td img.filesTableCollapseIcon.rotate {
+    transform: rotate(0deg);
 }

@@ -1,3 +1,12 @@
+/* New UI --------------------------------------------------------- */
+
+@import url('../fonts/fonts.css');
+@import url(cjratliff.css);
+
+/* ---------------------------------------------------------------- */
+
+
+
 /* Reset */
 
 a img,
@@ -14,15 +23,16 @@ input[type="password"],
 input[type="button"],
 button,
 select {
-    border: 1px solid var(--color-border-default);
-    border-radius: 3px;
-    color: var(--color-text-default);
-    padding: 4px;
+    background-color: var(--darkmode-background);
+    border: solid 1px var(--darkmode-line-color);
+    border-radius: 8px;
+    padding: 4px 4px 4px 10px;
+    color: var(--darkmode-text);
 }
 
 input[type="checkbox"],
 input[type="radio"] {
-    accent-color: var(--color-accent-blue);
+    accent-color: var(--darkmode-primary);
 }
 
 input[type="button"],
@@ -224,8 +234,23 @@ dd {
 /* Forms */
 
 fieldset {
-    border: 1px solid var(--color-border-default);
-    border-radius: 5px;
+    border: solid 1px var(--darkmode-line-color);
+    border-radius: 8px;
+    padding: 4px 4px 4px 10px;
+}
+
+fieldset legend {
+    font-weight: bold;
+    margin-left: 8px;
+    padding: 4px;
+}
+
+fieldset label {
+    padding: 2px;
+}
+
+fieldset+div.formRow {
+    margin-top: 10px;
 }
 
 /* Code */
@@ -294,12 +319,17 @@ hr {
 }
 
 .selectedFilter {
-    background-color: var(--darkmode-text-alt);
+    background-color: var(--darkmode-background-light);
     color: var(--darkmode-background);
 }
 
 .selectedFilter a {
     color: #ffffff;
+}
+
+#torrentFilesFilterToolbar {
+    float: right;
+    margin-right: 5px;
 }
 
 #properties {
@@ -429,10 +459,6 @@ a.propButton img {
     padding: 1px;
 }
 
-#contextCategoryList img.highlightedCategoryIcon {
-    background-color: hsl(213deg 94% 86%);
-}
-
 /* Sliders */
 
 .slider {
@@ -525,9 +551,9 @@ a.propButton img {
 #torrentsFilterInput {
     background-color: var(--color-background-default);
     background-image: url("../images/edit-find.svg");
-    background-position: left;
+    background-position: .5rem;
     background-repeat: no-repeat;
-    background-size: 1.5em;
+    background-size: .75rem;
     padding-left: 2em;
     width: 160px;
     height: 100%;
@@ -601,30 +627,6 @@ label.checked {
 
 label.partial {
     background-position: 0 -26px;
-}
-
-fieldset {
-    border-color: var(--darkmode-line-color);
-}
-
-fieldset.settings {
-    border: solid 1px var(--darkmode-line-color);
-    border-radius: 8px;
-    padding: 4px 4px 4px 10px;
-}
-
-fieldset.settings legend {
-    font-weight: bold;
-    margin-left: 8px;
-    padding: 4px;
-}
-
-fieldset.settings label {
-    padding: 2px;
-}
-
-fieldset.settings+div.formRow {
-    margin-top: 10px;
 }
 
 div.formRow {

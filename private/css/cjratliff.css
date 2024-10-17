@@ -4,8 +4,10 @@
 	--darkmode-background: #202020;
 	--darkmode-background-alt: #242424;
 	--darkmode-background-alt2: #4e4e4e;
+	--darkmode-background-light: #aaaaaa;
 	--darkmode-text: #c2c2c2;
 	--darkmode-text-alt: #d3d3d3;
+	--color-text-default: var(--darkmode-background);
 	--darkmode-line-color: #2F3437;
 	--highlight-color--darkred: #b83739;
 	--highlight-color--red: #ce292c;
@@ -62,4 +64,27 @@ body {
 
 .highlight-purple {
 	color: var(--highlight-color--purple) !important;
-}	
+}
+
+/* Fixes for darkmode */
+@media (prefers-color-scheme: dark) {
+	body.darkmode, body, .MyMenuIcon, #desktopNavbar li ul li a {
+		background-color: var(--darkmode-background);
+		color: var(--darkmode-text);
+	}
+}
+
+/* Fix for progressbar */
+td#progress {
+	background-color: var(--darkmode-background);
+	color: var(--darkmode-text);
+}
+
+td#progress .piecesbarWrapper {
+	margin-top: 3px;
+}
+
+td#progress .piecesbarWrapper .piecesbarCanvas {
+	height: 1rem;
+	width: 100%;
+}
