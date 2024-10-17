@@ -187,7 +187,7 @@
            new MochaUI.Window({
                id: id,
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(Download from URLs)QBT_TR[CONTEXT=downloadFromURL]",
+               title: "Download from URLs",
                loadMethod: "iframe",
                contentURL: contentUri.toString(),
                addClass: "windowFrame", // fixes iframe scrolling on iOS Safari
@@ -213,7 +213,7 @@
            new MochaUI.Window({
                id: id,
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(Options)QBT_TR[CONTEXT=OptionsDialog]",
+               title: "Options",
                loadMethod: "xhr",
                toolbar: true,
                contentURL: new URI("views/preferences.html").toString(),
@@ -240,7 +240,7 @@
            const id = "cookiesPage";
            new MochaUI.Window({
                id: id,
-               title: "QBT_TR(Manage Cookies)QBT_TR[CONTEXT=CookiesDialog]",
+               title: "Manage Cookies",
                loadMethod: "xhr",
                contentURL: new URI("views/cookies.html").toString(),
                maximizable: false,
@@ -262,7 +262,7 @@
            new MochaUI.Window({
                id: id,
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(Upload local torrent)QBT_TR[CONTEXT=HttpServer]",
+               title: "Upload local torrent",
                loadMethod: "iframe",
                contentURL: new URI("upload.html").toString(),
                addClass: "windowFrame", // fixes iframe scrolling on iOS Safari
@@ -283,7 +283,7 @@
            new MochaUI.Window({
                id: "uploadLimitPage",
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(Global Upload Speed Limit)QBT_TR[CONTEXT=MainWindow]",
+               title: "Global Upload Speed Limit",
                loadMethod: "iframe",
                contentURL: new URI("uploadlimit.html").setData("hashes", "global").toString(),
                scrollbars: false,
@@ -302,7 +302,7 @@
                new MochaUI.Window({
                    id: "uploadLimitPage",
                    icon: "images/qbittorrent-tray.svg",
-                   title: "QBT_TR(Torrent Upload Speed Limiting)QBT_TR[CONTEXT=TransferListWidget]",
+                   title: "Torrent Upload Speed Limiting",
                    loadMethod: "iframe",
                    contentURL: new URI("uploadlimit.html").setData("hashes", hashes.join("|")).toString(),
                    scrollbars: false,
@@ -344,7 +344,7 @@
                new MochaUI.Window({
                    id: "shareRatioPage",
                    icon: "images/qbittorrent-tray.svg",
-                   title: "QBT_TR(Torrent Upload/Download Ratio Limiting)QBT_TR[CONTEXT=UpDownRatioDialog]",
+                   title: "Torrent Upload/Download Ratio Limiting",
                    loadMethod: "iframe",
                    contentURL: new URI("shareratio.html").setData("hashes", hashes.join("|")).setData("orig", orig).toString(),
                    scrollbars: false,
@@ -419,7 +419,7 @@
            new MochaUI.Window({
                id: "downloadLimitPage",
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(Global Download Speed Limit)QBT_TR[CONTEXT=MainWindow]",
+               title: "Global Download Speed Limit",
                loadMethod: "iframe",
                contentURL: new URI("downloadlimit.html").setData("hashes", "global").toString(),
                scrollbars: false,
@@ -437,7 +437,7 @@
            new MochaUI.Window({
                id: id,
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(Statistics)QBT_TR[CONTEXT=StatsDialog]",
+               title: "Statistics",
                loadMethod: "xhr",
                contentURL: new URI("views/statistics.html").toString(),
                maximizable: false,
@@ -456,7 +456,7 @@
                new MochaUI.Window({
                    id: "downloadLimitPage",
                    icon: "images/qbittorrent-tray.svg",
-                   title: "QBT_TR(Torrent Download Speed Limiting)QBT_TR[CONTEXT=TransferListWidget]",
+                   title: "Torrent Download Speed Limiting",
                    loadMethod: "iframe",
                    contentURL: new URI("downloadlimit.html").setData("hashes", hashes.join("|")).toString(),
                    scrollbars: false,
@@ -556,7 +556,7 @@
                    new MochaUI.Modal({
                        ...window.qBittorrent.Dialog.baseModalOptions,
                        id: "confirmAutoTMMDialog",
-                       title: "QBT_TR(Enable automatic torrent management)QBT_TR[CONTEXT=confirmAutoTMMDialog]",
+                       title: "Enable automatic torrent management",
                        data: {
                            hashes: hashes,
                            enable: enableAutoTMM
@@ -576,7 +576,7 @@
                            updateMainData();
                        },
                        onFailure: () => {
-                           alert("QBT_TR(Unable to set Auto Torrent Management for the selected torrents.)QBT_TR[CONTEXT=HttpServer]");
+                           alert("Unable to set Auto Torrent Management for the selected torrents.");
                        }
                    }).send();
                }
@@ -590,7 +590,7 @@
                    new MochaUI.Modal({
                        ...window.qBittorrent.Dialog.baseModalOptions,
                        id: "confirmRecheckDialog",
-                       title: "QBT_TR(Recheck confirmation)QBT_TR[CONTEXT=confirmRecheckDialog]",
+                       title: "Recheck confirmation",
                        data: { hashes: hashes },
                        contentURL: "views/confirmRecheck.html"
                    });
@@ -606,7 +606,7 @@
                            updateMainData();
                        },
                        onFailure: function() {
-                           alert("QBT_TR(Unable to recheck torrents.)QBT_TR[CONTEXT=HttpServer]");
+                           alert("Unable to recheck torrents.");
                        }
                    }).send();
                }
@@ -636,7 +636,7 @@
                new MochaUI.Window({
                    id: "setLocationPage",
                    icon: "images/qbittorrent-tray.svg",
-                   title: "QBT_TR(Set location)QBT_TR[CONTEXT=TransferListWidget]",
+                   title: "Set location",
                    loadMethod: "iframe",
                    contentURL: new URI("setlocation.html").setData("hashes", hashes.join("|")).setData("path", encodeURIComponent(row.full_data.save_path)).toString(),
                    scrollbars: false,
@@ -659,7 +659,7 @@
                    new MochaUI.Window({
                        id: "renamePage",
                        icon: "images/qbittorrent-tray.svg",
-                       title: "QBT_TR(Rename)QBT_TR[CONTEXT=TransferListWidget]",
+                       title: "Rename",
                        loadMethod: "iframe",
                        contentURL: new URI("rename.html").setData("hash", hash).setData("name", row.full_data.name).toString(),
                        scrollbars: false,
@@ -683,7 +683,7 @@
                    new MochaUI.Window({
                        id: "multiRenamePage",
                        icon: "images/qbittorrent-tray.svg",
-                       title: "QBT_TR(Renaming)QBT_TR[CONTEXT=TransferListWidget]",
+                       title: "Renaming",
                        data: { hash: hash, selectedRows: [] },
                        loadMethod: "xhr",
                        contentURL: "rename_files.html",
@@ -714,7 +714,7 @@
                        updatePropertiesPanel();
                    },
                    onFailure: () => {
-                       alert("QBT_TR(Unable to start torrents.)QBT_TR[CONTEXT=HttpServer]");
+                       alert("Unable to start torrents.");
                    }
                }).send();
            }
@@ -734,7 +734,7 @@
                        updatePropertiesPanel();
                    },
                    onFailure: () => {
-                       alert("QBT_TR(Unable to stop torrents.)QBT_TR[CONTEXT=HttpServer]");
+                       alert("Unable to stop torrents.");
                    }
                }).send();
            }
@@ -747,7 +747,7 @@
                    new MochaUI.Modal({
                        ...window.qBittorrent.Dialog.baseModalOptions,
                        id: "confirmDeletionPage",
-                       title: "QBT_TR(Remove torrent(s))QBT_TR[CONTEXT=confirmDeletionDlg]",
+                       title: "Remove torrent(s)",
                        data: {
                            hashes: hashes,
                            isDeletingVisibleTorrents: true
@@ -773,7 +773,7 @@
                            updatePropertiesPanel();
                        },
                        onFailure: () => {
-                           alert("QBT_TR(Unable to delete torrents.)QBT_TR[CONTEXT=HttpServer]");
+                           alert("Unable to delete torrents.");
                        }
                    }).send();
                }
@@ -787,7 +787,7 @@
                new MochaUI.Window({
                    id: "newCategoryPage",
                    icon: "images/qbittorrent-tray.svg",
-                   title: "QBT_TR(New Category)QBT_TR[CONTEXT=TransferListWidget]",
+                   title: "New Category",
                    loadMethod: "iframe",
                    contentURL: new URI("newcategory.html").setData("action", action).setData("hashes", hashes.join("|")).toString(),
                    scrollbars: false,
@@ -827,7 +827,7 @@
            new MochaUI.Window({
                id: "newCategoryPage",
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(New Category)QBT_TR[CONTEXT=CategoryFilterWidget]",
+               title: "New Category",
                loadMethod: "iframe",
                contentURL: new URI("newcategory.html").setData("action", action).toString(),
                scrollbars: false,
@@ -846,7 +846,7 @@
            new MochaUI.Window({
                id: "newSubcategoryPage",
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(New Category)QBT_TR[CONTEXT=CategoryFilterWidget]",
+               title: "New Category",
                loadMethod: "iframe",
                contentURL: new URI("newcategory.html").setData("action", action).setData("categoryName", categoryName).toString(),
                scrollbars: false,
@@ -865,7 +865,7 @@
            new MochaUI.Window({
                id: "editCategoryPage",
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(Edit Category)QBT_TR[CONTEXT=TransferListWidget]",
+               title: "Edit Category",
                loadMethod: "iframe",
                contentURL: new URI("newcategory.html").setData("action", action).setData("categoryName", category.name).setData("savePath", category.savePath).toString(),
                scrollbars: false,
@@ -920,7 +920,7 @@
                new MochaUI.Window({
                    id: "newTagPage",
                    icon: "images/qbittorrent-tray.svg",
-                   title: "QBT_TR(Add tags)QBT_TR[CONTEXT=TransferListWidget]",
+                   title: "Add tags",
                    loadMethod: "iframe",
                    contentURL: new URI("newtag.html").setData("action", action).setData("hashes", hashes.join("|")).toString(),
                    scrollbars: false,
@@ -968,7 +968,7 @@
            new MochaUI.Window({
                id: "newTagPage",
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(New Tag)QBT_TR[CONTEXT=TagFilterWidget]",
+               title: "New Tag",
                loadMethod: "iframe",
                contentURL: new URI("newtag.html").setData("action", action).toString(),
                scrollbars: false,
@@ -1021,7 +1021,7 @@
    
            new MochaUI.Window({
                id: "confirmDeletionPage",
-               title: "QBT_TR(Remove tracker)QBT_TR[CONTEXT=confirmDeletionDlg]",
+               title: "Remove tracker",
                loadMethod: "iframe",
                contentURL: new URI("confirmtrackerdeletion.html").setData("host", host).setData("urls", urls.map(encodeURIComponent).join("|")).toString(),
                scrollbars: false,
@@ -1135,7 +1135,7 @@
            e.preventDefault();
            e.stopPropagation();
    
-           if (confirm("QBT_TR(Would you like to stop all torrents?)QBT_TR[CONTEXT=MainWindow]")) {
+           if (confirm("Would you like to stop all torrents?")) {
                new Request({
                    url: "api/v2/torrents/stop",
                    method: "post",
@@ -1151,7 +1151,7 @@
            e.preventDefault();
            e.stopPropagation();
    
-           if (confirm("QBT_TR(Would you like to start all torrents?)QBT_TR[CONTEXT=MainWindow]")) {
+           if (confirm("Would you like to start all torrents?")) {
                new Request({
                    url: "api/v2/torrents/start",
                    method: "post",
@@ -1214,7 +1214,7 @@
            new MochaUI.Window({
                id: id,
                icon: "images/qbittorrent-tray.svg",
-               title: "QBT_TR(About qBittorrent)QBT_TR[CONTEXT=AboutDialog]",
+               title: "About qBittorrent",
                loadMethod: "xhr",
                contentURL: new URI("views/about.html").toString(),
                require: {
@@ -1248,12 +1248,12 @@
            e.preventDefault();
            e.stopPropagation();
    
-           if (confirm("QBT_TR(Are you sure you want to quit qBittorrent?)QBT_TR[CONTEXT=MainWindow]")) {
+           if (confirm("Are you sure you want to quit qBittorrent?")) {
                new Request({
                    url: "api/v2/app/shutdown",
                    method: "post",
                    onSuccess: function() {
-                       const shutdownMessage = "QBT_TR(%1 has been shutdown)QBT_TR[CONTEXT=HttpServer]".replace("%1", window.qBittorrent.Client.mainTitle());
+                       const shutdownMessage = "%1 has been shutdown".replace("%1", window.qBittorrent.Client.mainTitle());
                        document.write(`<!doctype html><html lang="${LANG}"><head> <meta charset="UTF-8"> <meta name="color-scheme" content="light dark"> <title>${shutdownMessage}</title> <style>* {font-family: Arial, Helvetica, sans-serif;}</style></head><body> <h1 style="text-align: center;">${shutdownMessage}</h1></body></html>`);
                        document.close();
                        window.stop();
