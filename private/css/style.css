@@ -551,9 +551,9 @@ a.propButton img {
 #torrentsFilterInput {
     background-color: var(--color-background-default);
     background-image: url("../images/edit-find.svg");
-    background-position: left;
+    background-position: .5rem;
     background-repeat: no-repeat;
-    background-size: 1.5em;
+    background-size: .75rem;
     padding-left: 2em;
     width: 160px;
     height: 100%;
