@@ -2127,7 +2127,7 @@ Use ';' to split multiple entries. Can use wildcard '*'."></textarea>
                     document.getElementById("hideZeroFiltersCheckbox").checked = (LocalPreferences.get("hide_zero_status_filters", "false") === "true");
                     $("dblclickDownloadSelect").value = LocalPreferences.get("dblclick_download", "1");
                     $("dblclickCompleteSelect").value = LocalPreferences.get("dblclick_complete", "1");
-                    document.getElementById("confirmTorrentDeletion").checked = pref.confirm_torrent_deletion;
+                    document.getElementById("confirmTorrentDeletion").checked = pref.confirm_torrent_deletion ?? true;
                     document.getElementById("useAltRowColorsInput").checked = (LocalPreferences.get("use_alt_row_colors", "true") === "true");
                     $("filelog_checkbox").checked = pref.file_log_enabled;
                     $("filelog_save_path_input").value = pref.file_log_path;
@@ -2545,7 +2545,7 @@ Use ';' to split multiple entries. Can use wildcard '*'."></textarea>
             LocalPreferences.set("hide_zero_status_filters", document.getElementById("hideZeroFiltersCheckbox").checked.toString());
             LocalPreferences.set("dblclick_download", $("dblclickDownloadSelect").value);
             LocalPreferences.set("dblclick_complete", $("dblclickCompleteSelect").value);
-            settings["confirm_torrent_deletion"] = document.getElementById("confirmTorrentDeletion").checked;
+            settings["confirm_torrent_deletion"] = document.getElementById("confirmTorrentDeletion").checked ?? true;
             LocalPreferences.set("use_alt_row_colors", document.getElementById("useAltRowColorsInput").checked.toString());
             settings["file_log_enabled"] = $("filelog_checkbox").checked;
             settings["file_log_path"] = $("filelog_save_path_input").value;

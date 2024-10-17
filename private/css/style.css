@@ -233,8 +233,23 @@ dd {
 /* Forms */
 
 fieldset {
-    border: 1px solid var(--color-border-default);
-    border-radius: 5px;
+    border: solid 1px var(--darkmode-line-color);
+    border-radius: 8px;
+    padding: 4px 4px 4px 10px;
+}
+
+fieldset legend {
+    font-weight: bold;
+    margin-left: 8px;
+    padding: 4px;
+}
+
+fieldset label {
+    padding: 2px;
+}
+
+fieldset+div.formRow {
+    margin-top: 10px;
 }
 
 /* Code */
@@ -611,30 +626,6 @@ label.checked {
 
 label.partial {
     background-position: 0 -26px;
-}
-
-fieldset {
-    border-color: var(--darkmode-line-color);
-}
-
-fieldset.settings {
-    border: solid 1px var(--darkmode-line-color);
-    border-radius: 8px;
-    padding: 4px 4px 4px 10px;
-}
-
-fieldset.settings legend {
-    font-weight: bold;
-    margin-left: 8px;
-    padding: 4px;
-}
-
-fieldset.settings label {
-    padding: 2px;
-}
-
-fieldset.settings+div.formRow {
-    margin-top: 10px;
 }
 
 div.formRow {
