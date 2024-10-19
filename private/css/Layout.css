@@ -458,6 +458,11 @@ td.speedLabel {
 }
 
 .progressbar_dark {
-    background: var(--darkmode-primary) !important;
-    color: var(--darkmode-background) !important;
+    background: var(--darkmode-background-alt);
+    color: var(--color-text-default) !important;
+}
+
+.progressbar_light {
+    background: var(--darkmode-background-alt) !important;
+    color: var(--darkmode-text) !important;
 }
