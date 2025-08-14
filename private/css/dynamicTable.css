@@ -15,8 +15,8 @@
     background-color: var(--darkmode-background-alt);
 }
 
-#transferList .dynamicTable td {
-    padding: 0 2px;
+.dynamicTable tbody tr td {
+    font-size: 0.8125rem; /* 13px */
 }
 
 .dynamicTable tbody tr.selected,
@@ -57,7 +57,7 @@ tr.dynamicTableHeader {
     color: var(--darkmode-text);
     border-right: 1px solid var(--darkmode-line-color);
     box-sizing: border-box;
-    padding: 4px 2px;
+    padding: 4px;
     white-space: nowrap;
 }
 
