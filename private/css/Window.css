@@ -19,13 +19,13 @@ Required by:
 ---------------------------------------------------------------- */
 
 .mocha {
-    background: var(--darkmode-background);
+    background: var(--color-background);
     display: none;
     overflow: hidden;
 }
 
 .mochaOverlay {
-    background: var(--darkmode-background);
+    background: var(--color-background);
     border-radius: 5px;
     height: auto !important; /* also fixes out of block issue */
     left: 0;
@@ -63,12 +63,12 @@ Required by:
 }
 
 .mocha.isFocused .mochaTitlebar h3 {
-    color: var(--darkmode-text);
+    color: var(--color-text);
 }
 
 .mochaToolbarWrapper {
-    background: var(--darkmode-background);
-    border-top: 1px solid var(--darkmode-line-color);
+    background: var(--color-background);
+    border-top: 1px solid var(--color-line-color);
     height: 29px;
     overflow: hidden;
     position: relative;
@@ -77,24 +77,24 @@ Required by:
 
 div.mochaToolbarWrapper.bottom {
     border: 0;
-    border-bottom: 1px solid var(--darkmode-line-color);
+    border-bottom: 1px solid var(--color-line-color);
 }
 
 .mochaToolbar {
-    border-top: 1px solid var(--darkmode-line-color);
+    border-top: 1px solid var(--color-line-color);
     height: auto !important;
     padding-top: 4px;
     width: 100%; /* For IE */
 }
 
 .mochaContentBorder {
-    border-bottom: 1px solid var(--darkmode-line-color);
-    border-top: 1px solid var(--darkmode-line-color);
+    border-bottom: 1px solid var(--color-line-color);
+    border-top: 1px solid var(--color-line-color);
 }
 
 /* Has a fixed height and scrollbars if required. */
 .mochaContentWrapper {
-    background: var(--darkmode-background);
+    background: var(--color-background);
     font-size: 12px;
     overflow: auto;
 }

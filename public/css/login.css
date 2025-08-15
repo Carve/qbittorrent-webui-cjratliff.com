@@ -1,12 +1,12 @@
 :root {
 	color-scheme: dark;
-	--darkmode-primary: #00d9ff;
-	--darkmode-background: #202020;
-	--darkmode-background-alt: #242424;
-	--darkmode-background-alt2: #4e4e4e;
-	--darkmode-text: #c2c2c2;
-	--darkmode-text-alt: #d3d3d3;
-	--darkmode-line-color: #2F3437;
+	--color-primary: #00d9ff;
+	--color-background: #202020;
+	--color-background-alt: #242424;
+	--color-background-alt2: #4e4e4e;
+	--color-text: #c2c2c2;
+	--color-text-alt: #d3d3d3;
+	--color-line-color: #2F3437;
 	--highlight-color--darkred: #be3e3c;
 	--highlight-color--red: #FF8A88;
 	--highlight-color--orange: #FFB86C;
@@ -26,8 +26,8 @@
 }
 
 body {
-	background-color: var(--darkmode-background);
-	color: var(--darkmode-text);
+	background-color: var(--color-background);
+	color: var(--color-text);
 	font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 	font-size: 12px;
 	line-height: 18px;

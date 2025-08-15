@@ -25,6 +25,16 @@ Required by:
     user-select: none;
 }
 
+@media (prefers-color-scheme: light) {
+    .toolbarTabs {
+        background: url("../images/tabs-light.gif") repeat-x;
+    }
+}
+
+.light .toolbarTabs {
+    background: url("../images/tabs-light.gif") repeat-x;
+}
+
 .tab-menu {
     font-size: 11px;
     line-height: 16px;
@@ -56,7 +66,7 @@ Required by:
     background: url("../images/tabs.gif") repeat-x;
     background-position: right -35px;
     border-radius: 6%;
-    color: var(--darkmode-text);
+    color: var(--color-text);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,4 +88,31 @@ Required by:
     color: #e0e0e0;
     font-weight: bold;
     border-radius: 6%;
+}
+
+@media (prefers-color-scheme: light) {
+    .tab-menu li,
+    .tab-menu li.selected,
+    .tab-menu li a,
+    .tab-menu li.selected a {
+        background: url("../images/tabs-light.gif") repeat-x;
+    }
+    .tab-menu li.selected,
+    .tab-menu li.selected a {
+        color: var(--color-text-white);
+        font-weight: 600;
+    }
+}
+
+.light .tab-menu li,
+.light .tab-menu li.selected,
+.light .tab-menu li a,
+.light .tab-menu li.selected a {
+    background: url("../images/tabs-light.gif") repeat-x;
+}
+
+.light .tab-menu li.selected,
+.light .tab-menu li.selected a {
+    color: var(--color-text-white);
+    font-weight: 600;
 }
