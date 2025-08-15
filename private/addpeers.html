@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="${LANG}">
+<html lang="${LANG}" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -10,49 +10,45 @@
     <script>
         "use strict";
 
-        new Keyboard({
-            defaultEventType: "keydown",
-            events: {
-                "Escape": function(event) {
-                    window.parent.qBittorrent.Client.closeWindows();
-                    event.preventDefault();
-                },
-                "Esc": function(event) {
-                    window.parent.qBittorrent.Client.closeWindows();
-                    event.preventDefault();
+        window.addEventListener("DOMContentLoaded", (event) => {
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "Escape":
+                        event.preventDefault();
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                        break;
                 }
-            }
-        }).activate();
+            });
 
-        window.addEventListener("DOMContentLoaded", () => {
-            const hash = new URI().getData("hash");
-            if (!hash)
+            const hash = new URLSearchParams(window.location.search).get("hash");
+            if (hash === null)
                 return;
 
-            $("peers").focus();
+            document.getElementById("peers").focus();
 
-            $("addPeersOk").addEventListener("click", (e) => {
+            document.getElementById("addPeersOk").addEventListener("click", (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                const peers = $("peers").value.trim().split(/[\r\n]+/);
+                const peers = document.getElementById("peers").value.trim().split(/[\r\n]+/);
                 if (peers.length === 0)
                     return;
 
-                new Request({
-                    url: "api/v2/torrents/addPeers",
-                    method: "post",
-                    data: {
-                        hashes: hash,
-                        peers: peers.join("|")
-                    },
-                    onFailure: function() {
-                        alert("Unable to add peers. Please ensure you are adhering to the IP:port format.");
-                    },
-                    onSuccess: function() {
-                        window.parent.qBittorrent.Client.closeWindows();
-                    }
-                }).send();
+                fetch("api/v2/torrents/addPeers", {
+                        method: "POST",
+                        body: new URLSearchParams({
+                            hashes: hash,
+                            peers: peers.join("|")
+                        })
+                    })
+                    .then((response) => {
+                        if (!response.ok) {
+                            alert("Unable to add peers. Please ensure you are adhering to the IP:port format.");
+                            return;
+                        }
+
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                    });
             });
         });
     </script>
@@ -60,10 +56,10 @@
 
 <body>
     <div style="padding: 10px 10px 0px 10px;">
-        <label for="peers">List of peers to add (one IP per line):</label>
+        <label for="peers">QBT_TR(List of peers to add (one IP per line):)QBT_TR[CONTEXT=PeersAdditionDialog]</label>
         <textarea id="peers" rows="10" style="width: 100%;" placeholder="Format: IPv4:port / [IPv6]:port"></textarea>
         <div style="margin-top: 10px; text-align: center;">
-            <button type="button" onclick="parent.qBittorrent.Client.closeWindows();">Cancel</button>
+            <button type="button" onclick="parent.qBittorrent.Client.closeFrameWindow(window);">Cancel</button>
             <button type="button" id="addPeersOk">Ok</button>
         </div>
     </div>

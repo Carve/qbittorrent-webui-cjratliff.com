@@ -3,20 +3,20 @@
         <img src="images/go-down.svg" alt="Collapse/expand">Status
     </span>
     <ul class="filterList" id="statusFilterList">
-        <li id="all_filter"><span class="link"><img src="images/filter-all.svg" alt="All">All (0)</span></li>
-        <li id="downloading_filter"><span class="link"><img src="images/downloading.svg" alt="Downloading">Downloading (0)</span></li>
-        <li id="seeding_filter"><span class="link"><img src="images/upload.svg" alt="Seeding">Seeding (0)</span></li>
-        <li id="completed_filter"><span class="link"><img src="images/checked-completed.svg" alt="Completed">Completed (0)</span></li>
-        <li id="running_filter"><span class="link"><img src="images/torrent-start.svg" alt="Running">Running (0)</span></li>
-        <li id="stopped_filter"><span class="link"><img src="images/stopped.svg" alt="Stopped">Stopped (0)</span></li>
-        <li id="active_filter"><span class="link"><img src="images/filter-active.svg" alt="Active">Active (0)</span></li>
-        <li id="inactive_filter"><span class="link"><img src="images/filter-inactive.svg" alt="Inactive">Inactive (0)</span></li>
-        <li id="stalled_filter"><span class="link"><img src="images/filter-stalled.svg" alt="Stalled">Stalled (0)</span></li>
-        <li id="stalled_uploading_filter"><span class="link"><img src="images/stalledUP.svg" alt="Stalled Uploading">Stalled Uploading (0)</span></li>
-        <li id="stalled_downloading_filter"><span class="link"><img src="images/stalledDL.svg" alt="Stalled Downloading">Stalled Downloading (0)</span></li>
-        <li id="checking_filter"><span class="link"><img src="images/force-recheck.svg" alt="Checking">Checking (0)</span></li>
-        <li id="moving_filter"><span class="link"><img src="images/set-location.svg" alt="Moving">Moving (0)</span></li>
-        <li id="errored_filter"><span class="link"><img src="images/error.svg" alt="Errored">Errored (0)</span></li>
+        <li class="statusesFilterContextMenuTarget" id="all_filter"><span class="link"><img src="images/filter-all.svg" alt="All">QBT_TR(All (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="downloading_filter"><span class="link"><img src="images/downloading.svg" alt="Downloading">QBT_TR(Downloading (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="seeding_filter"><span class="link"><img src="images/upload.svg" alt="Seeding">QBT_TR(Seeding (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="completed_filter"><span class="link"><img src="images/checked-completed.svg" alt="Completed">QBT_TR(Completed (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="running_filter"><span class="link"><img src="images/torrent-start.svg" alt="Running">QBT_TR(Running (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="stopped_filter"><span class="link"><img src="images/stopped.svg" alt="Stopped">QBT_TR(Stopped (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="active_filter"><span class="link"><img src="images/filter-active.svg" alt="Active">QBT_TR(Active (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="inactive_filter"><span class="link"><img src="images/filter-inactive.svg" alt="Inactive">QBT_TR(Inactive (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="stalled_filter"><span class="link"><img src="images/filter-stalled.svg" alt="Stalled">QBT_TR(Stalled (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="stalled_uploading_filter"><span class="link"><img src="images/stalledUP.svg" alt="Stalled Uploading">QBT_TR(Stalled Uploading (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="stalled_downloading_filter"><span class="link"><img src="images/stalledDL.svg" alt="Stalled Downloading">QBT_TR(Stalled Downloading (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="checking_filter"><span class="link"><img src="images/force-recheck.svg" alt="Checking">QBT_TR(Checking (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="moving_filter"><span class="link"><img src="images/set-location.svg" alt="Moving">QBT_TR(Moving (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
+        <li class="statusesFilterContextMenuTarget" id="errored_filter"><span class="link"><img src="images/error.svg" alt="Errored">QBT_TR(Errored (0))QBT_TR[CONTEXT=StatusFilterWidget]</span></li>
     </ul>
 </div>
 <div class="filterWrapper">
@@ -74,7 +74,11 @@
             return {
                 categoriesFilterContextMenu: categoriesFilterContextMenu,
                 tagsFilterContextMenu: tagsFilterContextMenu,
-                trackersFilterContextMenu: trackersFilterContextMenu
+                trackersFilterContextMenu: trackersFilterContextMenu,
+                clearStatusFilter: clearStatusFilter,
+                clearCategoryFilter: clearCategoryFilter,
+                clearTagFilter: clearTagFilter,
+                clearTrackerFilter: clearTrackerFilter
             };
         };
 
@@ -83,41 +87,72 @@
             LocalPreferences.set(`category_${filterItemID}_collapsed`, filterItem.classList.toggle("collapsedCategory").toString());
         };
 
+        new window.qBittorrent.ContextMenu.StatusesFilterContextMenu({
+            targets: ".statusesFilterContextMenuTarget",
+            menu: "statusesFilterMenu",
+            actions: {
+                startTorrents: (element, ref) => {
+                    startVisibleTorrentsFN();
+                },
+                stopTorrents: (element, ref) => {
+                    stopVisibleTorrentsFN();
+                },
+                deleteTorrents: (element, ref) => {
+                    deleteVisibleTorrentsFN();
+                }
+            },
+            offsets: {
+                x: 0,
+                y: 2
+            },
+            onShow: function() {
+                this.startTorrentObserver();
+                setStatusFilter(this.options.element.id.replace("_filter", ""));
+            },
+            onHide: function() {
+                this.stopTorrentObserver();
+            }
+        });
+
         const categoriesFilterContextMenu = new window.qBittorrent.ContextMenu.CategoriesFilterContextMenu({
             targets: ".categoriesFilterContextMenuTarget",
             menu: "categoriesFilterMenu",
             actions: {
-                createCategory: function(element, ref) {
+                createCategory: (element, ref) => {
                     createCategoryFN();
                 },
-                createSubcategory: function(element, ref) {
-                    createSubcategoryFN(Number(element.id));
+                createSubcategory: (element, ref) => {
+                    createSubcategoryFN(element.id);
                 },
-                editCategory: function(element, ref) {
-                    editCategoryFN(Number(element.id));
+                editCategory: (element, ref) => {
+                    editCategoryFN(element.id);
                 },
-                deleteCategory: function(element, ref) {
-                    removeCategoryFN(Number(element.id));
+                deleteCategory: (element, ref) => {
+                    removeCategoryFN(element.id);
                 },
-                deleteUnusedCategories: function(element, ref) {
+                deleteUnusedCategories: (element, ref) => {
                     deleteUnusedCategoriesFN();
                 },
-                startTorrentsByCategory: function(element, ref) {
-                    startTorrentsByCategoryFN(Number(element.id));
+                startTorrents: (element, ref) => {
+                    startVisibleTorrentsFN();
                 },
-                stopTorrentsByCategory: function(element, ref) {
-                    stopTorrentsByCategoryFN(Number(element.id));
+                stopTorrents: (element, ref) => {
+                    stopVisibleTorrentsFN();
                 },
-                deleteTorrentsByCategory: function(element, ref) {
-                    deleteTorrentsByCategoryFN(Number(element.id));
+                deleteTorrents: (element, ref) => {
+                    deleteVisibleTorrentsFN();
                 }
             },
             offsets: {
-                x: -15,
+                x: 0,
                 y: 2
             },
             onShow: function() {
-                this.options.element.click();
+                this.startTorrentObserver();
+                setCategoryFilter(this.options.element.id);
+            },
+            onHide: function() {
+                this.stopTorrentObserver();
             }
         });
 
@@ -125,31 +160,35 @@
             targets: ".tagsFilterContextMenuTarget",
             menu: "tagsFilterMenu",
             actions: {
-                createTag: function(element, ref) {
+                createTag: (element, ref) => {
                     createTagFN();
                 },
-                deleteTag: function(element, ref) {
-                    removeTagFN(Number(element.id));
+                deleteTag: (element, ref) => {
+                    removeTagFN(element.id);
                 },
-                deleteUnusedTags: function(element, ref) {
+                deleteUnusedTags: (element, ref) => {
                     deleteUnusedTagsFN();
                 },
-                startTorrentsByTag: function(element, ref) {
-                    startTorrentsByTagFN(Number(element.id));
+                startTorrents: (element, ref) => {
+                    startVisibleTorrentsFN();
                 },
-                stopTorrentsByTag: function(element, ref) {
-                    stopTorrentsByTagFN(Number(element.id));
+                stopTorrents: (element, ref) => {
+                    stopVisibleTorrentsFN();
                 },
-                deleteTorrentsByTag: function(element, ref) {
-                    deleteTorrentsByTagFN(Number(element.id));
+                deleteTorrents: (element, ref) => {
+                    deleteVisibleTorrentsFN();
                 }
             },
             offsets: {
-                x: -15,
+                x: 0,
                 y: 2
             },
             onShow: function() {
-                this.options.element.click();
+                this.startTorrentObserver();
+                setTagFilter(this.options.element.id);
+            },
+            onHide: function() {
+                this.stopTorrentObserver();
             }
         });
 
@@ -157,25 +196,29 @@
             targets: ".trackersFilterContextMenuTarget",
             menu: "trackersFilterMenu",
             actions: {
-                deleteTracker: function(element, ref) {
+                deleteTracker: (element, ref) => {
                     deleteTrackerFN(element.id);
                 },
-                startTorrentsByTracker: function(element, ref) {
-                    startTorrentsByTrackerFN(element.id);
+                startTorrents: (element, ref) => {
+                    startVisibleTorrentsFN();
                 },
-                stopTorrentsByTracker: function(element, ref) {
-                    stopTorrentsByTrackerFN(element.id);
+                stopTorrents: (element, ref) => {
+                    stopVisibleTorrentsFN();
                 },
-                deleteTorrentsByTracker: function(element, ref) {
-                    deleteTorrentsByTrackerFN(element.id);
+                deleteTorrents: (element, ref) => {
+                    deleteVisibleTorrentsFN();
                 }
             },
             offsets: {
-                x: -15,
+                x: 0,
                 y: 2
             },
             onShow: function() {
-                this.options.element.click();
+                this.startTorrentObserver();
+                setTrackerFilter(this.options.element.id);
+            },
+            onHide: function() {
+                this.stopTorrentObserver();
             }
         });
 
@@ -193,7 +236,7 @@
 
         document.getElementById("Filters_pad").addEventListener("click", (event) => {
             const filterItem = event.target.closest("li");
-            if (filterItem?.classList?.contains("selectedFilter"))
+            if (!filterItem || filterItem.classList.contains("selectedFilter"))
                 return;
 
             const { id: filterItemID } = filterItem;
@@ -210,6 +253,42 @@
                     break;
                 case "trackerFilterList":
                     setTrackerFilter(filterItemID);
+                    break;
+                default:
+                    console.error(`Unexpected filterListID: ${filterListID}`);
+                    break;
+            }
+        });
+
+        document.getElementById("Filters_pad").addEventListener("dblclick", (event) => {
+            if (LocalPreferences.get("dblclick_filter", "1") !== "1")
+                return;
+
+            const filterItem = event.target.closest("li");
+            if (filterItem === null)
+                return;
+
+            const { id: filterListID } = filterItem.closest("ul[id]");
+            switch (filterListID) {
+                case "statusFilterList":
+                    clearCategoryFilter();
+                    clearTagFilter();
+                    clearTrackerFilter();
+                    break;
+                case "categoryFilterList":
+                    clearStatusFilter();
+                    clearTagFilter();
+                    clearTrackerFilter();
+                    break;
+                case "tagFilterList":
+                    clearStatusFilter();
+                    clearCategoryFilter();
+                    clearTrackerFilter();
+                    break;
+                case "trackerFilterList":
+                    clearStatusFilter();
+                    clearCategoryFilter();
+                    clearTagFilter();
                     break;
                 default:
                     console.error(`Unexpected filterListID: ${filterListID}`);
@@ -241,6 +320,11 @@
 
             toggleCategoryDisplay(filterItem.id);
         });
+
+        const clearStatusFilter = () => { setStatusFilter("all"); };
+        const clearCategoryFilter = () => { setCategoryFilter(CATEGORIES_ALL); };
+        const clearTagFilter = () => { setTagFilter(TAGS_ALL); };
+        const clearTrackerFilter = () => { setTrackerFilter(TRACKERS_ALL); };
 
         return exports();
     })();

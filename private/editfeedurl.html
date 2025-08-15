@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="${LANG}">
+<html lang="${LANG}" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -7,41 +7,36 @@
     <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css">
     <script defer src="scripts/localpreferences.js?v=${CACHEID}"></script>
     <script defer src="scripts/color-scheme.js?v=${CACHEID}"></script>
-    <script src="scripts/misc.js?locale=${LANG}&v=${CACHEID}"></script>
     <script>
         "use strict";
 
-        new Keyboard({
-            defaultEventType: "keydown",
-            events: {
-                "Enter": (event) => {
-                    event.preventDefault();
-                    $("submitButton").click();
-                },
-                "Escape": (event) => {
-                    event.preventDefault();
-                    window.parent.qBittorrent.Client.closeWindow("editFeedURL");
-                },
-                "Esc": (event) => {
-                    event.preventDefault();
-                    window.parent.qBittorrent.Client.closeWindow("editFeedURL");
+        window.addEventListener("DOMContentLoaded", (event) => {
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "Enter":
+                        event.preventDefault();
+                        document.getElementById("submitButton").click();
+                        break;
+                    case "Escape":
+                        event.preventDefault();
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                        break;
                 }
-            }
-        }).activate();
+            });
 
-        window.addEventListener("DOMContentLoaded", () => {
-            const currentUrl = new URI().getData("url");
+            const searchParams = new URLSearchParams(window.location.search);
+            const currentUrl = searchParams.get("url");
 
-            $("url").value = currentUrl;
-            $("url").focus();
-            $("url").setSelectionRange(0, currentUrl.length);
+            document.getElementById("url").value = currentUrl;
+            document.getElementById("url").focus();
+            document.getElementById("url").setSelectionRange(0, currentUrl.length);
 
-            $("submitButton").addEventListener("click", (e) => {
+            document.getElementById("submitButton").addEventListener("click", (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
                 // check field
-                const newUrl = $("url").value.trim();
+                const newUrl = document.getElementById("url").value.trim();
                 if (newUrl === "") {
                     alert("URL cannot be empty");
                     return;
@@ -52,27 +47,27 @@
                     return;
                 }
 
-                $("submitButton").disabled = true;
+                document.getElementById("submitButton").disabled = true;
 
-                new Request({
-                    url: "api/v2/rss/setFeedURL",
-                    method: "post",
-                    data: {
-                        path: new URI().getData("path"),
-                        url: newUrl
-                    },
-                    onSuccess: (response) => {
+                fetch("api/v2/rss/setFeedURL", {
+                        method: "POST",
+                        body: new URLSearchParams({
+                            path: searchParams.get("path"),
+                            url: newUrl
+                        })
+                    })
+                    .then(async (response) => {
+                        if (!response.ok) {
+                            alert((response.status === 409)
+                                ? await response.text()
+                                : "Unable to update URL");
+                            document.getElementById("submitButton").disabled = false;
+                            return;
+                        }
+
                         window.parent.qBittorrent.Rss.updateRssFeedList();
-                        window.parent.qBittorrent.Client.closeWindow("editFeedURL");
-                    },
-                    onFailure: (response) => {
-                        if (response.status === 409)
-                            alert(response.responseText);
-                        else
-                            alert("Unable to update URL");
-                        $("submitButton").disabled = false;
-                    }
-                }).send();
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                    });
             });
         });
     </script>

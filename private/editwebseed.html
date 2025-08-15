@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="${LANG}">
+<html lang="${LANG}" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -10,44 +10,42 @@
     <script>
         "use strict";
 
-        window.addEventListener("DOMContentLoaded", () => {
-            new Keyboard({
-                defaultEventType: "keydown",
-                events: {
-                    "Enter": function(event) {
-                        $("editWebSeedButton").click();
+        window.addEventListener("DOMContentLoaded", (event) => {
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "Enter":
                         event.preventDefault();
-                    },
-                    "Escape": function(event) {
-                        window.parent.qBittorrent.Client.closeWindows();
+                        document.getElementById("editWebSeedButton").click();
+                        break;
+                    case "Escape":
                         event.preventDefault();
-                    },
-                    "Esc": function(event) {
-                        window.parent.qBittorrent.Client.closeWindows();
-                        event.preventDefault();
-                    }
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                        break;
                 }
-            }).activate();
+            });
 
-            const origUrl = new URI().getData("url");
-            $("url").value = decodeURIComponent(origUrl);
-            $("url").focus();
+            const searchParams = new URLSearchParams(window.location.search);
+            const origUrl = searchParams.get("url");
+            document.getElementById("url").value = decodeURIComponent(origUrl);
+            document.getElementById("url").focus();
 
-            $("editWebSeedButton").addEvent("click", (e) => {
+            document.getElementById("editWebSeedButton").addEventListener("click", (e) => {
                 e.stopPropagation();
-                const hash = new URI().getData("hash");
-                new Request({
-                    url: "api/v2/torrents/editWebSeed",
-                    method: "post",
-                    data: {
-                        hash: hash,
-                        origUrl: origUrl,
-                        newUrl: encodeURIComponent($("url").value.trim()),
-                    },
-                    onComplete: function() {
-                        window.parent.qBittorrent.Client.closeWindows();
-                    }
-                }).send();
+
+                fetch("api/v2/torrents/editWebSeed", {
+                        method: "POST",
+                        body: new URLSearchParams({
+                            hash: searchParams.get("hash"),
+                            origUrl: origUrl,
+                            newUrl: encodeURIComponent(document.getElementById("url").value.trim())
+                        })
+                    })
+                    .then((response) => {
+                        if (!response.ok)
+                            return;
+
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                    });
             });
         });
     </script>

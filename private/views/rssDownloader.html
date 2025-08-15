@@ -32,7 +32,6 @@
     .fullWidth {
         width: 100%;
         max-width: none;
-        box-sizing: border-box;
     }
 
     .noWrap {
@@ -76,7 +75,7 @@
     }
 
     #ignoreDaysValue {
-        width: 4em;
+        width: 5em;
     }
 
     #lastMatchDiv {
@@ -131,7 +130,7 @@
 
 <div id="RssDownloader" class="RssDownloader">
     <div id="rssDownloaderDisabled" class="invisible">
-        Auto downloading of RSS torrents is disabled now! You can enable it in application settings.
+       Auto downloading of RSS torrents is disabled now! You can enable it in application settings.
     </div>
     <div id="leftRssDownloaderColumn">
         <div id="topMenuBar">
@@ -194,8 +193,8 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="formRow" title="Smart Episode Filter will check the episode number to prevent downloading of duplicates.
-Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also support - as a separator)">
+            <div class="formRow" title="QBT_TR(Smart Episode Filter will check the episode number to prevent downloading of duplicates.
+Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also support - as a separator))QBT_TR[CONTEXT=AutomatedRssDownloader]">
                 <input disabled type="checkbox" id="useSmartFilter">
                 <label for="useSmartFilter">Use Smart Episode Filter</label>
             </div>
@@ -244,7 +243,7 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
             <table>
                 <tbody>
                     <tr>
-                        <td><label for="ignoreDaysValue">Ignore Subsequent Matches for (0 to Disable)</label></td>
+                        <td><label for="ignoreDaysValue">QBT_TR(Ignore Subsequent Matches for (0 to Disable))QBT_TR[CONTEXT=AutomatedRssDownloader]</label></td>
                         <td><input type="number" id="ignoreDaysValue" min="0"> days</td>
                     </tr>
                 </tbody>
@@ -307,7 +306,7 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
             </div>
         </fieldset>
         <button disabled type="button" id="saveButton" onclick="qBittorrent.RssDownloader.saveSettings()">
-            Save
+           Save
         </button>
     </div>
     <div id="rightRssDownloaderColumn">
@@ -333,10 +332,10 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
 </div>
 
 <ul id="rssDownloaderRuleMenu" class="contextMenu">
-    <li><a href="#addRule"><img src="images/list-add.svg" alt="Add new rule..."> Add new rule...</a></li>
-    <li><a href="#deleteRule"><img src="images/edit-clear.svg" alt="Delete rule"> Delete rule</a></li>
-    <li class="separator"><a href="#renameRule"><img src="images/edit-rename.svg" alt="Rename rule..."> Rename rule...</a></li>
-    <li class="separator"><a href="#clearDownloadedEpisodes"><img src="images/edit-clear.svg" alt="Clear downloaded episodes..."> Clear downloaded episodes...</a></li>
+    <li><a href="#addRule"><img src="images/list-add.svg" alt="Add new rule...">Add new rule...</a></li>
+    <li><a href="#deleteRule"><img src="images/edit-clear.svg" alt="Delete rule">Delete rule</a></li>
+    <li class="separator"><a href="#renameRule"><img src="images/edit-rename.svg" alt="Rename rule...">Rename rule...</a></li>
+    <li class="separator"><a href="#clearDownloadedEpisodes"><img src="images/edit-clear.svg" alt="Clear downloaded episodes...">Clear downloaded episodes...</a></li>
 </ul>
 
 <script>
@@ -371,30 +370,30 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
             const pref = window.parent.qBittorrent.Cache.preferences.get();
 
             if (!pref.rss_auto_downloading_enabled)
-                $("rssDownloaderDisabled").removeClass("invisible");
+                document.getElementById("rssDownloaderDisabled").classList.remove("invisible");
 
             // recalculate height
-            const warningHeight = $("rssDownloaderDisabled").getBoundingClientRect().height;
+            const warningHeight = document.getElementById("rssDownloaderDisabled").getBoundingClientRect().height;
 
-            $("leftRssDownloaderColumn").style.height = "calc(100% - " + warningHeight + "px)";
-            $("centerRssDownloaderColumn").style.height = "calc(100% - " + warningHeight + "px)";
-            $("rightRssDownloaderColumn").style.height = "calc(100% - " + warningHeight + "px)";
+            document.getElementById("leftRssDownloaderColumn").style.height = `calc(100% - ${warningHeight}px)`;
+            document.getElementById("centerRssDownloaderColumn").style.height = `calc(100% - ${warningHeight}px)`;
+            document.getElementById("rightRssDownloaderColumn").style.height = `calc(100% - ${warningHeight}px)`;
 
-            $("rulesTable").style.height = "calc(100% - " + $("rulesTableDesc").getBoundingClientRect().height + "px)";
-            $("rssDownloaderArticlesTable").style.height = "calc(100% - " + $("articleTableDesc").getBoundingClientRect().height + "px)";
+            document.getElementById("rulesTable").style.height = `calc(100% - ${document.getElementById("rulesTableDesc").getBoundingClientRect().height}px)`;
+            document.getElementById("rssDownloaderArticlesTable").style.height = `calc(100% - ${document.getElementById("articleTableDesc").getBoundingClientRect().height}px)`;
 
-            const centerRowNotTableHeight = $("saveButton").getBoundingClientRect().height
-                + $("ruleSettings").getBoundingClientRect().height + 15;
+            const centerRowNotTableHeight = document.getElementById("saveButton").getBoundingClientRect().height
+                + document.getElementById("ruleSettings").getBoundingClientRect().height + 15;
 
-            $("rssDownloaderFeeds").style.height = "calc(100% - " + centerRowNotTableHeight + "px)";
+            document.getElementById("rssDownloaderFeeds").style.height = `calc(100% - ${centerRowNotTableHeight}px)`;
 
             // firefox calculates the height of the table inside fieldset differently and thus doesn't need the offset
-            if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
-                $("rssDownloaderFeedsTable").style.height = "100%";
+            if (navigator.userAgent.toLowerCase().includes("firefox")) {
+                document.getElementById("rssDownloaderFeedsTable").style.height = "100%";
             }
             else {
-                const outsideTableHeight = ($("rssDownloaderFeedsTable").getBoundingClientRect().top - $("rssDownloaderFeeds").getBoundingClientRect().top) - 10;
-                $("rssDownloaderFeedsTable").style.height = "calc(100% - " + outsideTableHeight + "px)";
+                const outsideTableHeight = (document.getElementById("rssDownloaderFeedsTable").getBoundingClientRect().top - document.getElementById("rssDownloaderFeeds").getBoundingClientRect().top) - 10;
+                document.getElementById("rssDownloaderFeedsTable").style.height = `calc(100% - ${outsideTableHeight}px)`;
             }
 
             const rssDownloaderRuleContextMenu = new window.qBittorrent.ContextMenu.RssDownloaderRuleContextMenu({
@@ -412,55 +411,59 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                     }
                 },
                 offsets: {
-                    x: -22,
-                    y: -4
+                    x: 0,
+                    y: -3
                 }
             });
             rssDownloaderRulesTable.setup("rssDownloaderRuleTableDiv", "rssDownloaderRuleFixedHeaderDiv", rssDownloaderRuleContextMenu);
             rssDownloaderFeedSelectionTable.setup("rssDownloaderFeedSelectionTableDiv", "rssDownloaderFeedSelectionFixedHeaderDiv");
             rssDownloaderArticlesTable.setup("rssDownloaderArticlesTableDiv", "rssDownloaderArticlesFixedHeaderDiv");
 
-            rssDownloaderRuleContextMenu.addTarget($("rulesTable"));
+            rssDownloaderRuleContextMenu.addTarget(document.getElementById("rulesTable"));
             // deselect feed when clicking on empty part of table
-            $("rulesTable").addEventListener("click", (e) => {
-                rssDownloaderRulesTable.deselectAll();
-                rssDownloaderRulesTable.deselectRow();
-                showRule("");
-            });
-            $("rulesTable").addEventListener("contextmenu", (e) => {
-                if (e.toElement.nodeName === "DIV") {
+            document.getElementById("rulesTable").addEventListener("click", (e) => {
+                if (e.target.nodeName === "DIV") {
                     rssDownloaderRulesTable.deselectAll();
                     rssDownloaderRulesTable.deselectRow();
-                    rssDownloaderRuleContextMenu.updateMenuItems();
                     showRule("");
                 }
             });
             // get all categories and add to combobox
-            new Request.JSON({
-                url: "api/v2/torrents/categories",
-                method: "get",
-                noCache: true,
-                onSuccess: (response) => {
-                    const combobox = $("assignCategoryCombobox");
-                    for (const cat in response) {
-                        if (!Object.hasOwn(response, cat))
+            fetch("api/v2/torrents/categories", {
+                    method: "GET",
+                    cache: "no-store"
+                })
+                .then(async (response) => {
+                    if (!response.ok)
+                        return;
+
+                    const responseJSON = await response.json();
+
+                    const combobox = document.getElementById("assignCategoryCombobox");
+                    for (const cat in responseJSON) {
+                        if (!Object.hasOwn(responseJSON, cat))
                             continue;
 
                         const option = document.createElement("option");
                         option.text = option.value = cat;
                         combobox.add(option);
                     }
-                }
-            }).send();
+                });
             // get all rss feed
-            new Request.JSON({
-                url: "api/v2/rss/items",
-                method: "get",
-                noCache: true,
-                data: {
-                    withData: false
-                },
-                onSuccess: (response) => {
+            const url = new URL("api/v2/rss/items", window.location);
+            url.search = new URLSearchParams({
+                withData: false
+            });
+            fetch(url, {
+                    method: "GET",
+                    cache: "no-store"
+                })
+                .then(async (response) => {
+                    if (!response.ok)
+                        return;
+
+                    const responseJSON = await response.json();
+
                     feedList = [];
                     const flatten = (root) => {
                         for (const child in root) {
@@ -470,52 +473,57 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                                 flatten(root[child]);
                         }
                     };
-                    flatten(response);
-                }
-            }).send();
-            $("savetoDifferentDir").addEventListener("click", () => {
-                $("saveToText").disabled = !$("savetoDifferentDir").checked;
+                    flatten(responseJSON);
+                });
+            document.getElementById("savetoDifferentDir").addEventListener("click", (event) => {
+                document.getElementById("saveToText").disabled = !event.target.checked;
             });
             updateRulesList();
         };
 
         const updateRulesList = () => {
             // get all rules
-            new Request.JSON({
-                url: "api/v2/rss/rules",
-                method: "get",
-                noCache: true,
-                onSuccess: (response) => {
+            fetch("api/v2/rss/rules", {
+                    method: "GET",
+                    cache: "no-store"
+                })
+                .then(async (response) => {
+                    if (!response.ok)
+                        return;
+
+                    const responseJSON = await response.json();
+
                     rssDownloaderRulesTable.clear();
-                    let rowCount = 0;
-                    for (const rule in response) {
-                        if (!Object.hasOwn(response, rule))
+                    let rowID = -1;
+                    for (const rule in responseJSON) {
+                        if (!Object.hasOwn(responseJSON, rule))
                             continue;
                         rssDownloaderRulesTable.updateRowData({
-                            rowId: rowCount++,
-                            checked: response[rule].enabled,
+                            rowId: ++rowID,
+                            checked: responseJSON[rule].enabled,
                             name: rule
                         });
                     }
                     rssDownloaderRulesTable.updateTable(false);
-                    rulesList = response;
-                }
-            }).send();
+                    rulesList = responseJSON;
+                });
         };
 
         const modifyRuleState = (rule, setting, newState, callback = () => {}) => {
             rulesList[rule][setting] = newState;
-            new Request({
-                url: "api/v2/rss/setRule",
-                method: "post",
-                data: {
-                    ruleName: rule,
-                    ruleDef: JSON.stringify(rulesList[rule])
-                },
-                onSuccess: () => {
+            fetch("api/v2/rss/setRule", {
+                    method: "POST",
+                    body: new URLSearchParams({
+                        ruleName: rule,
+                        ruleDef: JSON.stringify(rulesList[rule])
+                    })
+                })
+                .then((response) => {
+                    if (!response.ok)
+                        return;
+
                     callback();
-                }
-            }).send();
+                });
         };
 
         const addRule = () => {
@@ -524,11 +532,11 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 icon: "images/qbittorrent-tray.svg",
                 title: "New rule name",
                 loadMethod: "iframe",
-                contentURL: "newrule.html",
+                contentURL: "newrule.html?v=${CACHEID}",
                 scrollbars: false,
                 resizable: false,
                 maximizable: false,
-                width: 350,
+                width: window.qBittorrent.Dialog.limitWidthToViewport(350),
                 height: 100
             });
         };
@@ -539,11 +547,11 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 icon: "images/qbittorrent-tray.svg",
                 title: "Rule renaming",
                 loadMethod: "iframe",
-                contentURL: "rename_rule.html?rule=" + encodeURIComponent(rule),
+                contentURL: `rename_rule.html?v=${CACHEID}&rule=${encodeURIComponent(rule)}`,
                 scrollbars: false,
                 resizable: false,
                 maximizable: false,
-                width: 350,
+                width: window.qBittorrent.Dialog.limitWidthToViewport(350),
                 height: 100
             });
         };
@@ -562,12 +570,12 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 icon: "images/qbittorrent-tray.svg",
                 title: "Rule deletion confirmation",
                 loadMethod: "iframe",
-                contentURL: "confirmruledeletion.html?rules=" + encodeURIComponent(encodedRules.join("|")),
+                contentURL: `confirmruledeletion.html?v=${CACHEID}&rules=${encodeURIComponent(encodedRules.join("|"))}`,
                 scrollbars: false,
                 resizable: false,
                 maximizable: false,
-                width: 360,
-                height: 80
+                width: window.qBittorrent.Dialog.limitWidthToViewport(360),
+                height: 90
             });
         };
 
@@ -578,11 +586,11 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                 icon: "images/qbittorrent-tray.svg",
                 title: "New rule name",
                 loadMethod: "iframe",
-                contentURL: "confirmruleclear.html?rules=" + encodeURIComponent(encodedRules.join("|")),
+                contentURL: `confirmruleclear.html?v=${CACHEID}&rules=${encodeURIComponent(encodedRules.join("|"))}`,
                 scrollbars: false,
                 resizable: false,
                 maximizable: false,
-                width: 350,
+                width: window.qBittorrent.Dialog.limitWidthToViewport(350),
                 height: 85
             });
         };
@@ -591,27 +599,27 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
             const lastSelectedRow = rssDownloaderRulesTable.selectedRows.at(-1);
             const rule = rssDownloaderRulesTable.getRow(lastSelectedRow).full_data.name;
 
-            rulesList[rule].useRegex = $("useRegEx").checked;
-            rulesList[rule].mustContain = $("mustContainText").value;
-            rulesList[rule].mustNotContain = $("mustNotContainText").value;
-            rulesList[rule].episodeFilter = $("episodeFilterText").value;
-            rulesList[rule].smartFilter = $("useSmartFilter").checked;
-            rulesList[rule].ignoreDays = parseInt($("ignoreDaysValue").value, 10);
+            rulesList[rule].useRegex = document.getElementById("useRegEx").checked;
+            rulesList[rule].mustContain = document.getElementById("mustContainText").value;
+            rulesList[rule].mustNotContain = document.getElementById("mustNotContainText").value;
+            rulesList[rule].episodeFilter = document.getElementById("episodeFilterText").value;
+            rulesList[rule].smartFilter = document.getElementById("useSmartFilter").checked;
+            rulesList[rule].ignoreDays = Number(document.getElementById("ignoreDaysValue").value);
             rulesList[rule].affectedFeeds = [...rssDownloaderFeedSelectionTable.getRowValues()]
                 .filter((row) => row.full_data.checked)
                 .map((row) => row.full_data.url);
 
-            rulesList[rule].torrentParams.category = $("assignCategoryCombobox").value;
-            rulesList[rule].torrentParams.tags = $("ruleAddTags").value.split(",");
-            if ($("savetoDifferentDir").checked) {
-                rulesList[rule].torrentParams.save_path = $("saveToText").value;
+            rulesList[rule].torrentParams.category = document.getElementById("assignCategoryCombobox").value;
+            rulesList[rule].torrentParams.tags = document.getElementById("ruleAddTags").value.split(",");
+            if (document.getElementById("savetoDifferentDir").checked) {
+                rulesList[rule].torrentParams.save_path = document.getElementById("saveToText").value;
                 rulesList[rule].torrentParams.use_auto_tmm = false;
             }
             else {
                 rulesList[rule].torrentParams.save_path = "";
             }
 
-            switch ($("addStoppedCombobox").value) {
+            switch (document.getElementById("addStoppedCombobox").value) {
                 case "default":
                     rulesList[rule].torrentParams.stopped = null;
                     break;
@@ -623,7 +631,7 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                     break;
             }
 
-            switch ($("contentLayoutCombobox").value) {
+            switch (document.getElementById("contentLayoutCombobox").value) {
                 case "Default":
                     rulesList[rule].torrentParams.content_layout = null;
                     break;
@@ -638,145 +646,152 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
                     break;
             }
 
-            new Request({
-                url: "api/v2/rss/setRule",
-                method: "post",
-                data: {
-                    ruleName: rule,
-                    ruleDef: JSON.stringify(rulesList[rule])
-                },
-                onSuccess: () => {
+            fetch("api/v2/rss/setRule", {
+                    method: "POST",
+                    body: new URLSearchParams({
+                        ruleName: rule,
+                        ruleDef: JSON.stringify(rulesList[rule])
+                    })
+                })
+                .then((response) => {
+                    if (!response.ok)
+                        return;
+
                     updateMatchingArticles(rule);
-                }
-            }).send();
+                });
         };
 
         const updateMatchingArticles = (ruleName) => {
-            new Request.JSON({
-                url: "api/v2/rss/matchingArticles",
-                method: "get",
-                noCache: true,
-                data: {
-                    ruleName: ruleName
-                },
-                onSuccess: (response) => {
+            const url = new URL("api/v2/rss/matchingArticles", window.location);
+            url.search = new URLSearchParams({
+                ruleName: ruleName
+            });
+            fetch(url, {
+                    method: "GET",
+                    cache: "no-store"
+                })
+                .then(async (response) => {
+                    if (!response.ok)
+                        return;
+
+                    const responseJSON = await response.json();
+
                     rssDownloaderArticlesTable.clear();
-                    let rowCount = 0;
-                    for (const feed in response) {
-                        if (!Object.hasOwn(response, feed))
+                    let rowID = -1;
+                    for (const feed in responseJSON) {
+                        if (!Object.hasOwn(responseJSON, feed))
                             continue;
                         rssDownloaderArticlesTable.updateRowData({
-                            rowId: rowCount++,
+                            rowId: ++rowID,
                             name: feed,
                             isFeed: true
                         });
-                        response[feed].each((article) => {
+                        responseJSON[feed].each((article) => {
                             rssDownloaderArticlesTable.updateRowData({
-                                rowId: rowCount++,
+                                rowId: ++rowID,
                                 name: article,
                                 isFeed: false
                             });
                         });
                     }
                     rssDownloaderArticlesTable.updateTable(false);
-                }
-            }).send();
+                });
         };
 
         const showRule = (ruleName) => {
             if (ruleName === "") {
                 // disable all
-                $("saveButton").disabled = true;
-                $("useRegEx").disabled = true;
-                $("mustContainText").disabled = true;
-                $("mustNotContainText").disabled = true;
-                $("episodeFilterText").disabled = true;
-                $("useSmartFilter").disabled = true;
-                $("assignCategoryCombobox").disabled = true;
-                $("ruleAddTags").disabled = true;
-                $("savetoDifferentDir").disabled = true;
-                $("saveToText").disabled = true;
-                $("ignoreDaysValue").disabled = true;
-                $("addStoppedCombobox").disabled = true;
-                $("contentLayoutCombobox").disabled = true;
+                document.getElementById("saveButton").disabled = true;
+                document.getElementById("useRegEx").disabled = true;
+                document.getElementById("mustContainText").disabled = true;
+                document.getElementById("mustNotContainText").disabled = true;
+                document.getElementById("episodeFilterText").disabled = true;
+                document.getElementById("useSmartFilter").disabled = true;
+                document.getElementById("assignCategoryCombobox").disabled = true;
+                document.getElementById("ruleAddTags").disabled = true;
+                document.getElementById("savetoDifferentDir").disabled = true;
+                document.getElementById("saveToText").disabled = true;
+                document.getElementById("ignoreDaysValue").disabled = true;
+                document.getElementById("addStoppedCombobox").disabled = true;
+                document.getElementById("contentLayoutCombobox").disabled = true;
 
                 // reset all boxes
-                $("useRegEx").checked = false;
-                $("mustContainText").value = "";
-                $("mustNotContainText").value = "";
-                $("episodeFilterText").value = "";
-                $("useSmartFilter").checked = false;
-                $("assignCategoryCombobox").value = "default";
-                $("ruleAddTags").value = "";
-                $("savetoDifferentDir").checked = false;
-                $("saveToText").value = "";
-                $("ignoreDaysValue").value = 0;
-                $("lastMatchText").textContent = "Last Match: Unknown";
-                $("addStoppedCombobox").value = "default";
-                $("contentLayoutCombobox").value = "Default";
+                document.getElementById("useRegEx").checked = false;
+                document.getElementById("mustContainText").value = "";
+                document.getElementById("mustNotContainText").value = "";
+                document.getElementById("episodeFilterText").value = "";
+                document.getElementById("useSmartFilter").checked = false;
+                document.getElementById("assignCategoryCombobox").value = "default";
+                document.getElementById("ruleAddTags").value = "";
+                document.getElementById("savetoDifferentDir").checked = false;
+                document.getElementById("saveToText").value = "";
+                document.getElementById("ignoreDaysValue").value = 0;
+                document.getElementById("lastMatchText").textContent = "Last Match: Unknown";
+                document.getElementById("addStoppedCombobox").value = "default";
+                document.getElementById("contentLayoutCombobox").value = "Default";
                 rssDownloaderFeedSelectionTable.clear();
                 rssDownloaderArticlesTable.clear();
 
-                $("mustContainText").title = "";
-                $("mustNotContainText").title = "";
-                $("episodeFilterText").title = "";
+                document.getElementById("mustContainText").title = "";
+                document.getElementById("mustNotContainText").title = "";
+                document.getElementById("episodeFilterText").title = "";
             }
             else {
                 // enable all
-                $("saveButton").disabled = false;
-                $("useRegEx").disabled = false;
-                $("mustContainText").disabled = false;
-                $("mustNotContainText").disabled = false;
-                $("episodeFilterText").disabled = false;
-                $("useSmartFilter").disabled = false;
-                $("assignCategoryCombobox").disabled = false;
-                $("ruleAddTags").disabled = false;
-                $("savetoDifferentDir").disabled = false;
-                $("ignoreDaysValue").disabled = false;
-                $("addStoppedCombobox").disabled = false;
-                $("contentLayoutCombobox").disabled = false;
+                document.getElementById("saveButton").disabled = false;
+                document.getElementById("useRegEx").disabled = false;
+                document.getElementById("mustContainText").disabled = false;
+                document.getElementById("mustNotContainText").disabled = false;
+                document.getElementById("episodeFilterText").disabled = false;
+                document.getElementById("useSmartFilter").disabled = false;
+                document.getElementById("assignCategoryCombobox").disabled = false;
+                document.getElementById("ruleAddTags").disabled = false;
+                document.getElementById("savetoDifferentDir").disabled = false;
+                document.getElementById("ignoreDaysValue").disabled = false;
+                document.getElementById("addStoppedCombobox").disabled = false;
+                document.getElementById("contentLayoutCombobox").disabled = false;
 
                 // load rule settings
-                $("useRegEx").checked = rulesList[ruleName].useRegex;
-                $("mustContainText").value = rulesList[ruleName].mustContain;
-                $("mustNotContainText").value = rulesList[ruleName].mustNotContain;
-                $("episodeFilterText").value = rulesList[ruleName].episodeFilter;
-                $("useSmartFilter").checked = rulesList[ruleName].smartFilter;
+                document.getElementById("useRegEx").checked = rulesList[ruleName].useRegex;
+                document.getElementById("mustContainText").value = rulesList[ruleName].mustContain;
+                document.getElementById("mustNotContainText").value = rulesList[ruleName].mustNotContain;
+                document.getElementById("episodeFilterText").value = rulesList[ruleName].episodeFilter;
+                document.getElementById("useSmartFilter").checked = rulesList[ruleName].smartFilter;
 
-                $("assignCategoryCombobox").value = rulesList[ruleName].torrentParams.category ? rulesList[ruleName].torrentParams.category : "default";
-                $("ruleAddTags").value = rulesList[ruleName].torrentParams.tags.join(",");
-                $("savetoDifferentDir").checked = rulesList[ruleName].torrentParams.save_path !== "";
-                $("saveToText").disabled = !$("savetoDifferentDir").checked;
-                $("saveToText").value = rulesList[ruleName].torrentParams.save_path;
-                $("ignoreDaysValue").value = rulesList[ruleName].ignoreDays;
+                document.getElementById("assignCategoryCombobox").value = rulesList[ruleName].torrentParams.category ? rulesList[ruleName].torrentParams.category : "default";
+                document.getElementById("ruleAddTags").value = rulesList[ruleName].torrentParams.tags.join(",");
+                document.getElementById("savetoDifferentDir").checked = rulesList[ruleName].torrentParams.save_path !== "";
+                document.getElementById("saveToText").disabled = !document.getElementById("savetoDifferentDir").checked;
+                document.getElementById("saveToText").value = rulesList[ruleName].torrentParams.save_path;
+                document.getElementById("ignoreDaysValue").value = rulesList[ruleName].ignoreDays;
 
                 // calculate days since last match
                 if (rulesList[ruleName].lastMatch !== "") {
-                    const timeDiffInMs = new Date().getTime() - new Date(rulesList[ruleName].lastMatch).getTime();
+                    const timeDiffInMs = Date.now() - new Date(rulesList[ruleName].lastMatch).getTime();
                     const daysAgo = Math.floor(timeDiffInMs / (1000 * 60 * 60 * 24)).toString();
-                    $("lastMatchText").textContent = " Last Match: %1 days ago".replace("%1", daysAgo);
+                    document.getElementById("lastMatchText").textContent = "Last Match: %1 days ago".replace("%1", daysAgo);
                 }
                 else {
-                    $("lastMatchText").textContent = "Last Match: Unknown";
+                    document.getElementById("lastMatchText").textContent = "Last Match: Unknown";
                 }
 
                 if ((rulesList[ruleName].torrentParams.stopped === undefined) || (rulesList[ruleName].torrentParams.stopped === null))
-                    $("addStoppedCombobox").value = "default";
+                    document.getElementById("addStoppedCombobox").value = "default";
                 else
-                    $("addStoppedCombobox").value = rulesList[ruleName].torrentParams.stopped ? "always" : "never";
+                    document.getElementById("addStoppedCombobox").value = rulesList[ruleName].torrentParams.stopped ? "always" : "never";
 
                 if ((rulesList[ruleName].torrentParams.content_layout === undefined) || (rulesList[ruleName].torrentParams.content_layout === null))
-                    $("contentLayoutCombobox").value = "Default";
+                    document.getElementById("contentLayoutCombobox").value = "Default";
                 else
-                    $("contentLayoutCombobox").value = rulesList[ruleName].torrentParams.content_layout;
+                    document.getElementById("contentLayoutCombobox").value = rulesList[ruleName].torrentParams.content_layout;
 
                 setElementTitles();
 
                 rssDownloaderFeedSelectionTable.clear();
-                let rowCount = 0;
+                let rowID = -1;
                 feedList.forEach((feed) => {
                     rssDownloaderFeedSelectionTable.updateRowData({
-                        rowId: rowCount++,
+                        rowId: ++rowID,
                         checked: rulesList[ruleName].affectedFeeds.contains(feed.url),
                         name: feed.name,
                         url: feed.url
@@ -789,38 +804,38 @@ Supports the formats: S01E01, 1x1, 2017.12.31 and 31.12.2017 (Date formats also 
 
         const setElementTitles = () => {
             let mainPart;
-            if ($("useRegEx").checked) {
+            if (document.getElementById("useRegEx").checked) {
                 mainPart = "Regex mode: use Perl-compatible regular expressions\n\n";
             }
             else {
                 mainPart = "Wildcard mode: you can use\n\n"
-                    + " ● ? to match any single character\n"
-                    + " ● * to match zero or more of any characters\n"
-                    + " ● Whitespaces count as AND operators (all words, any order)\n"
-                    + " ● | is used as OR operator\n\n"
+                    + " ●? to match any single character\n"
+                    + " ●* to match zero or more of any characters\n"
+                    + " ● QBT_TR(Whitespaces count as AND operators (all words, any order))QBT_TR[CONTEXT=AutomatedRssDownloader]\n"
+                    + " ●| is used as OR operator\n\n"
                     + "If word order is important use * instead of whitespace.\n\n";
             }
-            const secondPart = "An expression with an empty %1 clause (e.g. %2)"
+            const secondPart = "QBT_TR(An expression with an empty %1 clause (e.g. %2))QBT_TR[CONTEXT=AutomatedRssDownloader]"
                 .replace("%1", "|").replace("%2", "expr|");
 
-            $("mustContainText").title = mainPart + secondPart + " will match all articles.";
-            $("mustNotContainText").title = mainPart + secondPart + " will exclude all articles.";
+            document.getElementById("mustContainText").title = `${mainPart}${secondPart} will match all articles.`;
+            document.getElementById("mustNotContainText").title = `${mainPart}${secondPart} will exclude all articles.`;
 
             let episodeFilterTitle = "Matches articles based on episode filter.\n\n"
                 + "Example: "
                 + "1x2;8-15;5;30-;"
                 + " will match 2, 5, 8 through 15, 30 and onward episodes of season one\n\n"
                 + "Episode filter rules: \n\n"
-                + " ● Season number is a mandatory non-zero value\n"
-                + " ● Episode number is a mandatory positive value\n"
-                + " ● Filter must end with semicolon\n"
-                + " ● Three range types for episodes are supported: \n"
-                + "    ● Single number: <b>1x25;</b> matches episode 25 of season one\n"
-                + "    ● Normal range: <b>1x25-40;</b> matches episodes 25 through 40 of season one\n"
-                + "    ● Infinite range: <b>1x25-;</b> matches episodes 25 and upward of season one, and all episodes of later seasons";
+                + " ●Season number is a mandatory non-zero value\n"
+                + " ●Episode number is a mandatory positive value\n"
+                + " ●Filter must end with semicolon\n"
+                + " ●Three range types for episodes are supported: \n"
+                + "    ●Single number: <b>1x25;</b> matches episode 25 of season one\n"
+                + "    ●Normal range: <b>1x25-40;</b> matches episodes 25 through 40 of season one\n"
+                + "    ●Infinite range: <b>1x25-;</b> matches episodes 25 and upward of season one, and all episodes of later seasons";
 
             episodeFilterTitle = episodeFilterTitle.replace(/<b>/g, "").replace(/<\/b>/g, "");
-            $("episodeFilterText").title = episodeFilterTitle;
+            document.getElementById("episodeFilterText").title = episodeFilterTitle;
         };
 
         return exports();

@@ -35,7 +35,7 @@
         .addCookie {
             height: 16px;
             width: 16px;
-            padding-left: 10px;
+            margin-left: 5px;
             vertical-align: middle;
             cursor: pointer;
         }
@@ -93,7 +93,7 @@
             };
         };
 
-        const addCookie = function() {
+        const addCookie = () => {
             const newRow = document.querySelector("#manageCookiesTable tr.newRow").cloneNode(true);
             newRow.querySelector(".removeCookie").addEventListener("click", (event) => {
                 deleteCookie(event.target);
@@ -103,12 +103,12 @@
             return newRow;
         };
 
-        const deleteCookie = function(element) {
-            element.closest("tr").destroy();
+        const deleteCookie = (element) => {
+            element.closest("tr").remove();
         };
 
-        const save = function() {
-            const rows = [...document.querySelectorAll("#manageCookiesTable tbody tr")].filter(e => !e.hasClass("invisible"));
+        const save = () => {
+            const rows = [...document.querySelectorAll("#manageCookiesTable tbody tr")].filter(e => !e.classList.contains("invisible"));
             const cookies = rows.map(row => {
                 const expDateValue = row.querySelector("td.expDate input").valueAsNumber;
                 // remove ms from string
@@ -122,38 +122,43 @@
                     expirationDate: expDate,
                 };
             });
+            fetch("api/v2/app/setCookies", {
+                    method: "POST",
+                    body: new URLSearchParams({
+                        cookies: JSON.stringify(cookies)
+                    })
+                })
+                .then(async (response) => {
+                    if (!response.ok) {
+                        let error = "Unable to save cookies";
+                        const responseText = await response.text();
+                        if (responseText.length > 0)
+                            error += `: ${responseText}`;
+                        alert(error);
+                        return;
+                    }
 
-            new Request({
-                url: "api/v2/app/setCookies",
-                method: "post",
-                noCache: true,
-                data: {
-                    cookies: JSON.stringify(cookies)
-                },
-                onFailure: (response) => {
-                    let error = "Unable to save cookies";
-                    if (response?.responseText)
-                        error += `: ${response.responseText}`;
-                    alert(error);
-                },
-                onSuccess: (response) => {
-                    window.qBittorrent.Client.closeWindow("cookiesPage");
-                }
-            }).send();
+                    window.qBittorrent.Client.closeWindow(document.getElementById("cookiesPage"));
+                });
         };
 
-        const loadCookies = function() {
-            new Request.JSON({
-                url: "api/v2/app/cookies",
-                method: "get",
-                onFailure: (response) => {
-                    let error = "Unable to load cookies";
-                    if (response?.responseText)
-                        error += `: ${response.responseText}`;
-                    alert(error);
-                },
-                onSuccess: (response) => {
-                    for (const cookie of response) {
+        const loadCookies = () => {
+            fetch("api/v2/app/cookies", {
+                    method: "GET",
+                    cache: "no-store"
+                })
+                .then(async (response) => {
+                    if (!response.ok) {
+                        let error = "Unable to load cookies";
+                        const responseText = await response.text();
+                        if (responseText.length > 0)
+                            error += `: ${responseText}`;
+                        alert(error);
+                        return;
+                    }
+
+                    const responseJSON = await response.json();
+                    for (const cookie of responseJSON) {
                         const row = addCookie();
                         row.querySelector("td.domain input").value = cookie.domain;
                         row.querySelector("td.path input").value = cookie.path;
@@ -167,18 +172,17 @@
                             row.querySelector("td.expDate input").valueAsNumber = date.getTime();
                         }
                     }
-                }
-            }).send();
+                });
         };
 
-        const setup = function() {
+        const setup = () => {
             loadCookies();
 
             document.querySelector(".addCookie").addEventListener("click", (event) => {
                 addCookie();
             });
 
-            document.querySelector("#saveButton").addEventListener("click", (event) => {
+            document.getElementById("saveButton").addEventListener("click", (event) => {
                 save();
             });
         };

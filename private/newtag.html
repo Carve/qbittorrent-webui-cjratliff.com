@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="${LANG}">
+<html lang="${LANG}" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -7,44 +7,39 @@
     <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css">
     <script defer src="scripts/localpreferences.js?v=${CACHEID}"></script>
     <script defer src="scripts/color-scheme.js?v=${CACHEID}"></script>
-    <script src="scripts/misc.js?locale=${LANG}&v=${CACHEID}"></script>
+    <script defer src="scripts/misc.js?locale=${LANG}&v=${CACHEID}"></script>
     <script>
         "use strict";
 
-        new Keyboard({
-            defaultEventType: "keydown",
-            events: {
-                "Enter": function(event) {
-                    $("tagNameButton").click();
-                    event.preventDefault();
-                },
-                "Escape": function(event) {
-                    window.parent.qBittorrent.Client.closeWindows();
-                    event.preventDefault();
-                },
-                "Esc": function(event) {
-                    window.parent.qBittorrent.Client.closeWindows();
-                    event.preventDefault();
+        window.addEventListener("DOMContentLoaded", (event) => {
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "Enter":
+                        event.preventDefault();
+                        document.getElementById("tagNameButton").click();
+                        break;
+                    case "Escape":
+                        event.preventDefault();
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                        break;
                 }
-            }
-        }).activate();
+            });
 
-        window.addEventListener("DOMContentLoaded", () => {
-            const uriAction = window.qBittorrent.Misc.safeTrim(new URI().getData("action"));
-            const uriHashes = window.qBittorrent.Misc.safeTrim(new URI().getData("hashes"));
+            const searchParams = new URLSearchParams(window.location.search);
+            const uriAction = window.qBittorrent.Misc.safeTrim(searchParams.get("action"));
 
             if (uriAction === "create")
-                $("legendText").textContent = "Tag:";
+                document.getElementById("legendText").textContent = "Tag:";
 
-            $("tagName").focus();
+            document.getElementById("tagName").focus();
 
-            $("tagNameButton").addEventListener("click", (e) => {
+            document.getElementById("tagNameButton").addEventListener("click", (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                const tagName = $("tagName").value.trim();
+                const tagName = document.getElementById("tagName").value.trim();
 
-                const verifyTagName = function(name) {
+                const verifyTagName = (name) => {
                     if ((name === null) || (name === ""))
                         return false;
                     if (name.includes(",")) {
@@ -55,37 +50,43 @@
                 };
 
                 switch (uriAction) {
-                    case "set":
-                        if (uriHashes === "")
+                    case "set": {
+                        const uriHashes = window.qBittorrent.Misc.safeTrim(searchParams.get("hashes"));
+                        if ((uriHashes === null) || (uriHashes.length <= 0))
                             return;
 
-                        new Request({
-                            url: "api/v2/torrents/addTags",
-                            method: "post",
-                            data: {
-                                hashes: uriHashes,
-                                tags: tagName,
-                            },
-                            onComplete: function() {
-                                window.parent.qBittorrent.Client.closeWindows();
-                            }
-                        }).send();
+                        fetch("api/v2/torrents/addTags", {
+                                method: "POST",
+                                body: new URLSearchParams({
+                                    hashes: uriHashes,
+                                    tags: tagName
+                                })
+                            })
+                            .then((response) => {
+                                if (!response.ok)
+                                    return;
+
+                                window.parent.qBittorrent.Client.closeFrameWindow(window);
+                            });
                         break;
+                    }
 
                     case "create":
                         if (!verifyTagName(tagName))
                             return;
 
-                        new Request({
-                            url: "api/v2/torrents/createTags",
-                            method: "post",
-                            data: {
-                                tags: tagName,
-                            },
-                            onComplete: function() {
-                                window.parent.qBittorrent.Client.closeWindows();
-                            }
-                        }).send();
+                        fetch("api/v2/torrents/createTags", {
+                                method: "POST",
+                                body: new URLSearchParams({
+                                    tags: tagName
+                                })
+                            })
+                            .then((response) => {
+                                if (!response.ok)
+                                    return;
+
+                                window.parent.qBittorrent.Client.closeFrameWindow(window);
+                            });
                         break;
                 }
             });

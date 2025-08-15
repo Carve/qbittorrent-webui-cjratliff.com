@@ -6,7 +6,7 @@
     }
 
     #searchPluginsContainer button {
-        padding: 2px;
+        padding: 3px;
     }
 
     #searchPluginsContainer span {
@@ -16,7 +16,7 @@
 
     #searchPluginsTable {
         width: 100%;
-        height: calc(100% - 150px);
+        height: calc(100% - 135px);
     }
 
     #searchPluginsTable .dynamicTable {
@@ -63,13 +63,13 @@
     <div style="width: 100%; margin-top: 10px;">
         <button type="button" style="width: 33%; line-height: 1.4em;" onclick="qBittorrent.SearchPlugins.installPlugin();">Install new plugin</button>
         <button type="button" style="width: 33%; line-height: 1.4em;" onclick="qBittorrent.SearchPlugins.checkForUpdates();">Check for updates</button>
-        <button type="button" style="width: 32%; line-height: 1.4em;" onclick="qBittorrent.SearchPlugins.closeSearchWindow('searchPlugins');">Close</button>
+        <button type="button" style="width: 32%; line-height: 1.4em;" onclick="window.qBittorrent.Client.closeWindow(document.getElementById('searchPlugins'));">Close</button>
     </div>
 </div>
 
 <ul id="searchPluginsTableMenu" class="contextMenu">
-    <li><a href="#Enabled"><img src="images/checked-completed.svg" alt="Enabled"> Enabled</a></li>
-    <li class="separator"><a href="#Uninstall"><img src="images/list-remove.svg" alt="Uninstall"> Uninstall</a></li>
+    <li><a href="#Enabled"><img src="images/checked-completed.svg" alt="Enabled">Enabled</a></li>
+    <li class="separator"><a href="#Uninstall"><img src="images/list-remove.svg" alt="Uninstall">Uninstall</a></li>
 </ul>
 
 <script>
@@ -79,7 +79,6 @@
     window.qBittorrent.SearchPlugins ??= (() => {
         const exports = () => {
             return {
-                closeSearchWindow: closeSearchWindow,
                 setup: setup,
                 installPlugin: installPlugin,
                 checkForUpdates: checkForUpdates,
@@ -92,10 +91,10 @@
         let prevOffsetLeft;
         let prevOffsetTop;
 
-        const setup = function() {
+        const setup = () => {
             searchPluginsTable = new window.qBittorrent.DynamicTable.SearchPluginsTable();
             searchPluginsTableContextMenu = new window.qBittorrent.ContextMenu.SearchPluginsTableContextMenu({
-                targets: ".searchPluginsTableRow",
+                targets: "#searchPluginsTableDiv tbody tr",
                 menu: "searchPluginsTableMenu",
                 actions: {
                     Enabled: enablePlugin,
@@ -104,104 +103,79 @@
                 offsets: calculateContextMenuOffsets()
             });
             searchPluginsTable.setup("searchPluginsTableDiv", "searchPluginsTableFixedHeaderDiv", searchPluginsTableContextMenu);
+
+            searchPluginsTable.dynamicTableDiv.addEventListener("dblclick", (e) => { enablePlugin(); });
+            searchPluginsTable.dynamicTableDiv.addEventListener("contextmenu", (e) => {
+                updateSearchPluginsTableContextMenuOffset();
+            }, true);
+
             updateTable();
         };
 
-        const closeSearchWindow = function(id) {
-            window.parent.MochaUI.closeWindow(window.parent.$(id));
-        };
-
-        const installPlugin = function(path) {
+        const installPlugin = (path) => {
             new MochaUI.Window({
                 id: "installSearchPlugin",
                 icon: "images/qbittorrent-tray.svg",
                 title: "Install plugin",
                 loadMethod: "xhr",
-                contentURL: "views/installsearchplugin.html",
+                contentURL: "views/installsearchplugin.html?v=${CACHEID}",
                 scrollbars: false,
                 resizable: false,
                 maximizable: false,
                 paddingVertical: 0,
                 paddingHorizontal: 0,
-                width: 500,
+                width: window.qBittorrent.Dialog.limitWidthToViewport(500),
                 height: 120
             });
         };
 
-        const uninstallPlugin = function() {
-            const plugins = searchPluginsTable.selectedRowsIds().join("|");
-            const url = new URI("api/v2/search/uninstallPlugin");
-            new Request({
-                url: url,
-                method: "post",
-                data: {
-                    names: plugins,
-                }
-            }).send();
+        const uninstallPlugin = () => {
+            fetch("api/v2/search/uninstallPlugin", {
+                method: "POST",
+                body: new URLSearchParams({
+                    names: searchPluginsTable.selectedRowsIds().join("|")
+                })
+            });
         };
 
-        const enablePlugin = function() {
+        const enablePlugin = () => {
             const plugins = searchPluginsTable.selectedRowsIds();
             let enable = true;
             if (plugins && plugins.length)
                 enable = !window.qBittorrent.Search.getPlugin(plugins[0]).enabled;
 
-            const url = new URI("api/v2/search/enablePlugin");
-            new Request({
-                url: url,
-                method: "post",
-                data: {
+            fetch("api/v2/search/enablePlugin", {
+                method: "POST",
+                body: new URLSearchParams({
                     names: plugins.join("|"),
                     enable: enable
-                }
-            }).send();
+                })
+            });
         };
 
-        const checkForUpdates = function() {
-            const url = new URI("api/v2/search/updatePlugins");
-            new Request({
-                url: url,
-                method: "post"
-            }).send();
+        const checkForUpdates = () => {
+            fetch("api/v2/search/updatePlugins", {
+                method: "POST"
+            });
         };
 
-        const calculateContextMenuOffsets = function() {
+        const calculateContextMenuOffsets = () => {
             prevOffsetLeft = document.getElementById("searchPlugins").getBoundingClientRect().left;
             prevOffsetTop = document.getElementById("searchPlugins").getBoundingClientRect().top;
 
             return {
-                x: -(prevOffsetLeft + 20),
-                y: -(prevOffsetTop + 2)
+                x: -prevOffsetLeft,
+                y: -prevOffsetTop
             };
         };
 
-        const updateSearchPluginsTableContextMenuOffset = function() {
+        const updateSearchPluginsTableContextMenuOffset = () => {
             // only re-calculate if window has moved
             if ((prevOffsetLeft !== document.getElementById("searchPlugins").getBoundingClientRect().left) || (prevOffsetTop !== document.getElementById("searchPlugins").getBoundingClientRect().top))
                 searchPluginsTableContextMenu.options.offsets = calculateContextMenuOffsets();
         };
 
-        const setupSearchPluginTableEvents = function(enable) {
-            const clickHandler = (e) => { enablePlugin(); };
-            const menuHandler = (e) => { updateSearchPluginsTableContextMenuOffset(); };
-            if (enable) {
-                $$(".searchPluginsTableRow").each((target) => {
-                    target.addEventListener("dblclick", clickHandler);
-                    target.addEventListener("contextmenu", menuHandler, true);
-                });
-            }
-            else {
-                $$(".searchPluginsTableRow").each((target) => {
-                    target.removeEventListener("dblclick", clickHandler);
-                    target.removeEventListener("contextmenu", menuHandler, true);
-                });
-            }
-        };
-
-        const updateTable = function() {
-            // clear event listeners
-            setupSearchPluginTableEvents(false);
-
+        const updateTable = () => {
             const oldPlugins = [...searchPluginsTable.getRowIds()];
             // remove old rows from the table
             for (let i = 0; i < oldPlugins.length; ++i) {
@@ -222,9 +196,6 @@
             }
 
             searchPluginsTable.updateTable();
-
-            // add event listeners
-            setupSearchPluginTableEvents(true);
         };
 
         return exports();
