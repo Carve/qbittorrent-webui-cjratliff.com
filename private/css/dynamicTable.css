@@ -7,12 +7,12 @@
 .dynamicTable tbody tr,
 .dynamicTable tr.nonAlt,
 #torrentFilesTableDiv .dynamicTable tr.nonAlt {
-    background-color: var(--darkmode-background);
+    background-color: var(--color-background);
 }
 
 .dynamicTable tbody tr:nth-child(even),
 .dynamicTable tbody tr.alt {
-    background-color: var(--darkmode-background-alt);
+    background-color: var(--color-background-alt);
 }
 
 .dynamicTable tbody tr td {
@@ -20,23 +20,34 @@
 }
 
 .dynamicTable tbody tr td progress-bar {
-    background: var(--darkmode-primary);
+    background: var(--color-primary);
 }
 
 .dynamicTable tbody tr td progress-bar div {
-    color: var(--darkmode-text-alt) !important;
+    color: var(--color-text-alt) !important;
 }
 
 .dynamicTable tbody tr.selected,
 .dynamicTable tbody tr:hover {
-    background-color: var(--darkmode-text-alt);
-    color: var(--darkmode-background)
+    background-color: var(--color-text-alt);
+    color: var(--color-background)
 }
 
 
 .dynamicTable tbody tr.selected .ratio,
 .dynamicTable tbody tr:hover .ratio {
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+@media (prefers-color-scheme: light) {
+    .dynamicTable tbody tr.selected .ratio,
+    .dynamicTable tbody tr:hover .ratio {
+        text-shadow: 1px 0 0 #3f3f3f, 0 -1px 0 #3f3f3f, 0 1px 0 #3f3f3f, -1px 0 0 #3f3f3f;
+    }
+}
+.light .dynamicTable tbody tr.selected .ratio,
+.light .dynamicTable tbody tr:hover .ratio {
+    text-shadow: 1px 0 0 #3f3f3f, 0 -1px 0 #3f3f3f, 0 1px 0 #3f3f3f, -1px 0 0 #3f3f3f;
 }
 
 #transferList tr:hover {
@@ -61,9 +72,9 @@ tr.dynamicTableHeader {
 }
 
 .dynamicTable th {
-    background: var(--darkmode-background);
-    color: var(--darkmode-text);
-    border-right: 1px solid var(--darkmode-line-color);
+    background: var(--color-background);
+    color: var(--color-text);
+    border-right: 1px solid var(--color-line-color);
     box-sizing: border-box;
     padding: 4px;
     white-space: nowrap;
@@ -79,7 +90,7 @@ tr.dynamicTableHeader {
 }
 
 .dynamicTable thead tr {
-    background-color: var(--darkmode-background);
+    background-color: var(--color-background);
 }
 
 .dynamicTable th,

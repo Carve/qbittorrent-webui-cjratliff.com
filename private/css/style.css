@@ -23,16 +23,16 @@ input[type="password"],
 input[type="button"],
 button,
 select {
-    background-color: var(--darkmode-background);
-    border: solid 1px var(--darkmode-line-color);
+    background-color: var(--color-background);
+    border: solid 1px var(--color-line-color);
     border-radius: 8px;
     padding: 4px 4px 4px 10px;
-    color: var(--darkmode-text);
+    color: var(--color-text);
 }
 
 input[type="checkbox"],
 input[type="radio"] {
-    accent-color: var(--darkmode-primary);
+    accent-color: var(--color-primary);
 }
 
 input[type="button"],
@@ -55,8 +55,8 @@ button:disabled {
 /* Structure */
 
 body {
-    background-color: var(--darkmode-background);
-    color: var(--darkmode-text);
+    background-color: var(--color-background);
+    color: var(--color-text);
     font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-size: 12px;
     line-height: 18px;
@@ -168,7 +168,7 @@ body {
 h2,
 h3,
 h4 {
-    color: var(--darkmode-text-alt);
+    color: var(--color-text-alt);
     font-size: 12px;
     font-weight: bold;
     margin: 0;
@@ -176,7 +176,7 @@ h4 {
 }
 
 h2 {
-    color: var(--darkmode-text);
+    color: var(--color-text);
     font-size: 14px;
     font-weight: bold;
 }
@@ -234,7 +234,7 @@ dd {
 /* Forms */
 
 fieldset {
-    border: solid 1px var(--darkmode-line-color);
+    border: solid 1px var(--color-line-color);
     border-radius: 8px;
     padding: 4px 4px 4px 10px;
 }
@@ -271,9 +271,9 @@ pre {
 /* Dividers */
 
 hr {
-    background-color: var(--darkmode-line-color);
+    background-color: var(--color-line-color);
     border: 0px;
-    color: var(--darkmode-text);
+    color: var(--color-text);
     height: 1px;
 }
 
@@ -319,8 +319,8 @@ hr {
 }
 
 .selectedFilter {
-    background-color: var(--darkmode-background-light);
-    color: var(--darkmode-background);
+    background-color: var(--color-background-light);
+    color: var(--color-background);
 }
 
 .selectedFilter a {
@@ -356,16 +356,16 @@ a.propButton img {
 /* context menu specific */
 
 .contextMenu {
-    background-color: var(--darkmode-background);
-    color: var(--darkmode-text);
-    border: 1px solid var(--darkmode-line-color);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-line-color);
     display: none;
     list-style-type: none;
     padding: 0;
 }
 
 .contextMenu .separator {
-    border-top: 1px solid var(--darkmode-line-color);
+    border-top: 1px solid var(--color-line-color);
 }
 
 .contextMenu li {
@@ -386,7 +386,7 @@ a.propButton img {
 }
 
 .contextMenu li a {
-    color: var(--darkmode-text);
+    color: var(--color-text);
     display: block;
     font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-size: 12px;
@@ -396,8 +396,8 @@ a.propButton img {
 }
 
 .contextMenu li a:hover {
-    background-color: var(--darkmode-text-alt);
-    color: var(--darkmode-line-color);
+    background-color: var(--color-text-alt);
+    color: var(--color-line-color);
 }
 
 .contextMenu li a.disabled {
@@ -410,9 +410,9 @@ a.propButton img {
 }
 
 .contextMenu li ul {
-    background-color: var(--darkmode-background);
-    color: var(--darkmode-text);
-    border: 1px solid var(--darkmode-line-color);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-line-color);
     left: -999em;
     list-style-type: none;
     margin: -29px 0 0 100%;
@@ -528,7 +528,7 @@ a.propButton img {
 }
 
 #mochaToolbar .divider {
-    border-left: 1px solid var(--darkmode-line-color);
+    border-left: 1px solid var(--color-line-color);
     padding-left: 14px;
     padding-top: 15px;
 }
@@ -689,8 +689,8 @@ ul.filterList span.link {
 }
 
 ul.filterList span.link:hover {
-    background-color: var(--darkmode-primary);
-    color: var(--darkmode-background) !important;
+    background-color: var(--color-primary);
+    color: var(--color-background) !important;
 }
 
 span.link :last-child {
@@ -706,8 +706,17 @@ span.link :is(img, button) {
 
 .selectedFilter > span.link {
     background-color: var(--color-background-blue);
-    color: var(--darkmode-background);
+    color: var(--color-background);
 }
+@media (prefers-color-scheme: light) {
+    .selectedFilter > span.link {
+        color: var(--color-text-white);
+    }
+}
+.light .selectedFilter > span.link {
+    color: var(--color-text-white);
+}
+
 
 .subcategories,
 .subcategories ul {
@@ -887,7 +896,7 @@ td.statusBarSeparator {
 }
 
 #torrentFilesTableDiv .dynamicTable tr.nonAlt:hover {
-    background-color: var(--darkmode-background);
+    background-color: var(--color-background);
     color: var(--color-text-white);
 }
 
@@ -930,7 +939,7 @@ td.statusBarSeparator {
 }
 
 #rememberBtn svg {
-    fill: var(--darkmode-primary);
+    fill: var(--color-primary);
 }
 
 #rememberBtn.disabled svg {

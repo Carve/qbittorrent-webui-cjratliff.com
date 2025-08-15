@@ -1,15 +1,18 @@
 :root {
+	/* Dark is default */
 	color-scheme: dark;
-	--darkmode-primary: #00d9ff;
-	--darkmode-background: #202020;
-	--darkmode-background-alt: #242424;
-	--darkmode-background-alt2: #4e4e4e;
-	--darkmode-background-light: #aaaaaa;
-	--darkmode-text: #c2c2c2;
-	--darkmode-text-alt: #d3d3d3;
-	--color-text-default: var(--darkmode-background);
+
+	--color-primary: #00d9ff;
+	--color-background: #202020;
+	--color-background-alt: #242424;
+	--color-background-alt2: #4e4e4e;
+	--color-background-light: #aaaaaa;
+	--color-text: #c2c2c2;
+	--color-text-alt: #d3d3d3;
+	--color-text-default: var(--color-background);
 	--color-text-white: #fff;
-	--darkmode-line-color: #2F3437;
+	--color-line-color: #2F3437;
+
 	--highlight-color--darkred: #b83739;
 	--highlight-color--red: #ce292c;
 	--highlight-color--orange: #d0822b;
@@ -18,6 +21,7 @@
 	--highlight-color--brightgreen: #49ca61;
 	--highlight-color--blue: #9FC8EB;
 	--highlight-color--purple: #DEAFEB;
+
 	--callout-background-color-dark: #DFDFDC;
 	--calloutred-background-color-dark: #E8D4D8;
 	--calloutorange-background-color-dark: #E8DAC8;
@@ -25,7 +29,34 @@
 	--calloutgreen-background-color-dark: #CDE6D0;
 	--calloutblue-background-color-dark: #D6E2E6;
 	--calloutpurple-background-color-dark: #E4D5E3;
+
 	--text-shadow: 0.01em 0.01em 0.03em #727E84;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+	color-scheme: light;
+	--color-background: #ececec;
+	--color-background-alt: #f5f5f5;
+	--color-background-alt2: #e0e0e0;
+	--color-background-light: #cccccc;
+	--color-text: #333333;
+	--color-text-alt: #555555;
+	--color-text-white: #000;
+	--color-line-color: #d0d0d0;
+	}
+}
+:root.light {
+	color-scheme: light;
+	--color-primary: #0088aa;
+	--color-background: #f0f0f0;
+	--color-background-alt: #f5f5f5;
+	--color-background-alt2: #e0e0e0;
+	--color-background-light: #cccccc;
+	--color-text: #333333;
+	--color-text-alt: #555555;
+	--color-text-white: #000;
+	--color-line-color: #d0d0d0;
 }
 
 body {
@@ -70,15 +101,15 @@ body {
 /* Fixes for darkmode */
 @media (prefers-color-scheme: dark) {
 	body.darkmode, body, .MyMenuIcon, #desktopNavbar li ul li a {
-		background-color: var(--darkmode-background);
-		color: var(--darkmode-text);
+		background-color: var(--color-background);
+		color: var(--color-text);
 	}
 }
 
 /* Fix for progressbar */
 td#progress {
-	background-color: var(--darkmode-background);
-	color: var(--darkmode-text);
+	background-color: var(--color-background);
+	color: var(--color-text);
 }
 
 td#progress .piecesbarWrapper {
