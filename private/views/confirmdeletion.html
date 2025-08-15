@@ -3,8 +3,7 @@
         <span class="deletionGridItem confirmDialogWarning"></span>
         <span class="deletionGridItem dialogMessage" id="deleteTorrentMessage"></span>
         <span class="deletionGridItem">
-            <button id="rememberBtn" class="disabled" type="button" title="Remember choice" style="vertical-align: middle; padding: 4px 6px;" disabled="">
-                <svg height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg" style="height: 24px; width: 24px;"><path d="m22.58889 13.856795h-13.1776846v-3.690063c0-3.2959186 2.9557016-5.9772288 6.5888426-5.9772288 3.633136 0 6.588842 2.6814977 6.588842 5.9772288zm3.515031.03355v-3.723984c0-5.0541989-4.532547-9.16636116-10.103873-9.16636116-5.571329 0-10.1038769 4.11216226-10.1038769 9.16636116v3.72398c-.7962418.150954-1.3961709.793694-1.3961709 1.560369v13.955002c0 .879047.7884216 1.594288 1.7575164 1.594288h19.4849724c.969092 0 1.757511-.715241 1.757511-1.594288v-13.955002c0-.766675-.599832-1.408677-1.396079-1.560372z" fill="#ff8c00" stroke-width="1.980014" style="fill: var(--color-border-default);"></path></svg></button>
+            <button class="disabled" type="button" id="rememberBtn" title="Remember choice" aria-label="Remember choice" disabled></button>
         </span>
         <span class="deletionGridItem">
             <input type="checkbox" id="deleteFromDiskCB">
@@ -36,8 +35,8 @@
 
         const {
             hashes,
+            isDeletingVisibleTorrents = false,
             forceDeleteFiles = false,
-            filterList = null
         } = window.MUI.Windows.instances["confirmDeletionPage"].options.data;
         let prefDeleteContentFiles = window.qBittorrent.Cache.preferences.get().delete_torrent_content_files;
         deleteCB.checked = forceDeleteFiles || prefDeleteContentFiles;
@@ -60,9 +59,9 @@
         rememberButton.addEventListener("click", (e) => {
             window.qBittorrent.Cache.preferences.set({
                 data: {
-                    "delete_torrent_content_files": deleteCB.checked
+                    delete_torrent_content_files: deleteCB.checked
                 },
-                onSuccess: function() {
+                onSuccess: () => {
                     prefDeleteContentFiles = deleteCB.checked;
                     setRememberBtnEnabled(false);
                 }
@@ -70,27 +69,32 @@
         });
 
         cancelButton.focus();
-        cancelButton.addEventListener("click", (e) => { window.qBittorrent.Client.closeWindows(); });
+        cancelButton.addEventListener("click", (e) => { window.qBittorrent.Client.closeWindow(document.getElementById("confirmDeletionPage")); });
 
         confirmButton.addEventListener("click", (e) => {
-            torrentsTable.deselectAll();
-            new Request({
-                url: "api/v2/torrents/delete",
-                method: "post",
-                data: {
-                    "hashes": hashes.join("|"),
-                    "deleteFiles": deleteCB.checked
-                },
-                onSuccess: function() {
-                    if (filterList === "tracker")
-                        setTrackerFilter(TRACKERS_ALL);
+            // Some torrents might be removed when waiting for user input, so refetch the torrent list
+            const hashes = isDeletingVisibleTorrents
+                ? torrentsTable.getFilteredTorrentsHashes(selectedStatus, selectedCategory, selectedTag, selectedTracker)
+                : torrentsTable.selectedRowsIds();
+
+            fetch("api/v2/torrents/delete", {
+                    method: "POST",
+                    body: new URLSearchParams({
+                        hashes: hashes.join("|"),
+                        deleteFiles: deleteCB.checked
+                    })
+                })
+                .then((response) => {
+                    if (!response.ok) {
+                        alert("Unable to delete torrents.");
+                        return;
+                    }
+
+                    torrentsTable.deselectAll();
                     updateMainData();
-                    window.qBittorrent.Client.closeWindows();
-                },
-                onFailure: function() {
-                    alert("Unable to delete torrents.");
-                },
-            }).send();
+                    updatePropertiesPanel();
+                    window.qBittorrent.Client.closeWindow(document.getElementById("confirmDeletionPage"));
+                });
         });
     })();
 </script>

@@ -1,10 +1,15 @@
 <style type="text/css">
     #logTopBar {
+        flex-shrink: 0;
         margin-top: 1em;
     }
 
     #logFilterBar {
-        margin: .5em 0;
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+        height: 24px;
     }
 
     #logFilterBar>label {
@@ -14,18 +19,20 @@
 
     #logFilterBar>button {
         display: inline-block;
-        padding: 4px 15px;
-        margin-left: .3em;
+        padding: 2px 12px;
     }
 
     #logView {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
         padding: 0 20px;
         overflow: auto;
     }
 
     #logContentView {
-        display: block;
-        vertical-align: top;
+        flex-grow: 1;
+        overflow: auto;
     }
 
     #logMessageTableFixedHeaderDiv .dynamicTableHeader,
@@ -36,11 +43,11 @@
     #filterTextInput {
         background-image: url("../images/edit-find.svg");
         background-repeat: no-repeat;
-        background-position: left;
+        background-position: 2px;
         background-size: 1.5em;
-        padding: 4px 5px 4px 2em;
+        padding: 2px 2px 2px 2em;
         margin-left: .3em;
-        width: 200px;
+        width: 237px;
         border: 1px solid var(--color-border-default);
         border-radius: 3px;
     }
@@ -55,25 +62,25 @@
         font-style: italic;
     }
 
-    .dynamicTable tbody tr.logTableRowlogNormal {
-        color: var(--darkmode-text);
+    .logTableRowlogNormal {
+        color: var(--color-text-default);
     }
 
-    .dynamicTable tbody tr.logTableRowlogInfo {
-        color: var(--highlight-color--blue);
+    .logTableRowlogInfo {
+        color: var(--color-text-blue);
     }
 
-    .dynamicTable tbody tr.logTableRowlogWarning {
-        color: var(--highlight-color--orange);
+    .logTableRowlogWarning {
+        color: var(--color-text-orange);
     }
 
-    .dynamicTable tbody tr.logTableRowlogCritical,
-    .dynamicTable tbody tr.logTableRowpeerBlocked {
-        color: var(--highlight-color--red);
+    .logTableRowlogCritical,
+    .logTableRowpeerBlocked {
+        color: var(--color-text-red);
     }
 
     .vsb-main>button {
-        padding: 4px 12px !important;
+        padding: 2px 12px !important;
     }
 
 </style>
@@ -89,12 +96,12 @@
                 <option value="8">Critical Messages</option>
             </select>
 
-            <input type="text" id="filterTextInput" onkeyup="window.qBittorrent.Log.filterTextChanged()" placeholder="Filter logs" aria-label="Filter logs" autocomplete="off" autocorrect="off" autocapitalize="none">
-            <button type="button" title="Clear input" onclick="javascript:document.querySelector('#filterTextInput').value='';window.qBittorrent.Log.filterTextChanged();">Clear</button>
+            <input type="search" id="filterTextInput" oninput="window.qBittorrent.Log.filterTextChanged()" placeholder="Filter logs" aria-label="Filter logs" autocomplete="off" autocorrect="off" autocapitalize="none">
+            <button type="button" title="Clear input" onclick="javascript:document.getElementById('filterTextInput').value='';window.qBittorrent.Log.filterTextChanged();">Clear</button>
         </div>
 
         <div id="logFilterSummary">
-            <span>Results (showing <span id="numFilteredLogs">0</span> out of <span id="numTotalLogs">0</span>):</span>
+            <span>Results (showing <span id="numFilteredLogs">0</span>out of <span id="numTotalLogs">0</span>):</span>
         </div>
     </div>
 
@@ -137,7 +144,7 @@
 </div>
 
 <ul id="logTableMenu" class="contextMenu">
-    <li><a href="#" class="copyLogDataToClipboard"><img src="images/edit-copy.svg" alt="Copy">Copy</a></li>
+    <li><a href="#" id="copyLogDataToClipboard"><img src="images/edit-copy.svg" alt="Copy">Copy</a></li>
     <li><a href="#Clear"><img src="images/list-remove.svg" alt="Clear">Clear</a></li>
 </ul>
 
@@ -175,19 +182,14 @@
             }
         };
 
-        let customSyncLogDataInterval = null;
         let logFilterTimer = -1;
         let inputtedFilterText = "";
         let selectBox;
         let selectedLogLevels = JSON.parse(LocalPreferences.get("qbt_selected_log_levels")) || ["1", "2", "4", "8"];
 
         const init = () => {
-            $("logLevelSelect").getElements("option").each((x) => {
-                if (selectedLogLevels.indexOf(x.value.toString()) !== -1)
-                    x.selected = true;
-                else
-                    x.selected = false;
-            });
+            for (const option of document.getElementById("logLevelSelect").options)
+                option.toggleAttribute("selected", selectedLogLevels.includes(option.value));
 
             selectBox = new vanillaSelectBox("#logLevelSelect", {
                 maxHeight: 200,
@@ -204,7 +206,7 @@
             });
 
             const logTableContextMenu = new window.qBittorrent.ContextMenu.ContextMenu({
-                targets: ".logTableRow",
+                targets: ":is(#logMessageTableDiv, #logPeerTableDiv) tbody tr",
                 menu: "logTableMenu",
                 actions: {
                     Clear: () => {
@@ -216,16 +218,15 @@
                     }
                 },
                 offsets: {
-                    x: -16,
-                    y: -57
+                    x: 3,
+                    y: -90
                 }
             });
 
-            tableInfo["main"].instance.setup("logMessageTableDiv", "logMessageTableFixedHeaderDiv", logTableContextMenu);
-            tableInfo["peer"].instance.setup("logPeerTableDiv", "logPeerTableFixedHeaderDiv", logTableContextMenu);
+            tableInfo["main"].instance.setup("logMessageTableDiv", "logMessageTableFixedHeaderDiv", logTableContextMenu, true);
+            tableInfo["peer"].instance.setup("logPeerTableDiv", "logPeerTableFixedHeaderDiv", logTableContextMenu, true);
 
             MUI.Panels.instances.LogPanel.contentEl.style.height = "100%";
-            $("logView").style.height = "inherit";
 
             load();
         };
@@ -239,7 +240,6 @@
         };
 
         const load = () => {
-            customSyncLogDataInterval = null;
             syncLogWithInterval(100);
         };
 
@@ -267,7 +267,7 @@
         };
 
         const getSyncLogDataInterval = () => {
-            return customSyncLogDataInterval ? customSyncLogDataInterval : serverSyncMainDataInterval;
+            return serverSyncMainDataInterval;
         };
 
         const logLevelChanged = () => {
@@ -282,7 +282,7 @@
         };
 
         const filterTextChanged = () => {
-            const value = $("filterTextInput").value.trim();
+            const value = document.getElementById("filterTextInput").value.trim();
             if (inputtedFilterText !== value) {
                 inputtedFilterText = value;
                 logFilterChanged();
@@ -306,14 +306,14 @@
             currentSelectedTab = tab;
             if (currentSelectedTab === "main") {
                 selectBox.enable();
-                $("logMessageView").removeClass("invisible");
-                $("logPeerView").addClass("invisible");
+                document.getElementById("logMessageView").classList.remove("invisible");
+                document.getElementById("logPeerView").classList.add("invisible");
                 resetTableTimer("peer");
             }
             else {
                 selectBox.disable();
-                $("logMessageView").addClass("invisible");
-                $("logPeerView").removeClass("invisible");
+                document.getElementById("logMessageView").classList.add("invisible");
+                document.getElementById("logPeerView").classList.remove("invisible");
                 resetTableTimer("main");
             }
 
@@ -331,73 +331,82 @@
             if (curTab === undefined)
                 curTab = currentSelectedTab;
 
-            $("numFilteredLogs").textContent = tableInfo[curTab].instance.filteredLength();
-            $("numTotalLogs").textContent = tableInfo[curTab].instance.getRowSize();
+            document.getElementById("numFilteredLogs").textContent = tableInfo[curTab].instance.filteredLength;
+            document.getElementById("numTotalLogs").textContent = tableInfo[curTab].instance.getRowSize();
         };
 
         const syncLogData = (curTab) => {
+            if (document.hidden)
+                return;
+
             if (curTab === undefined)
                 curTab = currentSelectedTab;
 
             let url;
-            if (curTab === "main") {
-                url = new URI("api/v2/log/main");
-                url.setData({
-                    normal: selectedLogLevels.indexOf("1") !== -1,
-                    info: selectedLogLevels.indexOf("2") !== -1,
-                    warning: selectedLogLevels.indexOf("4") !== -1,
-                    critical: selectedLogLevels.indexOf("8") !== -1
-                });
-            }
-            else {
-                url = new URI("api/v2/log/peers");
+            switch (curTab) {
+                case "main":
+                    url = new URL("api/v2/log/main", window.location);
+                    url.search = new URLSearchParams({
+                        normal: selectedLogLevels.includes("1"),
+                        info: selectedLogLevels.includes("2"),
+                        warning: selectedLogLevels.includes("4"),
+                        critical: selectedLogLevels.includes("8")
+                    });
+                    break;
+
+                case "peer":
+                    url = new URL("api/v2/log/peers", window.location);
+                    break;
             }
 
-            url.setData("last_known_id", tableInfo[curTab].last_id);
+            url.searchParams.set("last_known_id", tableInfo[curTab].last_id);
             tableInfo[curTab].progress = true;
 
-            new Request.JSON({
-                url: url,
-                method: "get",
-                noCache: true,
-                onFailure: function(response) {
-                    const errorDiv = $("error_div");
-                    if (errorDiv)
-                        errorDiv.textContent = "qBittorrent client is not reachable";
-                    tableInfo[curTab].progress = false;
-                    syncLogWithInterval(10000);
-                },
-                onSuccess: function(response) {
-                    $("error_div").textContent = "";
+            fetch(url, {
+                    method: "GET",
+                    cache: "no-store"
+                })
+                .then(async (response) => {
+                    if (!response.ok) {
+                        const errorDiv = document.getElementById("error_div");
+                        if (errorDiv)
+                            errorDiv.textContent = "qBittorrent client is not reachable";
+                        tableInfo[curTab].progress = false;
+                        syncLogWithInterval(10000);
+                        return;
+                    }
 
-                    if ($("logTabColumn").hasClass("invisible"))
+                    document.getElementById("error_div").textContent = "";
+
+                    if (document.getElementById("logTabColumn").classList.contains("invisible"))
                         return;
 
-                    if (response.length > 0) {
+                    const responseJSON = await response.json();
+                    if (responseJSON.length > 0) {
                         clearTimeout(logFilterTimer);
                         logFilterTimer = -1;
 
-                        for (let i = 0; i < response.length; ++i) {
+                        for (let i = 0; i < responseJSON.length; ++i) {
                             let row;
                             if (curTab === "main") {
                                 row = {
-                                    rowId: response[i].id,
-                                    message: response[i].message,
-                                    timestamp: response[i].timestamp,
-                                    type: response[i].type,
+                                    rowId: responseJSON[i].id,
+                                    message: responseJSON[i].message,
+                                    timestamp: responseJSON[i].timestamp,
+                                    type: responseJSON[i].type,
                                 };
                             }
                             else {
                                 row = {
-                                    rowId: response[i].id,
-                                    ip: response[i].ip,
-                                    timestamp: response[i].timestamp,
-                                    blocked: response[i].blocked,
-                                    reason: response[i].reason,
+                                    rowId: responseJSON[i].id,
+                                    ip: responseJSON[i].ip,
+                                    timestamp: responseJSON[i].timestamp,
+                                    blocked: responseJSON[i].blocked,
+                                    reason: responseJSON[i].reason,
                                 };
                             }
                             tableInfo[curTab].instance.updateRowData(row);
-                            tableInfo[curTab].last_id = Math.max(response[i].id.toInt(), tableInfo[curTab].last_id);
+                            tableInfo[curTab].last_id = Math.max(Number(responseJSON[i].id), tableInfo[curTab].last_id);
                         }
 
                         tableInfo[curTab].instance.updateTable();
@@ -406,19 +415,14 @@
 
                     tableInfo[curTab].progress = false;
                     syncLogWithInterval(getSyncLogDataInterval());
-                }
-            }).send();
+                });
         };
 
-        new ClipboardJS(".copyLogDataToClipboard", {
-            text: function() {
-                const msg = [];
-                tableInfo[currentSelectedTab].instance.selectedRowsIds().forEach((rowId) => {
-                    msg.push(tableInfo[currentSelectedTab].instance.getRow(rowId).full_data[(currentSelectedTab === "main") ? "message" : "ip"]);
-                });
-
-                return msg.join("\n");
-            }
+        document.getElementById("copyLogDataToClipboard").addEventListener("click", async (event) => {
+            const instance = tableInfo[currentSelectedTab].instance;
+            const type = (currentSelectedTab === "main") ? "message" : "ip";
+            const msg = instance.selectedRowsIds().map((rowId) => instance.getRow(rowId).full_data[type]);
+            await clipboardCopy(msg.join("\n"));
         });
 
         return exports();

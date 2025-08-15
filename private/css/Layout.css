@@ -258,8 +258,11 @@ li.divider {
     background: var(--darkmode-background);
     font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-size: 11px;
-    height: 24px;
-    padding: 6px 8px 0;
+    height: 100%;
+    display: flex;
+    line-height: normal;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Panel Layout
@@ -441,7 +444,6 @@ div.toolbox.divider {
 
 #desktopFooter td {
     text-align: left;
-    vertical-align: top;
 }
 
 td.speedLabel {

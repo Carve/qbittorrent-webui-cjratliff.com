@@ -1,39 +1,51 @@
 <!DOCTYPE html>
-<html lang="${LANG}">
+<html lang="${LANG}" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <title>Remove tracker</title>
     <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css">
-    <script src="scripts/lib/MooTools-Core-1.6.0-compat-compressed.js"></script>
-    <script src="scripts/lib/MooTools-More-1.6.0-compat-compressed.js"></script>
+    <script defer src="scripts/localpreferences.js?v=${CACHEID}"></script>
+    <script defer src="scripts/color-scheme.js?v=${CACHEID}"></script>
     <script>
         "use strict";
 
-        window.addEventListener("DOMContentLoaded", () => {
-            const host = new URI().getData("host");
-            const urls = new URI().getData("urls");
-            $("confirmDeleteTrackerText").textContent = "Are you sure you want to remove tracker %1 from all torrents?".replace("%1", `"${host}"`);
-
-            $("cancelBtn").focus();
-            $("cancelBtn").addEvent("click", (e) => {
-                e.stopPropagation();
-                window.parent.qBittorrent.Client.closeWindows();
+        window.addEventListener("DOMContentLoaded", (event) => {
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "Escape":
+                        event.preventDefault();
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                        break;
+                }
             });
-            $("confirmBtn").addEvent("click", (e) => {
+
+            const searchParams = new URLSearchParams(window.location.search);
+            const host = searchParams.get("host");
+
+            document.getElementById("confirmDeleteTrackerText").textContent = "Are you sure you want to remove tracker %1 from all torrents?".replace("%1", host);
+
+            document.getElementById("cancelBtn").focus();
+            document.getElementById("cancelBtn").addEventListener("click", (e) => {
                 e.stopPropagation();
-                const cmd = "api/v2/torrents/removeTrackers";
-                new Request({
-                    url: cmd,
-                    method: "post",
-                    data: {
-                        hash: "*",
-                        urls: urls,
-                    },
-                    onComplete: function() {
-                        window.parent.qBittorrent.Client.closeWindows();
-                    }
-                }).send();
+                window.parent.qBittorrent.Client.closeFrameWindow(window);
+            });
+            document.getElementById("confirmBtn").addEventListener("click", (e) => {
+                e.stopPropagation();
+
+                fetch("api/v2/torrents/removeTrackers", {
+                        method: "POST",
+                        body: new URLSearchParams({
+                            hash: "*",
+                            urls: searchParams.get("urls")
+                        })
+                    })
+                    .then((response) => {
+                        if (!response.ok)
+                            return;
+
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                    });
             });
         });
     </script>

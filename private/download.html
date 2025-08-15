@@ -1,195 +1,71 @@
 <!DOCTYPE html>
-<html lang="${LANG}">
+<html lang="${LANG}" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <title>Add Torrent Links</title>
     <link rel="stylesheet" href="css/style.css?v=${CACHEID}" type="text/css">
     <link rel="stylesheet" href="css/Window.css?v=${CACHEID}" type="text/css">
-    <script src="scripts/lib/MooTools-Core-1.6.0-compat-compressed.js"></script>
-    <script src="scripts/lib/MooTools-More-1.6.0-compat-compressed.js"></script>
-    <script src="scripts/download.js?v=${CACHEID}"></script>
-    <script src="scripts/misc.js?locale=${LANG}&v=${CACHEID}"></script>
-    <script src="scripts/pathAutofill.js?v=${CACHEID}"></script>
+    <script defer src="scripts/localpreferences.js?v=${CACHEID}"></script>
+    <script defer src="scripts/color-scheme.js?v=${CACHEID}"></script>
+    <script>
+        "use strict";
+
+        window.addEventListener("DOMContentLoaded", (event) => {
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "Escape":
+                        event.preventDefault();
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                        break;
+                }
+            });
+
+            document.getElementById("urls").focus();
+
+            const encodedUrls = new URLSearchParams(window.location.search).get("urls");
+            if (encodedUrls !== null) {
+                const urls = encodedUrls.split("|").map(decodeURIComponent);
+                if (urls.length > 0)
+                    document.getElementById("urls").value = urls.join("\n");
+            }
+
+            document.getElementById("submitButton").addEventListener("click", (e) => {
+                e.preventDefault();
+
+                const urls = document.getElementById("urls").value.split("\n").map(s => s.trim()).filter(s => (s.length > 0));
+                if (urls.length === 0)
+                    return;
+
+                for (const url of urls)
+                    window.parent.qBittorrent.Client.createAddTorrentWindow("Magnet link", url);
+
+                window.parent.qBittorrent.Client.closeFrameWindow(window);
+            });
+
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "Escape":
+                        event.preventDefault();
+                        window.parent.qBittorrent.Client.closeFrameWindow(window);
+                        break;
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
     <iframe id="download_frame" name="download_frame" class="invisible" title="" src="about:blank"></iframe>
-    <form action="api/v2/torrents/add" enctype="multipart/form-data" method="post" id="downloadForm" style="text-align: center;" target="download_frame" autocorrect="off" autocapitalize="none">
-        <div style="text-align: center;">
-            <br>
-            <h2><label for="urls">Add torrent links</label></h2>
-            <textarea id="urls" rows="10" name="urls"></textarea>
-            <p><i>One link per line (HTTP links, Magnet links and info-hashes are supported)</i></p>
-            <fieldset class="settings" style="border: 0; text-align: left; margin-top: 6px;">
-                <legend>Torrent options</legend>
-                <table style="margin: auto;">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <label for="autoTMM">Torrent Management Mode:</label>
-                            </td>
-                            <td>
-                                <select id="autoTMM" name="autoTMM" onchange="qBittorrent.Download.changeTMM(this)">
-                                    <option selected value="false">Manual</option>
-                                    <option value="true">Automatic</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="savepath">Save files to location:</label>
-                            </td>
-                            <td>
-                                <input type="text" id="savepath" name="savepath" class="pathDirectory" style="width: 16em;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="rename">Rename torrent</label>
-                            </td>
-                            <td>
-                                <input type="text" id="rename" name="rename" style="width: 16em;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label id="categoryLabel" for="categorySelect">Category:</label>
-                            </td>
-                            <td>
-                                <div class="select-watched-folder-editable">
-                                    <select id="categorySelect" onchange="qBittorrent.Download.changeCategorySelect(this)">
-                                        <option selected value="\other"></option>
-                                    </select>
-                                    <input type="text" name="category" aria-labelledby="categoryLabel">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="startTorrent">Start torrent</label>
-                            </td>
-                            <td>
-                                <input type="hidden" id="startTorrentHidden" name="stopped">
-                                <input type="checkbox" id="startTorrent">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="addToTopOfQueue">Add to top of queue</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="addToTopOfQueue" name="addToTopOfQueue" value="true">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="stopCondition">Stop condition:</label>
-                            </td>
-                            <td>
-                                <select id="stopCondition" name="stopCondition">
-                                    <option selected value="None">None</option>
-                                    <option value="MetadataReceived">Metadata received</option>
-                                    <option value="FilesChecked">Files checked</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="skip_checking">Skip hash check</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="skip_checking" name="skip_checking" value="true">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="contentLayout">Content layout:</label>
-                            </td>
-                            <td>
-                                <select id="contentLayout" name="contentLayout">
-                                    <option selected value="Original">Original</option>
-                                    <option value="Subfolder">Create subfolder</option>
-                                    <option value="NoSubfolder">Don't create subfolder</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="sequentialDownload">Download in sequential order</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="sequentialDownload" name="sequentialDownload" value="true">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="firstLastPiecePrio">Download first and last pieces first</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="firstLastPiecePrio" name="firstLastPiecePrio" value="true">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="dlLimitText">Limit download rate</label>
-                            </td>
-                            <td>
-                                <input type="hidden" id="dlLimitHidden" name="dlLimit">
-                                <input type="text" id="dlLimitText" style="width: 16em;" placeholder="KiB/s">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="upLimitText">Limit upload rate</label>
-                            </td>
-                            <td>
-                                <input type="hidden" id="upLimitHidden" name="upLimit">
-                                <input type="text" id="upLimitText" style="width: 16em;" placeholder="KiB/s">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="submitbutton" style="margin-top: 12px; text-align: center;">
-                    <button type="submit" id="submitButton">Download</button>
-                </div>
-            </fieldset>
+    <div style="text-align: center;">
+        <br>
+        <h2 class="vcenter">Add torrent links</h2>
+        <textarea id="urls" name="urls" rows="10" required style="width: 80%;" aria-label="URLs"></textarea>
+        <p><i>QBT_TR(One link per line (HTTP links, Magnet links and info-hashes are supported))QBT_TR[CONTEXT=DownloadFromURLDialog]</i></p>
+        <div id="submitbutton" style="margin-top: 12px; text-align: center;">
+            <button type="submit" id="submitButton">Download</button>
         </div>
-    </form>
-    <div id="download_spinner" class="mochaSpinner"></div>
-
-    <script>
-        "use strict";
-
-        const encodedUrls = new URI().getData("urls");
-        if (encodedUrls) {
-            const urls = encodedUrls.split("|").map((url) => {
-                return decodeURIComponent(url);
-            });
-
-            if (urls.length)
-                $("urls").value = urls.join("\n");
-        }
-
-        let submitted = false;
-
-        $("downloadForm").addEventListener("submit", () => {
-            $("startTorrentHidden").value = $("startTorrent").checked ? "false" : "true";
-
-            $("dlLimitHidden").value = $("dlLimitText").value.toInt() * 1024;
-            $("upLimitHidden").value = $("upLimitText").value.toInt() * 1024;
-
-            $("download_spinner").style.display = "block";
-            submitted = true;
-        });
-
-        $("download_frame").addEventListener("load", () => {
-            if (submitted)
-                window.parent.qBittorrent.Client.closeWindows();
-        });
-
-        window.qBittorrent.pathAutofill.attachPathAutofill();
-    </script>
+    </div>
 </body>
 
 </html>
