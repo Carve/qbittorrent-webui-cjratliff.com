@@ -446,6 +446,7 @@ a.propButton img {
 .contextMenu li img {
     height: 16px;
     margin-bottom: -4px;
+    margin-right: 4px;
     width: 16px;
 }
 

@@ -805,7 +805,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         }
 
         trackerFilterList.appendChild(createLink(TRACKERS_ALL, "All (%1)", torrentsTable.getRowSize()));
-        trackerFilterList.appendChild(createLink(TRACKERS_TRACKERLESS, "Trackerless (%1)", trackerlessTorrentsCount));
+        trackerFilterList.appendChild(createLink(TRACKERS_TRACKERLESS, "Trackerless (%1)", trackerlessCount));
         trackerFilterList.appendChild(createLink(TRACKERS_ERROR, "Tracker error (%1)", trackerErrorCount));
         trackerFilterList.appendChild(createLink(TRACKERS_ANNOUNCE_ERROR, "Tracker announce error (%1)", announceErrorCount));
         trackerFilterList.appendChild(createLink(TRACKERS_WARNING, "Warning (%1)", trackerWarningCount));

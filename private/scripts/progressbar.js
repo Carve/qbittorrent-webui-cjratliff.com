@@ -36,122 +36,82 @@ window.qBittorrent.ProgressBar ??= (() => {
         };
     };
 
-    let ProgressBars = 0;
-    const ProgressBar = new Class({
-        initialize: function(value, parameters) {
-            const vals = {
-                "id": "progressbar_" + (ProgressBars++),
-                "value": [value, 0].pick(),
-                "width": 0,
-                "height": 0,
-                "darkbg": "#00d9ff",
-                "darkfg": "var(--color-text-white)",
-                "lightbg": "#00d9ff",
-                "lightfg": "var(--color-text-default)"
-            };
-            if (parameters && (typeOf(parameters) === "object"))
-                Object.append(vals, parameters);
-            if (vals.height < 12)
-                vals.height = 12;
-            const obj = new Element("div", {
-                "id": vals.id,
-                "class": "progressbar_wrapper",
-                "styles": {
-                    "border": "1px solid var(--color-border-default)",
-                    "width": vals.width,
-                    "height": vals.height,
-                    "position": "relative",
-                    "margin": "0 auto"
-                }
-            });
-            obj.vals = vals;
-            obj.vals.value = [value, 0].pick();
-            obj.vals.dark = new Element("div", {
-                "id": vals.id + "_dark",
-                "class": "progressbar_dark",
-                "styles": {
-                    "width": vals.width,
-                    "height": vals.height,
-                    "background": vals.darkbg,
-                    "color": vals.darkfg,
-                    "position": "absolute",
-                    "text-align": "center",
-                    "left": 0,
-                    "top": 0,
-                    "line-height": vals.height
-                }
-            });
-            obj.vals.light = new Element("div", {
-                "id": vals.id + "_light",
-                "class": "progressbar_light",
-                "styles": {
-                    "width": vals.width,
-                    "height": vals.height,
-                    "background": vals.lightbg,
-                    "color": vals.lightfg,
-                    "position": "absolute",
-                    "text-align": "center",
-                    "left": 0,
-                    "top": 0,
-                    "line-height": vals.height
-                }
-            });
-            obj.appendChild(obj.vals.dark);
-            obj.appendChild(obj.vals.light);
-            obj.getValue = ProgressBar_getValue;
-            obj.setValue = ProgressBar_setValue;
-            obj.setWidth = ProgressBar_setWidth;
-            if (vals.width)
-                obj.setValue(vals.value);
-            else
-                setTimeout('ProgressBar_checkForParent("' + obj.id + '")');
-            return obj;
+    class ProgressBar extends HTMLElement {
+        static #progressBarUniqueId = 0;
+        static #styles = {
+            height: 12,
+            darkbg: "var(--darkmode-primary)",
+            darkfg: "var(--darkmode-background)",
+            lightbg: "var(--darkmode-primary)",
+            lightfg: "var(--darkmode-background-alt2)",
+        };
+
+        #value = 0;
+
+        #id = ++ProgressBar.#progressBarUniqueId;
+
+        #light = document.createElement("div");
+        #dark = document.createElement("div");
+
+        constructor(value) {
+            super();
+
+            this.#dark.style.width = "100%";
+            this.#dark.style.height = `${ProgressBar.#styles.height}px`;
+            this.#dark.style.background = ProgressBar.#styles.darkbg;
+            this.#dark.style.boxSizing = "content-box";
+            this.#dark.style.color = ProgressBar.#styles.darkfg;
+            this.#dark.style.position = "absolute";
+            this.#dark.style.textAlign = "center";
+            this.#dark.style.left = "0";
+            this.#dark.style.top = "0";
+            this.#dark.style.lineHeight = `${ProgressBar.#styles.height}px`;
+
+            this.#light.style.width = "100%";
+            this.#light.style.height = `${ProgressBar.#styles.height}px`;
+            this.#light.style.background = ProgressBar.#styles.lightbg;
+            this.#light.style.boxSizing = "content-box";
+            this.#light.style.color = ProgressBar.#styles.lightfg;
+            this.#light.style.position = "absolute";
+            this.#light.style.textAlign = "center";
+            this.#light.style.left = "0";
+            this.#light.style.top = "0";
+            this.#light.style.lineHeight = `${ProgressBar.#styles.height}px`;
+
+            this.attachShadow({ mode: "open" });
+            this.shadowRoot.host.id = this.#id;
+            this.shadowRoot.host.style.display = "block";
+            this.shadowRoot.host.style.border = "1px solid var(--color-border-default)";
+            this.shadowRoot.host.style.boxSizing = "content-box";
+            this.shadowRoot.host.style.height = `${ProgressBar.#styles.height}px`;
+            this.shadowRoot.host.style.position = "relative";
+            this.shadowRoot.host.style.margin = "0 auto";
+            this.shadowRoot.appendChild(this.#dark);
+            this.shadowRoot.appendChild(this.#light);
+
+            this.setValue(value);
         }
-    });
 
-    function ProgressBar_getValue() {
-        return this.vals.value;
-    }
+        getValue() {
+            return this.#value;
+        }
 
-    function ProgressBar_setValue(value) {
-        value = parseFloat(value);
-        if (isNaN(value))
-            value = 0;
-        value = Math.min(Math.max(value, 0), 100);
-        this.vals.value = value;
+        setValue(value) {
+            value = Number(value);
+            if (Number.isNaN(value))
+                value = 0;
+            this.#value = Math.min(Math.max(value, 0), 100);
 
-        const displayedValue = `${value.round(1).toFixed(1)}%`;
-        this.vals.dark.textContent = displayedValue;
-        this.vals.light.textContent = displayedValue;
+            const displayedValue = `${window.qBittorrent.Misc.toFixedPointString(this.#value, 1)}%`;
+            this.#dark.textContent = displayedValue;
+            this.#light.textContent = displayedValue;
 
-        const r = parseInt((this.vals.width * (value / 100)), 10);
-        this.vals.dark.style.clipPath = `inset(0 calc(100% - ${r}px) 0 0)`;
-        this.vals.light.style.clipPath = `inset(0 0 0 ${r}px)`;
-    }
-
-    function ProgressBar_setWidth(value) {
-        if (this.vals.width !== value) {
-            this.vals.width = value;
-            this.style.width = `${value}px`;
-            this.vals.dark.style.width = `${value}px`;
-            this.vals.light.style.width = `${value}px`;
-            this.setValue(this.vals.value);
+            this.#dark.style.clipPath = `inset(0 ${100 - this.#value}% 0 0)`;
+            this.#light.style.clipPath = `inset(0 0 0 ${this.#value}%)`;
         }
     }
 
-    function ProgressBar_checkForParent(id) {
-        const obj = $(id);
-        if (!obj)
-            return;
-        if (!obj.parentNode)
-            return setTimeout('ProgressBar_checkForParent("' + id + '")', 100);
-        obj.style.width = "100%";
-        const w = obj.offsetWidth;
-        obj.vals.dark.style.width = `${w}px`;
-        obj.vals.light.style.width = `${w}px`;
-        obj.vals.width = w;
-        obj.setValue(obj.vals.value);
-    }
+    customElements.define("progress-bar", ProgressBar);
 
     return exports();
 })();

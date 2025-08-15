@@ -19,6 +19,14 @@
     font-size: 0.8125rem; /* 13px */
 }
 
+.dynamicTable tbody tr td progress-bar {
+    background: var(--darkmode-primary);
+}
+
+.dynamicTable tbody tr td progress-bar div {
+    color: var(--darkmode-text-alt) !important;
+}
+
 .dynamicTable tbody tr.selected,
 .dynamicTable tbody tr:hover {
     background-color: var(--darkmode-text-alt);
