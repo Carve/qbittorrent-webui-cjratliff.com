@@ -326,11 +326,6 @@ li.divider {
 .panel-headerContent.tabs {
     background: url("../images/tabs.gif") repeat-x;
 }
-@media (prefers-color-scheme: light) {
-    .panel-headerContent.tabs {
-        background: url("../images/tabs-light.gif") repeat-x;
-    }
-}
 .light .panel-headerContent.tabs {
     background: url("../images/tabs-light.gif") repeat-x;
 }

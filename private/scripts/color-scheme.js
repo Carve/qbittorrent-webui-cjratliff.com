@@ -43,8 +43,13 @@ window.qBittorrent.ColorScheme ??= (() => {
         const root = document.documentElement;
         const colorScheme = LocalPreferences.get("color_scheme");
         const validScheme = (colorScheme === "light") || (colorScheme === "dark");
-        const isDark = colorSchemeQuery.matches;
-        root.classList.toggle("dark", ((!validScheme && isDark) || (colorScheme === "dark")));
+        const isDark = colorScheme === 'dark';
+        if (!isDark) {
+            root.classList.remove("dark");
+            root.classList.add("light");
+        } else {
+            root.classList.toggle("dark", ((!validScheme && isDark) || (colorScheme === "dark")));
+        }
     };
 
     colorSchemeQuery.addEventListener("change", update);
