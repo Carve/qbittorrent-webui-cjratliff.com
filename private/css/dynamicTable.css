@@ -39,12 +39,6 @@
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
-@media (prefers-color-scheme: light) {
-    .dynamicTable tbody tr.selected .ratio,
-    .dynamicTable tbody tr:hover .ratio {
-        text-shadow: 1px 0 0 #3f3f3f, 0 -1px 0 #3f3f3f, 0 1px 0 #3f3f3f, -1px 0 0 #3f3f3f;
-    }
-}
 .light .dynamicTable tbody tr.selected .ratio,
 .light .dynamicTable tbody tr:hover .ratio {
     text-shadow: 1px 0 0 #3f3f3f, 0 -1px 0 #3f3f3f, 0 1px 0 #3f3f3f, -1px 0 0 #3f3f3f;
