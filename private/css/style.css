@@ -708,11 +708,7 @@ span.link :is(img, button) {
     background-color: var(--color-background-blue);
     color: var(--color-background);
 }
-@media (prefers-color-scheme: light) {
-    .selectedFilter > span.link {
-        color: var(--color-text-white);
-    }
-}
+
 .light .selectedFilter > span.link {
     color: var(--color-text-white);
 }

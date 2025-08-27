@@ -33,19 +33,7 @@
 	--text-shadow: 0.01em 0.01em 0.03em #727E84;
 }
 
-@media (prefers-color-scheme: light) {
-	:root {
-	color-scheme: light;
-	--color-background: #ececec;
-	--color-background-alt: #f5f5f5;
-	--color-background-alt2: #e0e0e0;
-	--color-background-light: #cccccc;
-	--color-text: #333333;
-	--color-text-alt: #555555;
-	--color-text-white: #000;
-	--color-line-color: #d0d0d0;
-	}
-}
+
 :root.light {
 	color-scheme: light;
 	--color-primary: #0088aa;
