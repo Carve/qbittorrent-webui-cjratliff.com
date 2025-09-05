@@ -228,8 +228,8 @@ const useAutoHideZeroStatusFilters = LocalPreferences.get("hide_zero_status_filt
 const displayFullURLTrackerColumn = LocalPreferences.get("full_url_tracker_column", "false") === "true";
 
 /* Categories filter */
-const CATEGORIES_ALL = 1;
-const CATEGORIES_UNCATEGORIZED = 2;
+const CATEGORIES_ALL = "1";
+const CATEGORIES_UNCATEGORIZED = "2";
 
 const category_list = new Map();
 
@@ -237,19 +237,18 @@ let selectedCategory = LocalPreferences.get("selected_category", CATEGORIES_ALL)
 let setCategoryFilter = () => {};
 
 /* Tags filter */
-const TAGS_ALL = 1;
-const TAGS_UNTAGGED = 2;
-
+const TAGS_ALL = "1";
+const TAGS_UNTAGGED = "2";
 
 let selectedTag = LocalPreferences.get("selected_tag", TAGS_ALL);
 let setTagFilter = () => {};
 
 /* Trackers filter */
-const TRACKERS_ALL = 1;
-const TRACKERS_ANNOUNCE_ERROR = 3;
-const TRACKERS_ERROR = 4;
-const TRACKERS_TRACKERLESS = 2;
-const TRACKERS_WARNING = 5;
+const TRACKERS_ALL = "1";
+const TRACKERS_ANNOUNCE_ERROR = "3";
+const TRACKERS_ERROR = "4";
+const TRACKERS_TRACKERLESS = "2";
+const TRACKERS_WARNING = "5";
 
 
 // Map<trackerHost: String, Map<trackerURL: String, torrents: Set>>
