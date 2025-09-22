@@ -27,6 +27,7 @@
     color: var(--color-text-alt) !important;
 }
 
+.dynamicTableDiv table.dynamicTable tbody tr.selected,
 .dynamicTableDiv table.dynamicTable tbody tr:hover {
     background-color: var(--color-background-hover);
     color: var(--color-text-white);
