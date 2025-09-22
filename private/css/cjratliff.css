@@ -7,6 +7,7 @@
 	--color-background-alt: #242424;
 	--color-background-alt2: #4e4e4e;
 	--color-background-light: #aaaaaa;
+	--color-background-hover: #333333;
 	--color-text: #c2c2c2;
 	--color-text-alt: #d3d3d3;
 	--color-text-default: var(--color-background);
