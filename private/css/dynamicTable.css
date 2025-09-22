@@ -116,10 +116,6 @@ tr.dynamicTableHeader {
     overflow: hidden;
 }
 
-.dynamicTableDiv {
-    overflow: auto;
-}
-
 .dynamicTableDiv thead th {
     height: 0px !important;
     line-height: 0px !important;

@@ -8,7 +8,6 @@
 
 
 /* Reset */
-
 a img,
 :link img,
 :visited img {
@@ -62,6 +61,8 @@ body {
     line-height: 18px;
     margin: 0;
     text-align: left;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-background-alt2) var(--color-background);
 }
 
 .aside {
