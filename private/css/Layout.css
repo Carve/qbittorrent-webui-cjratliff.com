@@ -111,6 +111,7 @@ body {
 }
 
 #desktopNavbar ul {
+    background: var(--color-background);
     font-size: 12px;
     list-style: none;
     margin: 0;
@@ -124,6 +125,10 @@ body {
 
 #desktopNavbar a {
     display: block;
+}
+
+#desktopNavbar ul li #uploadLink {
+    background: var(--color-background);
 }
 
 #desktopNavbar ul li a {
