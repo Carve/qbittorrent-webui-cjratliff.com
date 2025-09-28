@@ -2762,8 +2762,8 @@ window.qBittorrent.DynamicTable ??= (() => {
 
         generateRowsSignature() {
             const rowsData = [];
-            for (const { rowId } of this.getRowValues())
-                rowsData.push({ ...this.getNode(rowId).serialize(), collapsed: this.isCollapsed(rowId) });
+            for (const { full_data } of this.getRowValues())
+                rowsData.push(full_data);
             return JSON.stringify(rowsData);
         }
 

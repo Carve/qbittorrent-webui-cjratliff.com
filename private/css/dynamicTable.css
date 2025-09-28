@@ -10,8 +10,8 @@
     background-color: var(--color-background);
 }
 
-.dynamicTable tbody tr:nth-child(even),
-.dynamicTable tbody tr.alt {
+.altRowColors .dynamicTable tbody tr:nth-child(even),
+.altRowColors .dynamicTable tbody tr.alt {
     background-color: var(--color-background-alt);
 }
 
