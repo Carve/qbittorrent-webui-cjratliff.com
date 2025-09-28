@@ -474,3 +474,16 @@ td.speedLabel {
     background: var(--color-background-alt) !important;
     color: var(--color-text) !important;
 }
+
+html body .logTableRowlogInfo {
+    color: var(--color-text-white);
+}
+
+html body #logMessageTableDiv table.dynamicTable {
+        width: 100%;
+} 
+
+html body #logView .vsb-menu {
+    background: var(--color-background);
+    border: 1px solid var(--color-line-color);
+}
