@@ -29,8 +29,8 @@
 
 .dynamicTableDiv table.dynamicTable tbody tr.selected,
 .dynamicTableDiv table.dynamicTable tbody tr:hover {
-    background-color: var(--color-background-hover);
-    color: var(--color-text-white);
+    background-color: var(--color-primary);
+    color: var(--color-background) !important;
 }
 
 #transferList .stateIcon,
