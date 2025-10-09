@@ -492,3 +492,14 @@ html body #logView .vsb-menu {
     background: var(--color-background);
     border: 1px solid var(--color-line-color);
 }
+
+html body #propProgressWrapper {
+    display: flex;
+    position: relative;
+    flex-direction: row
+}
+
+html body #propProgressWrapper #progress {
+    width: 100%;
+    padding: 0 .5rem;
+}
