@@ -23,6 +23,11 @@
     background: var(--color-primary);
 }
 
+.dynamicTable tbody tr.selected td progress-bar,
+.dynamicTable tbody tr.selected td progress-bar div {
+    background: var(--color-background-light);
+}
+
 .dynamicTable tbody tr td progress-bar div {
     color: var(--color-text-alt) !important;
 }
