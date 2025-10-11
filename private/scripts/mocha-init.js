@@ -297,32 +297,30 @@ const initializeWindows = () => {
         });
     });
 
-    document.querySelector("#uploadButton #fileselectButton").addEventListener("click", function(event) {
-        // clear the value so that reselecting the same file(s) still triggers the 'change' event
-        this.value = null;
-    });
+    addClickEvent("upload", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-    // make the entire anchor tag trigger the input, despite the input's label not spanning the entire anchor
-    document.getElementById("uploadLink").addEventListener("click", (e) => {
-        const fileSelector = document.getElementById("fileselectLink");
-        // clear the value so that reselecting the same file(s) still triggers the 'change' event
-        if (e.target === fileSelector) {
-            e.target.value = null;
-        }
-        else {
-            e.preventDefault();
-            fileSelector.click();
-        }
-    });
-
-    for (const element of document.querySelectorAll("#uploadButton #fileselectButton, #uploadLink #fileselectLink")) {
-        element.addEventListener("change", (event) => {
-            if (element.files.length === 0)
-                return;
-
-            window.qBittorrent.Client.uploadTorrentFiles(element.files);
+        const id = "uploadPage";
+        new MochaUI.Window({
+            id: id,
+            icon: "images/qbittorrent-tray.svg",
+            title: "Upload local torrent",
+            loadMethod: "iframe",
+            contentURL: "upload.html",
+            addClass: "windowFrame", // fixes iframe scrolling on iOS Safari
+            scrollbars: true,
+            maximizable: false,
+            paddingVertical: 0,
+            paddingHorizontal: 0,
+            width: loadWindowWidth(id, 500),
+            height: loadWindowHeight(id, 460),
+            onResize: window.qBittorrent.Misc.createDebounceHandler(500, (e) => {
+                saveWindowSize(id);
+            })
         });
-    }
+        updateMainData();
+    });
 
     globalUploadLimitFN = () => {
         const contentURL = new URL("speedlimit.html", window.location);
