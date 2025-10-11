@@ -25,8 +25,7 @@
 
 .dynamicTable tbody tr.selected td progress-bar,
 .dynamicTable tbody tr.selected td progress-bar div {
-    background-color: var(--color-background-light);
-    color: var(--color-background);
+    background: var(--color-background-light);
 }
 
 .dynamicTable tbody tr td progress-bar div {
@@ -35,7 +34,7 @@
 
 .dynamicTableDiv table.dynamicTable tbody tr.selected,
 .dynamicTableDiv table.dynamicTable tbody tr:hover {
-    background-color: var(--color-primary);
+    background-color: var(--color-background-light);
     color: var(--color-background) !important;
 }
 
