@@ -23,14 +23,19 @@
     background: var(--color-primary);
 }
 
+.dynamicTable tbody tr.selected td progress-bar,
+.dynamicTable tbody tr.selected td progress-bar div {
+    background: var(--color-background-light);
+}
+
 .dynamicTable tbody tr td progress-bar div {
     color: var(--color-text-alt) !important;
 }
 
 .dynamicTableDiv table.dynamicTable tbody tr.selected,
 .dynamicTableDiv table.dynamicTable tbody tr:hover {
-    background-color: var(--color-background-hover);
-    color: var(--color-text-white);
+    background-color: var(--color-background-light);
+    color: var(--color-background) !important;
 }
 
 #transferList .stateIcon,

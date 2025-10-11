@@ -1096,7 +1096,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             + window.qBittorrent.Client.mainTitle();
 
         document.getElementById("freeSpaceOnDisk").textContent = "Free space: %1".replace("%1", window.qBittorrent.Misc.friendlyUnit(serverState.free_space_on_disk));
-        
+
         const externalIPsElement = document.getElementById("externalIPs");
         if (window.qBittorrent.Cache.preferences.get().status_bar_external_ip) {
             const lastExternalAddressV4 = serverState.last_external_address_v4;

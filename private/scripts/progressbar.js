@@ -109,6 +109,15 @@ window.qBittorrent.ProgressBar ??= (() => {
             this.#dark.style.clipPath = `inset(0 ${100 - this.#value}% 0 0)`;
             this.#light.style.clipPath = `inset(0 0 0 ${this.#value}%)`;
         }
+
+        invertHex(hex) {
+            return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substr(1).toUpperCase()
+        }
+
+        setBackgroundColor(color) {
+            this.#dark.style.backgroundColor = color;
+            this.#light.style.backgroundColor = invertHex(color) || color;
+        }
     }
 
     customElements.define("progress-bar", ProgressBar);

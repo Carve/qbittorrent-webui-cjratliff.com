@@ -481,14 +481,37 @@ td.speedLabel {
 }
 
 html body .logTableRowlogInfo {
-    color: var(--color-text-white);
+    color: var(--highlight-color--blue);
+}
+
+html body .logTableRowlogNormal {
+    color: var(--color-text-alt);
+}
+
+html body .logTableRowlogWarning {
+    color: var(--highlight-color--yellow);
+}
+
+html body .logTableRowlogError {
+    color: var(--highlight-color--red);
 }
 
 html body #logMessageTableDiv table.dynamicTable {
         width: 100%;
-} 
+}
 
 html body #logView .vsb-menu {
     background: var(--color-background);
     border: 1px solid var(--color-line-color);
+}
+
+html body #propProgressWrapper {
+    display: flex;
+    position: relative;
+    flex-direction: row
+}
+
+html body #propProgressWrapper #progress {
+    width: 100%;
+    padding: 0 .5rem;
 }

@@ -782,8 +782,10 @@ window.qBittorrent.DynamicTable ??= (() => {
         }
 
         setRowClass() {
-            for (const tr of this.getTrs())
+            for (const tr of this.getTrs()) {
                 tr.classList.toggle("selected", this.isRowSelected(tr.rowId));
+
+            }
         }
 
         onSelectedRowChanged() {}
@@ -2648,6 +2650,11 @@ window.qBittorrent.DynamicTable ??= (() => {
                         td.append(new window.qBittorrent.ProgressBar.ProgressBar(value));
                     else
                         progressBar.setValue(value);
+
+                    // if parent tr has class "selected" then progress bar gets light background
+                    // so we need to set text color to black to be visible
+                    if (td.parentElement.classList.contains("selected"))
+                        progressBar.setBackgroundColor("#aaaaaa");
                 };
                 this.columns["progress"].staticWidth = 100;
             }
