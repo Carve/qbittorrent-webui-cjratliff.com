@@ -115,8 +115,8 @@ window.qBittorrent.ProgressBar ??= (() => {
         }
 
         setBackgroundColor(color) {
-            this.#dark.style.color = color;
-            this.#light.style.color = invertHex(color) || color;
+            this.#dark.style.backgroundColor = color;
+            this.#light.style.backgroundColor = invertHex(color) || color;
         }
     }
 

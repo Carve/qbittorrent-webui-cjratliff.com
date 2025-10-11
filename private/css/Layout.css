@@ -481,12 +481,24 @@ td.speedLabel {
 }
 
 html body .logTableRowlogInfo {
-    color: var(--color-text-white);
+    color: var(--highlight-color--blue);
+}
+
+html body .logTableRowlogNormal {
+    color: var(--color-text-alt);
+}
+
+html body .logTableRowlogWarning {
+    color: var(--highlight-color--yellow);
+}
+
+html body .logTableRowlogError {
+    color: var(--highlight-color--red);
 }
 
 html body #logMessageTableDiv table.dynamicTable {
         width: 100%;
-} 
+}
 
 html body #logView .vsb-menu {
     background: var(--color-background);
