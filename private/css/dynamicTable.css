@@ -25,7 +25,8 @@
 
 .dynamicTable tbody tr.selected td progress-bar,
 .dynamicTable tbody tr.selected td progress-bar div {
-    background: var(--color-background-light);
+    background-color: var(--color-background-light);
+    color: var(--color-background);
 }
 
 .dynamicTable tbody tr td progress-bar div {
