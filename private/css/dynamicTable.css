@@ -182,6 +182,14 @@ div:has(> div.dynamicTableFixedHeaderDiv):not(.invisible) {
     height: 100%; /* Fixes Issue #106 */
 }
 
+#propertiesPanel_pad #propGeneral,
+#propertiesPanel_pad #propTrackers,
+#propertiesPanel_pad #propPeers,
+#propertiesPanel_pad #propWebSeeds,
+#propertiesPanel_pad #propFiles {
+    height: 100%;
+}
+
 .dynamicTableDiv {
     flex-grow: 1;
     overflow: auto;
