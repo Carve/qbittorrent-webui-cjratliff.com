@@ -1,7 +1,9 @@
 # qBittorrent Web UI theme - cjratliff.com [^1]
 [^1]: Based on colorscheme from [cjratliff.com](https://cjratliff.com)
 
-![Screenshot](qBittorrent-webui-theme-CJRatliff.com.jpg)
+![Screenshot](github/qBittorrent-webui-theme-CJRatliff.com.jpg)
+
+![Screenshot of Light Theme](github/qBittorrent-webui-theme-CJRatliff.com-light.jpg)
 
 ## Installation
 First, you need to download a copy of the latest release (or clone / download this repository for the latest).
@@ -15,7 +17,7 @@ First, you need to download a copy of the latest release (or clone / download th
 content-security-policy: default-src 'self'; style-src 'self' 'unsafe-inline' raw.githubusercontent.com use.fontawesome.com; img-src 'self' theme-park.dev raw.githubusercontent.com data:; script-src 'self' 'unsafe-inline'; object-src 'self'; form-action 'self'; frame-ancestors 'self'; font-src 'self' use.fontawesome.com;
 ```
 
-![optional-installation-step1](qBittorrent-webui-theme-CJRatliff.com-optional-installation-step1.jpg)
+![optional-installation-step1](github/qBittorrent-webui-theme-CJRatliff.com-optional-installation-step1.jpg)
 
 You can also change these settings via the config file. The relevant entries are:
 
