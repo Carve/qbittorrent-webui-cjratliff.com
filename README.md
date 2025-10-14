@@ -56,4 +56,5 @@ WebUI\RootFolder=/path/to/qbittorrent-webui-cjratliff.com
 
 
 ## Other
-*This is for qBittorent versions 5.x and higher, or qBittorent < 5.x, please use [v1.4.0](https://github.com/Carve/qbittorrent-webui-cjratliff.com/releases/tag/v1.4.0)*
+*The current releases are for qBittorent versions 5.x and higher
+*For qBittorent < 5.x, please use [v1.4.0](https://github.com/Carve/qbittorrent-webui-cjratliff.com/releases/tag/v1.4.0)*
