@@ -43,7 +43,7 @@ window.qBittorrent.ProgressBar ??= (() => {
             darkbg: "var(--color-primary)",
             darkfg: "var(--color-background)",
             lightbg: "var(--color-primary)",
-            lightfg: "var(--color-background-alt2)",
+            lightfg: "var(--color-text-alt)",
         };
 
         #value = 0;
@@ -69,9 +69,9 @@ window.qBittorrent.ProgressBar ??= (() => {
 
             this.#light.style.width = "100%";
             this.#light.style.height = `${ProgressBar.#styles.height}px`;
-            this.#light.style.background = ProgressBar.#styles.lightbg;
+            this.#light.style.background = ProgressBar.#styles.lightfg;
             this.#light.style.boxSizing = "content-box";
-            this.#light.style.color = ProgressBar.#styles.lightfg;
+            this.#light.style.color = ProgressBar.#styles.darkfg;
             this.#light.style.position = "absolute";
             this.#light.style.textAlign = "center";
             this.#light.style.left = "0";
