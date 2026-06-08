@@ -17,6 +17,7 @@ a img,
 /* Forms */
 
 input[type="text"],
+input[type="search"],
 input[type="number"],
 input[type="password"],
 input[type="button"],
@@ -546,20 +547,72 @@ a.propButton img {
 }
 
 #torrentsFilterToolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     float: right;
     margin-right: 30px;
 }
 
-#torrentsFilterInput {
-    background-color: var(--color-background-default);
+#torrentsFilterToolbar label[for="torrentsFilterSelect"] {
+    font-size: 0.75rem;
+    color: var(--color-text);
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+/* Search input wrapper for icon positioning */
+#torrentsFilterToolbar .filter-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#torrentsFilterToolbar .filter-input-wrapper::before {
+    content: "";
+    position: absolute;
+    left: 0.6rem;
+    width: 0.85rem;
+    height: 0.85rem;
     background-image: url("../images/edit-find.svg");
-    background-position: .5rem;
     background-repeat: no-repeat;
-    background-size: .75rem;
-    padding-left: 2em;
-    width: 160px;
-    height: 100%;
-    min-height: 20px;
+    background-size: contain;
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+#torrentsFilterToolbar .filter-input-wrapper:focus-within::before {
+    opacity: 0.9;
+}
+
+#torrentsFilterInput {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--color-background-alt);
+    border: 1px solid var(--color-line-color);
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: var(--color-text);
+    font-size: 0.8rem;
+    height: 22px;
+    line-height: 22px;
+    min-height: unset;
+    outline: none;
+    padding: 0 0.75rem 0 2rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, width 0.25s ease;
+    width: 180px;
+}
+
+#torrentsFilterInput:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    width: 230px;
+}
+
+#torrentsFilterInput::placeholder {
+    color: var(--color-text);
+    opacity: 0.4;
 }
 
 #torrentsFilterRegexBox {
@@ -570,31 +623,56 @@ a.propButton img {
     background-image: url("../images/regex.svg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 1.5em;
-    border: 1px solid var(--color-border-default);
-    border-radius: 4px;
-    display: inline-block;
-    height: 26px;
-    margin-bottom: -9px;
-    width: 26px;
+    background-size: 1rem;
+    border: 1px solid var(--color-line-color);
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    width: 22px;
+    opacity: 0.55;
+    transition: border-color 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+#torrentsFilterRegexBox+label:hover {
+    border-color: var(--color-primary);
+    opacity: 0.85;
 }
 
 #torrentsFilterRegexBox:checked+label {
-    background-color: var(--color-background-default);
+    background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
     background-image: url("../images/regex.svg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 1.5em;
-    border: 1px solid var(--color-accent-blue);
-    border-radius: 4px;
-    display: inline-block;
-    height: 26px;
-    margin-bottom: -9px;
-    width: 26px;
+    background-size: 1rem;
+    border: 1px solid var(--color-primary);
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    width: 22px;
+    opacity: 1;
 }
 
 #torrentsFilterSelect {
-    padding: 2px 4px;
+    background-color: var(--color-background-alt);
+    border: 1px solid var(--color-line-color);
+    border-radius: 20px;
+    color: var(--color-text);
+    font-size: 0.8rem;
+    height: 22px;
+    padding: 0 0.6rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+#torrentsFilterSelect:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 #torrentFilesFilterToolbar {
@@ -604,10 +682,10 @@ a.propButton img {
 
 #torrentFilesFilterInput {
     background-image: url("../images/edit-find.svg");
-    background-position: left;
+    background-position: 8px center;
     background-repeat: no-repeat;
-    background-size: 1.5em;
-    padding-left: 2em;
+    background-size: 0.9em;
+    padding-left: 2.3em;
     width: 160px;
 }
 

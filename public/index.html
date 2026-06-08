@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex">
     <title>qBittorrent Web UI</title>
     <link rel="icon" type="image/png" href="images/qbittorrent32.png" />
@@ -18,27 +19,25 @@
     <noscript id="noscript">
         <h1>JavaScript Required! You must enable JavaScript for the Web UI to work properly</h1>
     </noscript>
-    <div id="main">
-        <h1>qBittorrent Web UI</h1>
-        <div id="logo" class="col">
-            <img src="images/qbittorrent-tray.svg" alt="qBittorrent logo" />
-        </div>
-        <div id="formplace" class="col">
-            <form id="loginform" method="post" onsubmit="submitLoginForm();">
-                <div class="row">
-                    <label for="username">Username</label><br />
-                    <input type="text" id="username" name="username" autocomplete="username" />
+    <div id="loginContainer">
+        <div id="loginCard">
+            <div id="headerWrapper">
+                <img src="images/qbittorrent-tray.svg" alt="qBittorrent logo" id="logo" />
+                <h1>qBittorrent Web UI</h1>
+            </div>
+            <form id="loginform">
+                <div class="formGroup">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" autocomplete="username" autocapitalize="none" autofocus required />
                 </div>
-                <div class="row">
-                    <label for="password">Password</label><br />
-                    <input type="password" id="password" name="password" autocomplete="current-password" />
+                <div class="formGroup">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" autocomplete="current-password" required />
                 </div>
-                <div class="row">
-                    <input type="submit" id="login" value="Login" />
-                </div>
+                <button type="submit" id="loginButton" class="loginBtn">Login</button>
             </form>
+            <div id="error_msg"></div>
         </div>
-        <div id="error_msg"></div>
     </div>
 </body>
 

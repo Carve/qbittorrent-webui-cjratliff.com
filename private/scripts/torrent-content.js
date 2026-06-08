@@ -298,6 +298,7 @@ window.qBittorrent.TorrentContent ??= (() => {
 
         const ignore = (priority === FilePriority.Ignored);
         ids.forEach((id) => {
+            if (id === undefined || id === null) return;
             id = id.toString();
             torrentFilesTable.setIgnored(id, ignore);
 
