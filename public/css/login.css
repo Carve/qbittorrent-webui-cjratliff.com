@@ -7,104 +7,223 @@
 	--color-text: #c2c2c2;
 	--color-text-alt: #d3d3d3;
 	--color-line-color: #2F3437;
-	--highlight-color--darkred: #be3e3c;
+	--highlight-color--red: #ce292c;
+}
+
+:root.light {
+	color-scheme: light;
+	--color-primary: #0088aa;
+	--color-background: #f0f0f0;
+	--color-background-alt: #f5f5f5;
+	--color-text: #333333;
+	--color-text-alt: #555555;
+	--color-line-color: #d0d0d0;
 	--highlight-color--red: #FF8A88;
-	--highlight-color--orange: #FFB86C;
-	--highlight-color--yellow: #F1FA8C;
-	--highlight-color--green: #9FE39B;
-	--highlight-color--brightgreen: #50e948;
-	--highlight-color--blue: #9FC8EB;
-	--highlight-color--purple: #DEAFEB;
-	--callout-background-color-dark: #DFDFDC;
-	--calloutred-background-color-dark: #E8D4D8;
-	--calloutorange-background-color-dark: #E8DAC8;
-	--calloutyellow-background-color-dark: #E9E2BF;
-	--calloutgreen-background-color-dark: #CDE6D0;
-	--calloutblue-background-color-dark: #D6E2E6;
-	--calloutpurple-background-color-dark: #E4D5E3;
-	--text-shadow: 0.01em 0.01em 0.03em #727E84;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 body {
 	background-color: var(--color-background);
 	color: var(--color-text);
-	font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-	font-size: 12px;
-	line-height: 18px;
-	margin: 0;
-	text-align: left;
+	font-family: 'Google Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;
+	font-size: 13px;
+	line-height: 1.6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
 }
 
-.col {
-	display: inline-block;
-	vertical-align: middle;
+#loginContainer {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
 }
 
-.row {
-	margin-bottom: 5px;
+#loginCard {
+	background-color: var(--color-background);
+	border: 1px solid var(--color-line-color);
+	border-radius: 8px;
+	padding: 48px 40px;
+	width: 100%;
+	max-width: 360px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
-#main {
-	margin-left: auto;
-	margin-right: auto;
-	padding-top: 5em;
+#logoWrapper {
 	text-align: center;
+	margin-bottom: 32px;
 }
 
-#formplace {
-	padding: 10px;
-	text-align: left;
+#headerWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+	margin-bottom: 32px;
+}
+
+#logo {
+	width: 72px;
+	height: 72px;
+	display: block;
+	opacity: 0.9;
+	transition: opacity 0.2s ease;
+	flex-shrink: 0;
+}
+
+#logo:hover {
+	opacity: 1;
+}
+
+h1 {
+	text-align: center;
+	font-size: 20px;
+	font-weight: 600;
+	margin: 0;
+	color: var(--color-text-alt);
+	letter-spacing: 0.3px;
+}
+
+#loginform {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.formGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+label {
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--color-text);
+	opacity: 0.9;
+	text-transform: uppercase;
+	letter-spacing: 0.4px;
+}
+
+input[type="text"],
+input[type="password"] {
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: var(--color-background);
+	border: 1px solid var(--color-line-color);
+	border-radius: 8px;
+	color: var(--color-text-alt);
+	font-size: 14px;
+	padding: 10px 12px;
+	width: 100%;
+	transition: border-color 0.2s ease, background-color 0.2s ease;
+	outline: none;
+	font-family: inherit;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+	color: var(--color-text);
+	opacity: 0.5;
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+	border-color: var(--color-line-color);
+	background-color: var(--color-background-alt);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+	border-color: var(--color-primary);
+	background-color: var(--color-background-alt);
+	box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
+.loginBtn {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 36px;
+	margin-top: 8px;
+	background-color: var(--color-primary);
+	border: 1px solid var(--color-primary);
+	border-radius: 8px;
+	color: var(--color-background);
+	font-weight: 600;
+	font-size: 13px;
+	letter-spacing: 0.4px;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	outline: none;
+	font-family: inherit;
+}
+
+.loginBtn:hover {
+	background-color: #00ffff;
+	border-color: #00ffff;
+	box-shadow: 0 0 8px rgba(0, 217, 255, 0.3);
+}
+
+.loginBtn:active {
+	transform: scale(0.98);
+}
+
+.loginBtn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
 }
 
 #error_msg {
-	color: #f00;
+	margin-top: 16px;
+	padding: 12px 14px;
+	background-color: transparent;
+	border: 1px solid var(--highlight-color--red);
+	border-radius: 8px;
+	color: var(--highlight-color--red);
+	font-size: 12px;
+	text-align: center;
+	min-height: 20px;
+	display: none;
 }
 
-#login {
-	float: right;
+#error_msg:not(:empty) {
+	display: block;
 }
 
-#logo img {
-	height: 11em;
-}
-
-#login {
-	background: transparent;
-	color: #fff;
-	padding: 8px 14px;
-	font-size: 15px;
-	border-radius: 3px;
-	cursor: pointer;
-	border: 2px solid rgba(255, 255, 255, 0.5);
-	backdrop-filter: blur(5px);
-	transition: background-color 0.3s ease-in-out;
-	position: relative;
-	overflow: hidden;
-	float: right;
-}
-
-#login:before {
-	content: "";
-	position: absolute;
+#noscript {
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
-	transform: translateX(-100%);
-	transition: transform 0.3s ease-in-out;
-	pointer-events: none;
+	background-color: rgba(0, 0, 0, 0.95);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
 }
 
-#login:hover {
-	background-color: rgba(255, 255, 255, 0.2);
-}
-
-#login:hover:before {
-	transform: translateX(0);
-}
-
-#login:active {
-	position: relative;
-	top: 1px;
+#noscript h1 {
+	color: var(--highlight-color--red);
+	text-align: center;
+	max-width: 500px;
+	font-size: 18px;
+	margin: 0;
 }

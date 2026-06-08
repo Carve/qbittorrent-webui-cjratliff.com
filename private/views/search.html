@@ -112,10 +112,10 @@
 <div id="searchResults">
     <div id="searchResultsHeader">
         <div id="searchResultsHeaderContainer">
-            <input type="search" id="searchPattern" class="searchInputField" placeholder="Search" aria-label="Search" autocorrect="off" autocomplete="off" autocapitalize="none" oninput="qBittorrent.Search.onSearchPatternChanged()">
-            <select id="categorySelect" class="searchInputField" aria-label="Select category" onchange="qBittorrent.Search.categorySelected()"></select>
-            <select id="pluginsSelect" class="searchInputField" aria-label="Select plugins" onchange="qBittorrent.Search.pluginSelected()"></select>
-            <button type="button" id="startSearchButton" class="searchInputField" onclick="qBittorrent.Search.startStopSearch()">
+            <input type="search" id="searchPattern" placeholder="Search" aria-label="Search" autocorrect="off" autocomplete="off" autocapitalize="none" oninput="qBittorrent.Search.onSearchPatternChanged()">
+            <select id="categorySelect" aria-label="Select category" onchange="qBittorrent.Search.categorySelected()"></select>
+            <select id="pluginsSelect" aria-label="Select plugins" onchange="qBittorrent.Search.pluginSelected()"></select>
+            <button type="button" id="startSearchButton" onclick="qBittorrent.Search.startStopSearch()">
                 <img src="images/edit-find.svg" alt="Search" width="16" height="16">Search
             </button>
         </div>

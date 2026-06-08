@@ -28,47 +28,41 @@
 
 "use strict";
 
-document.addEventListener("DOMContentLoaded", () => {
-	document.getElementById("username").focus();
-	document.getElementById("username").select();
+const submitLoginForm = (event) => {
+    event.preventDefault();
 
-	document.getElementById("loginform").addEventListener("submit", (e) => {
-		e.preventDefault();
-	});
+    const errorMsgElement = document.getElementById('error_msg');
+    errorMsgElement.textContent = ''; // clear previous error
+
+    const usernameElement = document.getElementById('username');
+    const passwordElement = document.getElementById('password');
+
+    fetch('api/v2/auth/login', {
+            method: 'POST',
+            body: new URLSearchParams({
+                username: usernameElement.value,
+                password: passwordElement.value
+            })
+        })
+        .then(async (response) => {
+                if (response.ok) {
+                    location.replace(location); // redirect
+                    location.reload(true);
+                }
+                else {
+                    const responseText = await response.text();
+                    errorMsgElement.textContent = `Invalid Username or Password.\nServer response: ${responseText}`;
+                }
+            },
+            (error) => {
+                errorMsgElement.textContent = `Unable to log in, server is probably unreachable.\n${error}`;
+            });
+
+    passwordElement.value = ''; // clear previous value
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginform');
+    loginForm.method = 'POST';
+    loginForm.addEventListener('submit', submitLoginForm);
 });
-
-function submitLoginForm() {
-	const errorMsgElement = document.getElementById("error_msg");
-
-	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "api/v2/auth/login", true);
-	xhr.setRequestHeader(
-		"Content-type",
-		"application/x-www-form-urlencoded; charset=UTF-8",
-	);
-	xhr.addEventListener("readystatechange", () => {
-		if (xhr.readyState === 4) {
-			// DONE state
-			if (xhr.status === 204) location.reload(true);
-			else errorMsgElement.textContent = "Invalid Username or Password.";
-		}
-	});
-	xhr.addEventListener("error", () => {
-		errorMsgElement.textContent =
-			xhr.responseText !== ""
-				? xhr.responseText
-				: "Unable to log in, qBittorrent is probably unreachable.";
-	});
-
-	const usernameElement = document.getElementById("username");
-	const passwordElement = document.getElementById("password");
-	const queryString =
-		"username=" +
-		encodeURIComponent(usernameElement.value) +
-		"&password=" +
-		encodeURIComponent(passwordElement.value);
-	xhr.send(queryString);
-
-	// clear the field
-	passwordElement.value = "";
-}
