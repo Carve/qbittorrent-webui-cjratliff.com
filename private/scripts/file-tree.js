@@ -30,168 +30,161 @@
 
 window.qBittorrent ??= {};
 window.qBittorrent.FileTree ??= (() => {
-    const exports = () => {
-        return {
-            FilePriority: FilePriority,
-            TriState: TriState,
-            FileTree: FileTree,
-            FileNode: FileNode,
-            FolderNode: FolderNode,
-        };
-    };
+	const exports = () => {
+		return {
+			FilePriority: FilePriority,
+			TriState: TriState,
+			FileTree: FileTree,
+			FileNode: FileNode,
+			FolderNode: FolderNode,
+		};
+	};
 
-    const FilePriority = {
-        "Ignored": 0,
-        "Normal": 1,
-        "High": 6,
-        "Maximum": 7,
-        "Mixed": -1
-    };
-    Object.freeze(FilePriority);
+	const FilePriority = {
+		Ignored: 0,
+		Normal: 1,
+		High: 6,
+		Maximum: 7,
+		Mixed: -1,
+	};
+	Object.freeze(FilePriority);
 
-    const TriState = {
-        "Unchecked": 0,
-        "Checked": 1,
-        "Partial": 2
-    };
-    Object.freeze(TriState);
+	const TriState = {
+		Unchecked: 0,
+		Checked: 1,
+		Partial: 2,
+	};
+	Object.freeze(TriState);
 
-    const FileTree = new Class({
-        root: null,
-        nodeMap: {},
+	const FileTree = new Class({
+		root: null,
+		nodeMap: {},
 
-        setRoot: function(root) {
-            this.root = root;
-            this.generateNodeMap(root);
+		setRoot: function (root) {
+			this.root = root;
+			this.generateNodeMap(root);
 
-            if (this.root.isFolder)
-                this.root.calculateSize();
-        },
+			if (this.root.isFolder) this.root.calculateSize();
+		},
 
-        getRoot: function() {
-            return this.root;
-        },
+		getRoot: function () {
+			return this.root;
+		},
 
-        generateNodeMap: function(node) {
-            // don't store root node in map
-            if (node.root !== null)
-                this.nodeMap[node.rowId] = node;
+		generateNodeMap: function (node) {
+			// don't store root node in map
+			if (node.root !== null) this.nodeMap[node.rowId] = node;
 
-            node.children.each((child) => {
-                this.generateNodeMap(child);
-            });
-        },
+			node.children.each((child) => {
+				this.generateNodeMap(child);
+			});
+		},
 
-        getNode: function(rowId) {
-            return (this.nodeMap[rowId] === undefined)
-                ? null
-                : this.nodeMap[rowId];
-        },
+		getNode: function (rowId) {
+			return this.nodeMap[rowId] === undefined ? null : this.nodeMap[rowId];
+		},
 
-        getRowId: function(node) {
-            return node.rowId;
-        },
+		getRowId: function (node) {
+			return node.rowId;
+		},
 
-        /**
-         * Returns the nodes in dfs order
-         */
-        toArray: function() {
-            const nodes = [];
-            this.root.children.each((node) => {
-                this._getArrayOfNodes(node, nodes);
-            });
-            return nodes;
-        },
+		/**
+		 * Returns the nodes in dfs order
+		 */
+		toArray: function () {
+			const nodes = [];
+			this.root.children.each((node) => {
+				this._getArrayOfNodes(node, nodes);
+			});
+			return nodes;
+		},
 
-        _getArrayOfNodes: function(node, array) {
-            array.push(node);
-            node.children.each((child) => {
-                this._getArrayOfNodes(child, array);
-            });
-        }
-    });
+		_getArrayOfNodes: function (node, array) {
+			array.push(node);
+			node.children.each((child) => {
+				this._getArrayOfNodes(child, array);
+			});
+		},
+	});
 
-    const FileNode = new Class({
-        name: "",
-        path: "",
-        rowId: null,
-        size: 0,
-        checked: TriState.Unchecked,
-        remaining: 0,
-        progress: 0,
-        priority: FilePriority.Normal,
-        availability: 0,
-        depth: 0,
-        root: null,
-        data: null,
-        isFolder: false,
-        children: [],
-    });
+	const FileNode = new Class({
+		name: "",
+		path: "",
+		rowId: null,
+		fileId: -1,
+		size: 0,
+		checked: TriState.Unchecked,
+		remaining: 0,
+		progress: 0,
+		priority: FilePriority.Normal,
+		availability: 0,
+		depth: 0,
+		root: null,
+		data: null,
+		isFolder: false,
+		children: [],
+	});
 
-    const FolderNode = new Class({
-        Extends: FileNode,
+	const FolderNode = new Class({
+		Extends: FileNode,
 
-        /**
-         * Will automatically tick the checkbox for a folder if all subfolders and files are also ticked
-         */
-        autoCheckFolders: true,
+		/**
+		 * Will automatically tick the checkbox for a folder if all subfolders and files are also ticked
+		 */
+		autoCheckFolders: true,
 
-        initialize: function() {
-            this.isFolder = true;
-        },
+		initialize: function () {
+			this.isFolder = true;
+		},
 
-        addChild(node) {
-            this.children.push(node);
-        },
+		addChild(node) {
+			this.children.push(node);
+		},
 
-        /**
-         * Recursively calculate size of node and its children
-         */
-        calculateSize: function() {
-            let size = 0;
-            let remaining = 0;
-            let progress = 0;
-            let availability = 0;
-            let checked = TriState.Unchecked;
-            let priority = FilePriority.Normal;
+		/**
+		 * Recursively calculate size of node and its children
+		 */
+		calculateSize: function () {
+			let size = 0;
+			let remaining = 0;
+			let progress = 0;
+			let availability = 0;
+			let checked = TriState.Unchecked;
+			let priority = FilePriority.Normal;
 
-            let isFirstFile = true;
+			let isFirstFile = true;
 
-            this.children.each((node) => {
-                if (node.isFolder)
-                    node.calculateSize();
+			this.children.each((node) => {
+				if (node.isFolder) node.calculateSize();
 
-                size += node.size;
+				size += node.size;
 
-                if (isFirstFile) {
-                    priority = node.priority;
-                    checked = node.checked;
-                    isFirstFile = false;
-                }
-                else {
-                    if (priority !== node.priority)
-                        priority = FilePriority.Mixed;
-                    if (checked !== node.checked)
-                        checked = TriState.Partial;
-                }
+				if (isFirstFile) {
+					priority = node.priority;
+					checked = node.checked;
+					isFirstFile = false;
+				} else {
+					if (priority !== node.priority) priority = FilePriority.Mixed;
+					if (checked !== node.checked) checked = TriState.Partial;
+				}
 
-                const isIgnored = (node.priority === FilePriority.Ignored);
-                if (!isIgnored) {
-                    remaining += node.remaining;
-                    progress += (node.progress * node.size);
-                    availability += (node.availability * node.size);
-                }
-            });
+				const isIgnored = node.priority === FilePriority.Ignored;
+				if (!isIgnored) {
+					remaining += node.remaining;
+					progress += node.progress * node.size;
+					availability += node.availability * node.size;
+				}
+			});
 
-            this.size = size;
-            this.remaining = remaining;
-            this.checked = this.autoCheckFolders ? checked : TriState.Checked;
-            this.progress = (progress / size);
-            this.priority = priority;
-            this.availability = (availability / size);
-        }
-    });
+			this.size = size;
+			this.remaining = remaining;
+			this.checked = this.autoCheckFolders ? checked : TriState.Checked;
+			this.progress = progress / size;
+			this.priority = priority;
+			this.availability = availability / size;
+		},
+	});
 
-    return exports();
+	return exports();
 })();
 Object.freeze(window.qBittorrent.FileTree);
