@@ -299,10 +299,15 @@ window.qBittorrent.AddTorrent ??= (() => {
         document.getElementById("dlLimitHidden").value = Number(document.getElementById("dlLimitText").value) * 1024;
         document.getElementById("upLimitHidden").value = Number(document.getElementById("upLimitText").value) * 1024;
 
-        document.getElementById("filePriorities").value = [...document.getElementsByClassName("combo_priority")]
-            .filter((el) => !window.qBittorrent.TorrentContent.isFolder(Number(el.dataset.fileId)))
+        const filePriorities = [...document.getElementsByClassName("combo_priority")]
+            .filter((el) => {
+                const fileId = Number(el.dataset.fileId);
+                return Number.isInteger(fileId) && fileId >= 0 && !window.qBittorrent.TorrentContent.isFolder(fileId);
+            })
             .sort((el1, el2) => Number(el1.dataset.fileId) - Number(el2.dataset.fileId))
             .map((el) => Number(el.value));
+
+        document.getElementById("filePriorities").value = filePriorities;
 
         if (!isAutoTMMEnabled())
             document.getElementById("useDownloadPathHidden").value = document.getElementById("useDownloadPath").checked;

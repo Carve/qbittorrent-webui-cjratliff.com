@@ -112,13 +112,17 @@ window.qBittorrent.TorrentContent ??= (() => {
 		e.stopPropagation();
 
 		const checkbox = e.target;
+		if (!(checkbox instanceof HTMLInputElement) || checkbox.type !== "checkbox") return;
+
 		const priority = checkbox.checked
 			? FilePriority.Normal
 			: FilePriority.Ignored;
 		const id = checkbox.getAttribute("data-id");
 		const fileId = Number(checkbox.getAttribute("data-file-id"));
+		if (!id || !Number.isInteger(fileId) || fileId < 0) return;
 
 		const rows = getAllChildren(id, fileId);
+		if (rows.rowIds.length === 0) return;
 
 		setFilePriority(rows.rowIds, rows.fileIds, priority);
 		updateParentFolder(id);
@@ -126,11 +130,15 @@ window.qBittorrent.TorrentContent ??= (() => {
 
 	const fileComboboxChanged = (e) => {
 		const combobox = e.target;
+		if (!(combobox instanceof HTMLSelectElement)) return;
+
 		const priority = combobox.value;
 		const id = combobox.getAttribute("data-id");
 		const fileId = Number(combobox.getAttribute("data-file-id"));
+		if (!id || !Number.isInteger(fileId) || fileId < 0) return;
 
 		const rows = getAllChildren(id, fileId);
+		if (rows.rowIds.length === 0) return;
 
 		setFilePriority(rows.rowIds, rows.fileIds, priority);
 		updateParentFolder(id);
