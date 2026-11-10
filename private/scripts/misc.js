@@ -47,6 +47,7 @@ window.qBittorrent.Misc ??= (() => {
             toFixedPointString: toFixedPointString,
             containsAllTerms: containsAllTerms,
             sleep: sleep,
+            downloadFile: downloadFile,
             // variables
             FILTER_INPUT_DELAY: 400,
             MAX_ETA: 8640000
@@ -273,6 +274,51 @@ window.qBittorrent.Misc ??= (() => {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
         });
+    };
+
+    /**
+     * Fetches a URL and saves the response as a file via the browser.
+     * @param {String|URL} url
+     * @param {String} defaultFileName used when the server doesn't supply a filename
+     * @param {String} errorMessage shown to the user on failure
+     */
+    const downloadFile = async (url, defaultFileName, errorMessage = "Unable to download file") => {
+        try {
+            const response = await fetch(url, { method: "GET", cache: "no-store" });
+            if (!response.ok) {
+                alert(errorMessage);
+                return;
+            }
+
+            let fileName = defaultFileName;
+            const contentDisposition = response.headers.get("content-disposition");
+            if (contentDisposition) {
+                const utf8Match = /filename\*\s*=\s*UTF-8''([^;]+)/i.exec(contentDisposition);
+                const plainMatch = /filename\s*=\s*"?([^";]+)"?/i.exec(contentDisposition);
+                try {
+                    if (utf8Match)
+                        fileName = decodeURIComponent(utf8Match[1].trim());
+                    else if (plainMatch)
+                        fileName = plainMatch[1].trim();
+                }
+                catch {
+                    // keep default name on malformed header
+                }
+            }
+
+            const blob = await response.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = fileName;
+            document.body.append(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        }
+        catch {
+            alert(errorMessage);
+        }
     };
 
     return exports();
